@@ -11,4 +11,6 @@ clean:
 check: iniphile
 	./iniphile < lf.ini
 
+iniphile: iniphile.cpp input.hpp
+
 .PHONY: check clean
