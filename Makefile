@@ -11,6 +11,6 @@ clean:
 check: iniphile
 	./iniphile < lf.ini
 
-iniphile: iniphile.cpp input.hpp
+iniphile.cpp: input.hpp output.hpp metagram.hpp
 
 .PHONY: check clean

@@ -1,12 +1,13 @@
+#ifndef INIPHILE_INCLUDE_INPUT_HPP
+#define INIPHILE_INCLUDE_INPUT_HPP
+
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/phoenix_object.hpp>
-#include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
-#include <boost/fusion/include/std_pair.hpp>
 
-#include <vector>
+#include "metagram.hpp"
 
 namespace iniphile
 {
@@ -27,8 +28,6 @@ using boost::optional;
 namespace qi = boost::spirit::qi;
 namespace phx = boost::phoenix;
 
-using qi::int_;
-using qi::lit;
 using qi::lexeme;
 using qi::skip;
 using qi::eoi;
@@ -43,18 +42,6 @@ using qi::_4;
 
 using qi::on_error;
 using qi::fail;
-
-namespace metagram
-{
-typedef std::string bareword;
-typedef std::string optname;
-typedef std::string qstring;
-typedef std::vector<std::string> optval;
-typedef std::string sectionname;
-typedef std::pair<optname, optval> assignment;
-typedef std::pair<sectionname, std::vector<assignment> > section;
-typedef std::vector<section> config;
-} // namespace metagram
 
 // public type
 typedef metagram::config config;
@@ -156,3 +143,4 @@ parse(Iter & first, Iter last, std::ostream & erros)
 
 } // namespace iniphile
 
+#endif

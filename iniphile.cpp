@@ -19,13 +19,13 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include "input.hpp"
-
-#include <boost/foreach.hpp>
-
 #include <iostream>
 #include <fstream>
 #include <string>
+
+#include "metagram.hpp"
+#include "input.hpp"
+#include "output.hpp"
 
 int
 main(int argc, char **argv)
@@ -41,22 +41,7 @@ main(int argc, char **argv)
         return 1;
     }
 
-    auto & out(std::cout);
-    using std::endl;
-    BOOST_FOREACH(auto sec, *cfg) {
-        out
-            << "[" << sec.first << "]"
-            << endl
-        ;
-        BOOST_FOREACH(auto ass, sec.second) {
-            out << ass.first << " =";
-            BOOST_FOREACH(auto w, ass.second) {
-                out << " \"" << w << '"';
-            }
-            out << endl;
-        }
-        out << "; END SECTION " << sec.first << endl;
-    }
+    iniphile::generate(std::cout, *cfg);
 
     return 0;
 }
