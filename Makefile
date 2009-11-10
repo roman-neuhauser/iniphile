@@ -1,7 +1,10 @@
-CXX=g++44
+CXX=g++$(GCCVER)
 CXXFLAGS=-std=c++0x -O1 -Wall -Werror -Wfatal-errors -I..
-LDFLAGS=-L/usr/local/lib/gcc44 -rpath /usr/local/lib/gcc44
+RUNTIME=/usr/local/lib/gcc$(GCCVER)
+LDFLAGS=-L$(RUNTIME) -rpath $(RUNTIME)
 LDLIBS=
+
+GCCVER=44
 
 all: iniphile
 
