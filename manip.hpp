@@ -14,13 +14,15 @@
 
 #include "metagram.hpp"
 
+#define UNUSED(x)
+
 namespace iniphile
 {
 
 typedef std::vector<std::string> valpath;
 
 std::string
-get_string(metagram::config & cfg, valpath path) // {{{
+get_string(metagram::config & UNUSED(cfg), valpath UNUSED(path)) // {{{
 {
     return "not yet";
 } // }}}

@@ -1,5 +1,5 @@
 CXX=g++$(GCCVER)
-CXXFLAGS=-std=c++0x -O1 -Wall -Werror -Wfatal-errors -I..
+CXXFLAGS=-std=c++0x -O1 -Wall -Wextra -Werror -Wfatal-errors -I..
 RUNTIME=/usr/local/lib/gcc$(GCCVER)
 LDFLAGS=-L$(RUNTIME) -rpath $(RUNTIME)
 LDLIBS=
