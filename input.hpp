@@ -1,3 +1,7 @@
+// Copyright (c) 2009 Roman Neuhauser
+// Distributed under the MIT license (see LICENSE file)
+// vim: sw=4 sts=4 et fdm=marker cms=\ //\ %s
+
 #ifndef INIPHILE_INCLUDE_INPUT_HPP
 #define INIPHILE_INCLUDE_INPUT_HPP
 
@@ -145,5 +149,3 @@ parse(Iter & first, Iter last, std::ostream & erros) // {{{
 } // namespace iniphile
 
 #endif
-
-// vim: sw=4 sts=4 et fdm=marker cms=\ //\ %s
