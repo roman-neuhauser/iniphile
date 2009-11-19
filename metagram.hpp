@@ -20,3 +20,5 @@ typedef std::vector<section> config;
 } } // namespace iniphile::metagram
 
 #endif
+
+// vim: sw=4 sts=4 et fdm=marker cms=\ //\ %s

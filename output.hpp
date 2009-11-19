@@ -35,3 +35,5 @@ generate(std::ostream & out, config const & cfg)
 } // namespace iniphile
 
 #endif
+
+// vim: sw=4 sts=4 et fdm=marker cms=\ //\ %s

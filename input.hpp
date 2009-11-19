@@ -144,3 +144,5 @@ parse(Iter & first, Iter last, std::ostream & erros)
 } // namespace iniphile
 
 #endif
+
+// vim: sw=4 sts=4 et fdm=marker cms=\ //\ %s

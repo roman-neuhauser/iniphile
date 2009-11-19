@@ -56,3 +56,5 @@ to_string(valpath path)
 } // namespace iniphile
 
 #endif
+
+// vim: sw=4 sts=4 et fdm=marker cms=\ //\ %s
