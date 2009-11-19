@@ -9,7 +9,7 @@ namespace iniphile
 {
 
 void
-generate(std::ostream & out, config const & cfg)
+generate(std::ostream & out, config const & cfg) // {{{
 {
     using std::endl;
     BOOST_FOREACH(auto sec, cfg) {
@@ -30,7 +30,7 @@ generate(std::ostream & out, config const & cfg)
             << endl
         ;
     }
-}
+} // }}}
 
 } // namespace iniphile
 

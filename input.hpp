@@ -57,8 +57,9 @@ grammar
         typedef qi::rule<Iter, T> rule;
     };
 
-    grammar(std::ostream & erros) : grammar::base_type(start)
-    {
+    grammar(std::ostream & erros)
+    : grammar::base_type(start)
+    { // {{{
         start
             %=  *section
             >>  eoi
@@ -109,7 +110,7 @@ grammar
         bareword.name("bareword");
         qstring.name("qstring");
         comment.name("comment");
-    }
+    } // }}}
     typename my<metagram::config()>::rule start;
     typename my<void()>::rule commentline;
     typename my<metagram::assignment()>::rule optionline;
@@ -125,7 +126,7 @@ grammar
 
 template<class Iter>
 optional<metagram::config>
-parse(Iter & first, Iter last, std::ostream & erros)
+parse(Iter & first, Iter last, std::ostream & erros) // {{{
 {
     grammar<Iter> g(erros);
     metagram::config cfg;
@@ -139,7 +140,7 @@ parse(Iter & first, Iter last, std::ostream & erros)
     if (ok && first == last)
         rv = cfg;
     return rv;
-}
+} // }}}
 
 } // namespace iniphile
 

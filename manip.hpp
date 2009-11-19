@@ -16,13 +16,13 @@ namespace iniphile
 typedef std::vector<std::string> valpath;
 
 std::string
-get_string(metagram::config & cfg, valpath path)
+get_string(metagram::config & cfg, valpath path) // {{{
 {
     return "not yet";
-}
+} // }}}
 
 valpath
-to_valpath(std::string const & s)
+to_valpath(std::string const & s) // {{{
 {
     valpath rv;
     auto b(s.begin());
@@ -33,10 +33,10 @@ to_valpath(std::string const & s)
       , rv
     );
     return rv;
-}
+} // }}}
 
 std::string
-to_string(valpath path)
+to_string(valpath path) // {{{
 {
     namespace karma = boost::spirit::karma;
     namespace ascii = boost::spirit::ascii;
@@ -51,7 +51,7 @@ to_string(valpath path)
       , path
     );
     return rv;
-}
+} // }}}
 
 } // namespace iniphile
 
