@@ -2,8 +2,8 @@
 // Distributed under the MIT license (see LICENSE file)
 // vim: sw=4 sts=4 et fdm=marker cms=\ //\ %s
 
-#ifndef INIPHILE_INCLUDE_AST
-#define INIPHILE_INCLUDE_AST
+#ifndef INIPHILE_INCLUDE_AST_HPP
+#define INIPHILE_INCLUDE_AST_HPP
 
 #include <vector>
 #include <stack>
