@@ -41,8 +41,9 @@ to_valpath(std::string const & s) // {{{
     return rv;
 } // }}}
 
+template<class Seq>
 std::string
-to_string(valpath path) // {{{
+to_string(Seq pieces, char sep) // {{{
 {
     namespace karma = boost::spirit::karma;
     namespace ascii = boost::spirit::ascii;
@@ -53,8 +54,8 @@ to_string(valpath path) // {{{
     auto sink(std::back_inserter(rv));
     karma::generate(
         sink
-      , string % '.' << eol
-      , path
+      , string % sep << eol
+      , pieces
     );
     return rv;
 } // }}}
