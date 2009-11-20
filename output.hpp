@@ -7,10 +7,13 @@
 
 #include <boost/foreach.hpp>
 
-#include "metagram.hpp"
+#include "ast.hpp"
 
 namespace iniphile
 {
+
+namespace karma = boost::spirit::karma;
+namespace ascii = boost::spirit::ascii;
 
 void
 generate(std::ostream & out, config const & cfg) // {{{
@@ -34,6 +37,50 @@ generate(std::ostream & out, config const & cfg) // {{{
             << endl
         ;
     }
+} // }}}
+
+template <class Iter>
+struct output_grammar 
+: boost::spirit::karma::grammar<
+    Iter
+  , ast::branch()
+  >
+{
+    template <class T>
+    class my
+    {
+        typedef karma::rule<Iter, T> rule;
+    };
+
+    output_grammar()
+      : output_grammar::base_type(file)
+    {
+        file = *section;
+        section = header << *assignment;
+        header = '[' << string << ']';
+        assignment = propname << " = " << propvalue;
+        propname = string;
+        propvalue = string;
+    }
+
+    typename my<void()>::rule file;
+    typename my<void()>::rule section;
+    typename my<void()>::rule header;
+    typename my<void()>::rule assignment;
+    typename my<void()>::rule propname;
+    typename my<void()>::rule propvalue;
+};
+
+void
+generate(std::ostream & out, ast::node const & afg) // {{{
+{
+    using karma::stream;
+
+    out << karma::format(
+        stream
+      , afg
+    );
+
 } // }}}
 
 } // namespace iniphile

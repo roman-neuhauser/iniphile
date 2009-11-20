@@ -9,7 +9,12 @@
 #include <string>
 #include <utility>
 
-namespace iniphile { namespace metagram
+namespace iniphile
+{
+
+typedef std::vector<std::string> valpath;
+
+namespace metagram
 {
 
 typedef std::string bareword;
@@ -21,6 +26,7 @@ typedef std::pair<optname, optval> assignment;
 typedef std::pair<sectionname, std::vector<assignment> > section;
 typedef std::vector<section> config;
 
-} } // namespace iniphile::metagram
+} // namespace metagram
+} // namespace iniphile
 
 #endif

@@ -10,6 +10,7 @@
 #include "input.hpp"
 #include "output.hpp"
 #include "manip.hpp"
+#include "ast.hpp"
 
 int
 main(int argc, char **argv)
@@ -27,8 +28,13 @@ main(int argc, char **argv)
         return 1;
     }
 
+    auto afg = iniphile::normalize(*cfg);
+
     if (q.empty()) {
         iniphile::generate(std::cout, *cfg);
+        std::cout << "=================" << std::endl;
+        namespace ast = iniphile::ast;
+        iniphile::generate(std::cout, afg);
     } else {
         std::cout << iniphile::get_string(*cfg, q);
     }

@@ -19,8 +19,6 @@
 namespace iniphile
 {
 
-typedef std::vector<std::string> valpath;
-
 std::string
 get_string(metagram::config & UNUSED(cfg), valpath UNUSED(path)) // {{{
 {
