@@ -84,7 +84,7 @@ grammar
             %=  lexeme['[' > sectionname > ']']
             >   eol
         ;
-        sectionname %= lexeme[+~char_(']')];
+        sectionname %= lexeme[+~char_("\n\r]")];
         optname %= bareword;
         optval %= (qstring | bareword) % +blank;
 
