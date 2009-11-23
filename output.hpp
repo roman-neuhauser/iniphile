@@ -15,61 +15,68 @@ namespace iniphile
 namespace karma = boost::spirit::karma;
 namespace ascii = boost::spirit::ascii;
 
-void
-generate(std::ostream & out, config const & cfg) // {{{
-{
-    using std::endl;
-    BOOST_FOREACH(auto sec, cfg) {
-        out
-            << "[" << sec.first << "]"
-            << endl
-        ;
-        BOOST_FOREACH(auto ass, sec.second) {
-            out << ass.first << " =";
-            BOOST_FOREACH(auto w, ass.second) {
-                out << " \"" << w << '"';
-            }
-            out << endl;
-        }
-        out
-            << "; END SECTION "
-            << sec.first
-            << endl
-        ;
-    }
-} // }}}
-
 template <class Iter>
 struct output_grammar 
 : boost::spirit::karma::grammar<
     Iter
-  , ast::branch()
+  , metagram::config()
   >
+// {{{
 {
     template <class T>
-    class my
+    struct my
     {
         typedef karma::rule<Iter, T> rule;
     };
 
     output_grammar()
-      : output_grammar::base_type(file)
+    : output_grammar::base_type(start)
     {
-        file = *section;
-        section = header << *assignment;
-        header = '[' << string << ']';
-        assignment = propname << " = " << propvalue;
-        propname = string;
-        propvalue = string;
+        using ascii::string;
+        using karma::eol;
+
+        start %= *section;
+        section
+            %=  headerline
+            <<  *optionline
+        ;
+        headerline %= '[' << string << ']' << eol;
+        optionline
+            %=  optname
+            <<  " = "
+            <<  optval
+            <<  eol
+        ;
+        optname = string;
+        optval = ('"' << string << '"') % ' ';
+
+        start.name("start");
+        section.name("section");
+        headerline.name("headerline");
+        optionline.name("optionline");
+        optname.name("optname");
+        optval.name("optval");
     }
 
-    typename my<void()>::rule file;
-    typename my<void()>::rule section;
-    typename my<void()>::rule header;
-    typename my<void()>::rule assignment;
-    typename my<void()>::rule propname;
-    typename my<void()>::rule propvalue;
-};
+    typename my<metagram::config()>::rule start;
+    typename my<metagram::section()>::rule section;
+    typename my<metagram::sectionname()>::rule headerline;
+    typename my<metagram::assignment()>::rule optionline;
+    typename my<metagram::optname()>::rule optname;
+    typename my<metagram::optval()>::rule optval;
+}; // }}}
+
+template<class Iter>
+void
+generate(Iter && sink, config const & cfg) // {{{
+{
+    output_grammar<Iter> g;
+    karma::generate(
+        sink
+      , g
+      , cfg
+    );
+} // }}}
 
 void
 generate(std::ostream & out, ast::node const & afg) // {{{

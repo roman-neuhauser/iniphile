@@ -30,10 +30,11 @@ main(int argc, char **argv)
 
     auto afg = iniphile::normalize(*cfg);
 
+    typedef std::ostream_iterator<char> Sink;
+
     if (q.empty()) {
-        iniphile::generate(std::cout, *cfg);
+        iniphile::generate(Sink(std::cout), *cfg);
         std::cout << "=================" << std::endl;
-        namespace ast = iniphile::ast;
         iniphile::generate(std::cout, afg);
     } else {
         std::cout << iniphile::get_string(*cfg, q);
