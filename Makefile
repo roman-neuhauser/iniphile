@@ -15,13 +15,13 @@ LDLIBS=
 
 GCCVER=44
 
-all: iniphile
+all: iniphiletest
 
 clean:
-	rm -f iniphile *.o
+	rm -f iniphiletest *.o
 
-check: iniphile
-	./iniphile < lf.ini
+check: iniphiletest
+	./iniphiletest < lf.ini
 
 iniphile.cpp: input.hpp output.hpp manip.hpp ast.hpp metagram.hpp
 

@@ -3,4 +3,4 @@ syntax: glob
 .sw?
 .*.sw?
 commit
-iniphile
+iniphiletest
