@@ -24,7 +24,7 @@ namespace ast
 
 struct leaf
 { // {{{
-    std::vector<std::string> value;
+    metagram::optval value;
 }; // }}}
 
 std::ostream &
