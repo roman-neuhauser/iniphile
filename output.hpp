@@ -6,6 +6,7 @@
 #define INIPHILE_INCLUDE_OUTPUT_HPP
 
 #include <boost/foreach.hpp>
+#include <boost/spirit/include/phoenix_stl.hpp>
 
 #include "ast.hpp"
 
@@ -14,6 +15,7 @@ namespace iniphile
 
 namespace karma = boost::spirit::karma;
 namespace ascii = boost::spirit::ascii;
+namespace phx = boost::phoenix;
 
 template <class Iter>
 struct output_grammar 
@@ -33,7 +35,12 @@ struct output_grammar
     : output_grammar::base_type(start)
     {
         using ascii::string;
+        using ascii::alnum;
+        using ascii::char_;
+        using ascii::blank;
         using karma::eol;
+        using karma::repeat;
+        using karma::_val;
 
         start %= *section;
         section
@@ -47,8 +54,14 @@ struct output_grammar
             <<  optval
             <<  eol
         ;
-        optname = string;
-        optval = ('"' << string << '"') % ' ';
+        optname %= string;
+
+        optval %= (bareword | qstring) % ' ';
+
+        bareword %= repeat(phx::size(_val))[
+            alnum | char_("-.,_$")
+        ];
+        qstring %= '"' << string << '"';
 
         start.name("start");
         section.name("section");
@@ -56,6 +69,8 @@ struct output_grammar
         optionline.name("optionline");
         optname.name("optname");
         optval.name("optval");
+        bareword.name("bareword");
+        qstring.name("qstring");
     }
 
     typename my<metagram::config()>::rule start;
@@ -64,6 +79,8 @@ struct output_grammar
     typename my<metagram::assignment()>::rule optionline;
     typename my<metagram::optname()>::rule optname;
     typename my<metagram::optval()>::rule optval;
+    typename my<metagram::qstring()>::rule qstring;
+    typename my<metagram::bareword()>::rule bareword;
 }; // }}}
 
 template<class Iter>
