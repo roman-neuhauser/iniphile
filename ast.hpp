@@ -126,6 +126,57 @@ normalize(metagram::config const & cst) // {{{
     return root;
 } // }}}
 
+template <class Iter>
+class find_node
+: public boost::static_visitor<ast::node>
+// {{{
+{
+public:
+    find_node(Iter pos, Iter end)
+    : pos(pos)
+    , end(end)
+    {}
+    ast::node operator()(ast::branch const & b) const
+    {
+        if (pos == end) {
+            return ast::node();
+        }
+        auto p(pos);
+        auto next(b.children.find(*p));
+        if (next == b.children.end()) {
+            return ast::node();
+        }
+        ++p;
+        auto e(end);
+        return boost::apply_visitor(
+            find_node<Iter>(p, e)
+          , (*next).second
+        );
+    }
+    ast::node operator()(ast::leaf const & l) const
+    {
+        return l;
+    }
+private:
+    Iter pos;
+    Iter end;
+}; // }}}
+
+std::string
+get_string(ast::node const & cfg, valpath const & path) // {{{
+{
+    find_node<valpath::const_iterator> f(
+        path.begin()
+      , path.end()
+    );
+    auto rv = boost::apply_visitor(f, cfg);
+    ast::leaf *l = boost::get<ast::leaf>(&rv);
+    if (!l || l->value.empty()) {
+        return "";
+    }
+    return l->value[0];
+} // }}}
+
 } // namespace iniphile::ast
 
 #endif

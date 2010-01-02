@@ -14,16 +14,8 @@
 
 #include "metagram.hpp"
 
-#define UNUSED(x)
-
 namespace iniphile
 {
-
-std::string
-get_string(metagram::config & UNUSED(cfg), valpath UNUSED(path)) // {{{
-{
-    return "not yet";
-} // }}}
 
 valpath
 to_valpath(std::string const & s) // {{{

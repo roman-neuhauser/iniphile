@@ -37,7 +37,7 @@ main(int argc, char **argv)
         std::cout << "=================" << std::endl;
         iniphile::generate(std::cout, afg);
     } else {
-        std::cout << iniphile::get_string(*cfg, q);
+        std::cout << iniphile::get_string(afg, q);
     }
 
     return 0;
