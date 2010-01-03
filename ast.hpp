@@ -148,6 +148,9 @@ public:
         }
         ++p;
         auto e(end);
+        if (p == e) {
+            return (*next).second;
+        }
         return boost::apply_visitor(
             find_node<Iter>(p, e)
           , (*next).second
