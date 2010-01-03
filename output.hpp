@@ -95,18 +95,6 @@ generate(Iter && sink, config const & cfg) // {{{
     );
 } // }}}
 
-void
-generate(std::ostream & out, ast::node const & afg) // {{{
-{
-    using karma::stream;
-
-    out << karma::format(
-        stream
-      , afg
-    );
-
-} // }}}
-
 } // namespace iniphile
 
 #endif

@@ -34,8 +34,6 @@ main(int argc, char **argv)
 
     if (q.empty()) {
         iniphile::generate(Sink(std::cout), *cfg);
-        std::cout << "=================" << std::endl;
-        iniphile::generate(std::cout, afg);
     } else {
         std::cout << iniphile::get_string(afg, q);
     }

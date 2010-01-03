@@ -27,17 +27,6 @@ struct leaf
     metagram::optval value;
 }; // }}}
 
-std::ostream &
-operator<<(std::ostream & os, leaf const & lf) // {{{
-{
-    os << "(leaf)";
-    BOOST_FOREACH(auto w, lf.value) {
-        os << ":" << w;
-    }
-    os << "(/leaf)";
-    return os;
-} // }}}
-
 struct branch;
 
 typedef boost::variant<
@@ -50,17 +39,6 @@ struct branch
     typedef std::map<std::string, node> type;
     type children;
 }; // }}}
-
-std::ostream &
-operator<<(std::ostream & os, branch const & br) // {{{
-{
-    os << "(branch)";
-    BOOST_FOREACH(auto child, br.children) {
-        os << child.first << " " << child.second << std::endl;
-    }
-    os << "(/branch)\n";
-    return os;
-} // }}}
 
 } // namespace ast
 
