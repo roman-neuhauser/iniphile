@@ -10,7 +10,6 @@
 
 #include <boost/spirit/include/karma.hpp>
 #include <boost/spirit/include/karma_format.hpp>
-#include <boost/foreach.hpp>
 
 #include "metagram.hpp"
 
