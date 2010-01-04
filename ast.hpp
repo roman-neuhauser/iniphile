@@ -158,6 +158,12 @@ get_string(ast::node const & cfg, valpath const & path) // {{{
     return l->value[0];
 } // }}}
 
+std::string
+get_string(ast::node const & cfg, std::string const & path) // {{{
+{
+    return get_string(cfg, to_valpath(path));
+} // }}}
+
 } // namespace iniphile::ast
 
 #endif
