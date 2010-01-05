@@ -18,7 +18,7 @@ main(int argc, char **argv)
     std::string const s(argc > 1 ? argv[1] : "/dev/stdin");
     std::string const p(argc > 2 ? argv[2] : ".");
     iniphile::valpath q(iniphile::to_valpath(p));
-    std::ifstream input(s, std::ios_base::binary);
+    std::ifstream input(s.c_str(), std::ios_base::binary);
     input.unsetf(std::ios::skipws);
     std::istreambuf_iterator<char> b(input), e;
 
@@ -35,7 +35,8 @@ main(int argc, char **argv)
     typedef std::ostream_iterator<char> Sink;
 
     if (q.empty()) {
-        iniphile::generate(Sink(std::cout), *cfg);
+        Sink s(std::cout);
+        iniphile::generate(s, *cfg);
     } else {
         std::cout << iniphile::get_string(afg, q);
     }

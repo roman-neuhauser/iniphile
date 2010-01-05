@@ -6,7 +6,7 @@ CXX=g++$(GCCVER)
 CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(IBOOST)
 LDFLAGS=-Wl,-L $(LCXXRT) -Wl,-rpath $(RCXXRT)
 
-CXXSTD=-std=c++0x
+CXXSTD=-std=c++98
 CXXOPTFLAGS=-O1
 CXXWFLAGS=-Wall -Wextra -Werror -Wfatal-errors
 LCXXRT=$(_CXXRT)

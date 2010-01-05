@@ -85,7 +85,7 @@ struct output_grammar
 
 template<class Iter>
 void
-generate(Iter && sink, config const & cfg) // {{{
+generate(Iter & sink, config const & cfg) // {{{
 {
     output_grammar<Iter> g;
     karma::generate(
