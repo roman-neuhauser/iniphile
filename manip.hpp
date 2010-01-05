@@ -35,17 +35,18 @@ to_valpath(std::string const & s) // {{{
 
 template<class Seq>
 std::string
-to_string(Seq pieces, char sep) // {{{
+to_string(Seq pieces) // {{{
 {
     namespace karma = boost::spirit::karma;
     namespace ascii = boost::spirit::ascii;
     using ascii::string;
-    using karma::eol;
 
+    typedef std::back_insert_iterator<std::string> Sink;
     std::string rv;
+    Sink s(std::back_inserter(rv));
     karma::generate(
-        std::back_inserter(rv)
-      , string % sep << eol
+        s
+      , string % '.'
       , pieces
     );
     return rv;

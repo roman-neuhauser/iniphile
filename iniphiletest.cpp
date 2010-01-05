@@ -38,7 +38,11 @@ main(int argc, char **argv)
         Sink s(std::cout);
         iniphile::generate(s, *cfg);
     } else {
-        std::cout << iniphile::get_string(afg, q);
+        std::cout
+            << iniphile::to_string(q)
+            << ": "
+            << iniphile::get_string(afg, q)
+        ;
     }
 
     return 0;
