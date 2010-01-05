@@ -7,13 +7,13 @@ CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(IBOOST)
 LDFLAGS=-Wl,-L $(LCXXRT) -Wl,-rpath $(RCXXRT)
 
 CXXSTD=-std=c++98 -pedantic
-CXXOPTFLAGS=-O1
+CXXOPTFLAGS=-g -O1
 CXXWFLAGS=-Wall -Wextra -Werror -Wfatal-errors -Wno-long-long
 LCXXRT=$(_CXXRT)
 RCXXRT=$(_CXXRT)
 LDLIBS=
 
-GCCVER=44
+GCCVER?=44
 
 all: iniphiletest
 
