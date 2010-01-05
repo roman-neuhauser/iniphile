@@ -142,27 +142,6 @@ private:
     Iter end;
 }; // }}}
 
-std::string
-get_string(ast::node const & cfg, valpath const & path) // {{{
-{
-    find_node<valpath::const_iterator> f(
-        path.begin()
-      , path.end()
-    );
-    ast::node rv = boost::apply_visitor(f, cfg);
-    ast::leaf *l = boost::get<ast::leaf>(&rv);
-    if (!l || l->value.empty()) {
-        return "";
-    }
-    return l->value[0];
-} // }}}
-
-std::string
-get_string(ast::node const & cfg, std::string const & path) // {{{
-{
-    return get_string(cfg, to_valpath(path));
-} // }}}
-
 } // namespace iniphile::ast
 
 #endif
