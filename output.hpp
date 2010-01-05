@@ -137,14 +137,11 @@ get_string(ast::node const & cfg, valpath const & path) // {{{
     }
 
     typedef std::back_insert_iterator<std::string> Sink;
-    std::string rv;
-    Sink s(std::back_inserter(rv));
-    karma::generate(
-        s
-      , (possibly_quoted_output<Sink>() % ' ')
-      , l->value
+    return to_string(
+        l->value
+      , possibly_quoted_output<Sink>()
+      , " "
     );
-    return rv;
 } // }}}
 
 std::string

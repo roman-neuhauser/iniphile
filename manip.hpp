@@ -33,23 +33,30 @@ to_valpath(std::string const & s) // {{{
     return rv;
 } // }}}
 
-template<class Seq>
+template<class Seq, class Xform>
 std::string
-to_string(Seq pieces) // {{{
+to_string(Seq const & pieces, Xform const & xf, std::string const & sep) // {{{
 {
     namespace karma = boost::spirit::karma;
-    namespace ascii = boost::spirit::ascii;
-    using ascii::string;
-
     typedef std::back_insert_iterator<std::string> Sink;
+
     std::string rv;
     Sink s(std::back_inserter(rv));
     karma::generate(
         s
-      , string % '.'
+      , xf % sep
       , pieces
     );
     return rv;
+} // }}}
+
+template<class Seq>
+std::string
+to_string(Seq const & pieces) // {{{
+{
+    namespace ascii = boost::spirit::ascii;
+
+    return to_string(pieces, ascii::string, ".");
 } // }}}
 
 } // namespace iniphile
