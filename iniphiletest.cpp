@@ -17,18 +17,20 @@ main(int argc, char **argv)
 {
     std::string const s(argc > 1 ? argv[1] : "/dev/stdin");
     std::string const p(argc > 2 ? argv[2] : ".");
-    auto q(iniphile::to_valpath(p));
+    iniphile::valpath q(iniphile::to_valpath(p));
     std::ifstream input(s, std::ios_base::binary);
     input.unsetf(std::ios::skipws);
     std::istreambuf_iterator<char> b(input), e;
 
-    auto cfg = iniphile::parse(b, e, std::cerr);
+    iniphile::parse_result cfg(
+        iniphile::parse(b, e, std::cerr)
+    );
 
     if (!cfg) {
         return 1;
     }
 
-    auto afg = iniphile::normalize(*cfg);
+    iniphile::ast::node afg(iniphile::normalize(*cfg));
 
     typedef std::ostream_iterator<char> Sink;
 

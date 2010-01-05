@@ -20,7 +20,7 @@ valpath
 to_valpath(std::string const & s) // {{{
 {
     valpath rv;
-    auto b(s.begin());
+    std::string::const_iterator b(s.begin());
     qi::parse(
         b
       , s.end()
@@ -40,9 +40,8 @@ to_string(Seq pieces, char sep) // {{{
     using karma::eol;
 
     std::string rv;
-    auto sink(std::back_inserter(rv));
     karma::generate(
-        sink
+        std::back_inserter(rv)
       , string % sep << eol
       , pieces
     );

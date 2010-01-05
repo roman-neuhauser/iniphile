@@ -50,6 +50,8 @@ using qi::fail;
 // public type
 typedef metagram::config config;
 
+typedef optional<metagram::config> parse_result;
+
 template<class Iter>
 struct
 grammar
@@ -129,12 +131,12 @@ grammar
 };
 
 template<class Iter>
-optional<metagram::config>
+parse_result
 parse(Iter & first, Iter last, std::ostream & erros) // {{{
 {
     grammar<Iter> g(erros);
     metagram::config cfg;
-    optional<metagram::config> rv;
+    parse_result rv;
     bool ok = qi::parse(
         first
       , last

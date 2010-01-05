@@ -47,8 +47,8 @@ typedef std::stack<ast::branch *> astack;
 void
 push_path(valpath const & path, astack & stk) // {{{
 {
-    auto current = stk.top();
-    BOOST_FOREACH (auto label, path) {
+    ast::branch *current = stk.top();
+    BOOST_FOREACH (std::string const & label, path) {
         current->children[label] = ast::branch();
         current = &boost::get<ast::branch>(current->children[label]);
         stk.push(current);
@@ -57,16 +57,15 @@ push_path(valpath const & path, astack & stk) // {{{
 void
 pop_path(valpath const & path, astack & stk) // {{{
 {
-    BOOST_FOREACH (auto label, path) {
+    BOOST_FOREACH (std::string label, path) {
         stk.pop();
     }
 } // }}}
 valpath
-dirname(valpath const & path) // {{{
+dirname(valpath path) // {{{
 {
-    auto rv(path);
-    rv.pop_back();
-    return rv;
+    path.pop_back();
+    return path;
 } // }}}
 std::string
 basename(valpath const & path) // {{{
@@ -87,14 +86,14 @@ normalize(metagram::config const & cst) // {{{
     astack stk;
     ast::branch root;
     stk.push(&root);
-    BOOST_FOREACH (auto sec, cst) {
-        auto secpath(to_valpath(sec.first));
+    BOOST_FOREACH (metagram::section const & sec, cst) {
+        valpath secpath(to_valpath(sec.first));
         push_path(secpath, stk);
 
-        BOOST_FOREACH (auto prop, sec.second) {
-            auto proppath(to_valpath(prop.first));
-            auto dir(dirname(proppath));
-            auto name(basename(proppath));
+        BOOST_FOREACH (metagram::assignment prop, sec.second) {
+            valpath proppath(to_valpath(prop.first));
+            valpath dir(dirname(proppath));
+            std::string name(basename(proppath));
             push_path(dir, stk);
             add_sym(name, prop.second, *stk.top());
             pop_path(dir, stk);
@@ -119,13 +118,13 @@ public:
         if (pos == end) {
             return ast::node();
         }
-        auto p(pos);
-        auto next(b.children.find(*p));
+        Iter p(pos);
+        ast::branch::type::const_iterator next(b.children.find(*p));
         if (next == b.children.end()) {
             return ast::node();
         }
         ++p;
-        auto e(end);
+        Iter e(end);
         if (p == e) {
             return (*next).second;
         }
@@ -150,7 +149,7 @@ get_string(ast::node const & cfg, valpath const & path) // {{{
         path.begin()
       , path.end()
     );
-    auto rv = boost::apply_visitor(f, cfg);
+    ast::node rv = boost::apply_visitor(f, cfg);
     ast::leaf *l = boost::get<ast::leaf>(&rv);
     if (!l || l->value.empty()) {
         return "";
