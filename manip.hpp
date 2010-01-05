@@ -19,6 +19,9 @@ namespace iniphile
 valpath
 to_valpath(std::string const & s) // {{{
 {
+    using qi::lexeme;
+    using ascii::char_;
+
     valpath rv;
     std::string::const_iterator b(s.begin());
     qi::parse(

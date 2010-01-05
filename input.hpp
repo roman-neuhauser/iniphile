@@ -16,36 +16,11 @@
 namespace iniphile
 {
 
-namespace ascii = boost::spirit::ascii;
-
-using ascii::alnum;
-using ascii::alpha;
-using ascii::blank;
-using ascii::char_;
-using ascii::digit;
-using ascii::no_case;
-using ascii::space;
-using ascii::string;
-
 using boost::optional;
 
+namespace ascii = boost::spirit::ascii;
 namespace qi = boost::spirit::qi;
 namespace phx = boost::phoenix;
-
-using qi::lexeme;
-using qi::skip;
-using qi::eoi;
-using qi::eol;
-using qi::omit;
-using phx::val;
-using phx::construct;
-using qi::_1;
-using qi::_2;
-using qi::_3;
-using qi::_4;
-
-using qi::on_error;
-using qi::fail;
 
 // public type
 typedef metagram::config config;
@@ -66,6 +41,27 @@ grammar
     grammar(std::ostream & erros)
     : grammar::base_type(start)
     { // {{{
+
+        using ascii::alnum;
+        using ascii::blank;
+        using ascii::char_;
+        using ascii::space;
+
+        using qi::eoi;
+        using qi::eol;
+
+        using qi::lexeme;
+        using qi::omit;
+
+        using qi::_2;
+        using qi::_3;
+        using qi::_4;
+        using qi::on_error;
+        using qi::fail;
+
+        using phx::val;
+        using phx::construct;
+
         start
             %=  *section
             >>  eoi
