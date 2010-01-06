@@ -137,9 +137,10 @@ get_string(ast::node const & cfg, valpath const & path) // {{{
     }
 
     typedef std::back_insert_iterator<std::string> Sink;
+    possibly_quoted_output<Sink> g;
     return to_string(
         l->value
-      , possibly_quoted_output<Sink>()
+      , g
       , " "
     );
 } // }}}
