@@ -19,12 +19,9 @@ main(int argc, char **argv)
     std::string const q(argc > 2 ? argv[2] : "");
     std::ifstream input(s.c_str(), std::ios_base::binary);
     input.unsetf(std::ios::skipws);
-    std::istreambuf_iterator<char> bb(input), ee;
-    std::string tmp(bb, ee);
-    std::string::iterator b(tmp.begin()), e(tmp.end());
 
     iniphile::parse_result cfg(
-        iniphile::parse(b, e, std::cerr)
+        iniphile::parse(input, std::cerr)
     );
 
     if (!cfg) {

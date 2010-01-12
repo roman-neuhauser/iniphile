@@ -178,6 +178,20 @@ parse(Iter & first, Iter last, std::ostream & erros) // {{{
     return rv;
 } // }}}
 
+parse_result
+parse(std::string const & input, std::ostream & erros)
+{
+    std::string::const_iterator b(input.begin()), e(input.end());
+    return parse(b, e, erros);
+}
+
+parse_result
+parse(std::istream & input, std::ostream & erros)
+{
+    std::istreambuf_iterator<char> b(input), e;
+    return parse(std::string(b, e), erros);
+}
+
 } // namespace iniphile
 
 #endif
