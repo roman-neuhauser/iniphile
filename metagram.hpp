@@ -24,7 +24,8 @@ typedef string qstring;
 typedef std::vector<string> optval;
 typedef string sectionname;
 typedef std::pair<optname, optval> assignment;
-typedef std::pair<sectionname, std::vector<assignment> > section;
+typedef std::vector<assignment> sectionbody;
+typedef std::pair<sectionname, sectionbody> section;
 typedef std::vector<section> config;
 
 } // namespace metagram

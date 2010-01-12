@@ -80,11 +80,23 @@ grammar
             >>  optval
         ;
         section
-            %=  headerline
-            >>  *optionline
+            %=  *commentline
+            >>  headerline
+            >>  sectionbody
         ;
         headerline
             %=  lexeme['[' > sectionname > ']']
+            >>  -comment
+            >>  eol
+        ;
+        sectionbody
+            =   *(
+                    commentline
+                  | optionline  [push_back(_val, _1)]
+                 )
+        ;
+        commentline
+            %=  comment
             >>  eol
         ;
         sectionname %= lexeme[+~char_("\n\r]")];
@@ -100,7 +112,9 @@ grammar
         ;
         ovline
             %=  ((qstring | bareword) % +blank)
+            >>  -comment
         ;
+        comment %= omit[*blank >> ';' >> *~char_("\n\r")];
 
         bareword %= lexeme[+(alnum | char_("-.,_$"))];
         qstring %= lexeme['"' > *~char_('"') > '"'];
@@ -123,6 +137,7 @@ grammar
         section.name("section");
         headerline.name("headerline");
         sectionname.name("sectionname");
+        sectionbody.name("sectionbody");
         optname.name("optname");
         optval.name("optval");
         ovline.name("optvalline");
@@ -136,6 +151,7 @@ grammar
     typename my<metagram::section()>::rule section;
     typename my<metagram::sectionname()>::rule headerline;
     typename my<metagram::sectionname()>::rule sectionname;
+    typename my<metagram::sectionbody()>::rule sectionbody;
     typename my<metagram::optname()>::rule optname;
     typename my<metagram::optval()>::rule optval;
     typename my<metagram::optval()>::rule ovline;
