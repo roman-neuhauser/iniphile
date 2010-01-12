@@ -37,9 +37,10 @@ main(int argc, char **argv)
         iniphile::generate(s, *cfg);
     } else {
         std::cout
-            << q
-            << ": "
-            << iniphile::get_string(afg, q)
+            << q << ":\n"
+            << "get_string: " << iniphile::get_string(afg, q) << "\n"
+            << "get_int: " << iniphile::get_int(afg, q) << "\n"
+            << "get_bool: " << iniphile::get_bool(afg, q) << "\n"
         ;
     }
 
