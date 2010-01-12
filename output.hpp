@@ -155,8 +155,8 @@ parse_(std::string const & input, bool dflt) // {{{
 } // }}}
 
 template<>
-int
-parse_(std::string const & input, int dflt) // {{{
+long
+parse_(std::string const & input, long dflt) // {{{
 {
     parse_(input, qi::int_, dflt);
     return dflt;

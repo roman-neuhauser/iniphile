@@ -39,7 +39,7 @@ main(int argc, char **argv)
         std::cout
             << q << ":\n"
             << "string: " << iniphile::get(afg, q, std::string("not found")) << "\n"
-            << "int: " << iniphile::get(afg, q, -1) << "\n"
+            << "long: " << iniphile::get(afg, q, long(-1)) << "\n"
             << "double: " << iniphile::get(afg, q, -1.1) << "\n"
             << "bool: " << iniphile::get(afg, q, false) << "\n"
         ;
