@@ -136,9 +136,13 @@ get_int(ast::node const & cfg, valpath const & path) // {{{
         return 0;
     }
 
-    return boost::lexical_cast<int>(
-        l->value[0]
-    );
+    try {
+        return boost::lexical_cast<int>(
+            l->value[0]
+        );
+    } catch (boost::bad_lexical_cast &) {
+        return 0;
+    }
 } // }}}
 
 std::string
