@@ -123,6 +123,28 @@ generate(Iter & sink, config const & cfg) // {{{
     );
 } // }}}
 
+bool
+get_bool(ast::node const & cfg, valpath const & path) // {{{
+{
+    find_node<valpath::const_iterator> f(
+        path.begin()
+      , path.end()
+    );
+    ast::node nd = boost::apply_visitor(f, cfg);
+    ast::leaf *l = boost::get<ast::leaf>(&nd);
+    if (!l || l->value.empty()) {
+        return false;
+    }
+
+    try {
+        return boost::lexical_cast<bool>(
+            l->value[0]
+        );
+    } catch (boost::bad_lexical_cast &) {
+        return false;
+    }
+} // }}}
+
 int
 get_int(ast::node const & cfg, valpath const & path) // {{{
 {
@@ -165,6 +187,12 @@ get_string(ast::node const & cfg, valpath const & path) // {{{
       , g
       , " "
     );
+} // }}}
+
+bool
+get_bool(ast::node const & cfg, std::string const & path) // {{{
+{
+    return get_bool(cfg, to_valpath(path));
 } // }}}
 
 int
