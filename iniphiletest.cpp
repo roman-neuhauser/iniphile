@@ -20,7 +20,9 @@ main(int argc, char **argv)
     iniphile::valpath q(iniphile::to_valpath(p));
     std::ifstream input(s.c_str(), std::ios_base::binary);
     input.unsetf(std::ios::skipws);
-    std::istreambuf_iterator<char> b(input), e;
+    std::istreambuf_iterator<char> bb(input), ee;
+    std::string tmp(bb, ee);
+    std::string::iterator b(tmp.begin()), e(tmp.end());
 
     iniphile::parse_result cfg(
         iniphile::parse(b, e, std::cerr)
