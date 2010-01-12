@@ -38,9 +38,9 @@ main(int argc, char **argv)
     } else {
         std::cout
             << q << ":\n"
-            << "get_string: " << iniphile::get_string(afg, q) << "\n"
-            << "get_int: " << iniphile::get_int(afg, q) << "\n"
-            << "get_bool: " << iniphile::get_bool(afg, q) << "\n"
+            << "get_string: " << iniphile::get(afg, q, std::string("not found")) << "\n"
+            << "get_int: " << iniphile::get(afg, q, -1) << "\n"
+            << "get_bool: " << iniphile::get(afg, q, false) << "\n"
         ;
     }
 

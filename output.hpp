@@ -123,52 +123,48 @@ generate(Iter & sink, config const & cfg) // {{{
     );
 } // }}}
 
+template<class Gram, class Type>
 bool
-get_bool(ast::node const & cfg, valpath const & path) // {{{
+parse_(std::string const & input, Gram const & g, Type & v) // {{{
 {
-    find_node<valpath::const_iterator> f(
-        path.begin()
-      , path.end()
-    );
-    ast::node nd = boost::apply_visitor(f, cfg);
-    ast::leaf *l = boost::get<ast::leaf>(&nd);
-    if (!l || l->value.empty()) {
-        return false;
-    }
-
-    try {
-        return boost::lexical_cast<bool>(
-            l->value[0]
-        );
-    } catch (boost::bad_lexical_cast &) {
-        return false;
-    }
+    typedef std::string::const_iterator Iter;
+    Iter b(input.begin()), e(input.end());
+    return qi::parse(b, e, g, v)
+        && b == e
+    ;
 } // }}}
 
+template<class T>
+T
+parse_(std::string const &, T dflt);
+
+template<>
+bool
+parse_(std::string const & input, bool dflt) // {{{
+{
+    using qi::_val;
+    using qi::lit;
+    using qi::no_case;
+
+    typedef std::string::const_iterator Iter;
+    qi::rule<Iter, bool()> yes, no;
+    yes = (no_case[lit("true") | "yes"] | "1")[_val = true];
+    no  = (no_case[lit("false") | "no"] | "0")[_val = false];
+    parse_(input, yes | no, dflt);
+    return dflt;
+} // }}}
+
+template<>
 int
-get_int(ast::node const & cfg, valpath const & path) // {{{
+parse_(std::string const & input, int dflt) // {{{
 {
-    find_node<valpath::const_iterator> f(
-        path.begin()
-      , path.end()
-    );
-    ast::node nd = boost::apply_visitor(f, cfg);
-    ast::leaf *l = boost::get<ast::leaf>(&nd);
-    if (!l || l->value.empty()) {
-        return 0;
-    }
-
-    try {
-        return boost::lexical_cast<int>(
-            l->value[0]
-        );
-    } catch (boost::bad_lexical_cast &) {
-        return 0;
-    }
+    parse_(input, qi::int_, dflt);
+    return dflt;
 } // }}}
 
-std::string
-get_string(ast::node const & cfg, valpath const & path) // {{{
+template<class T>
+T
+get(ast::node const & cfg, valpath const & path, T dflt) // {{{
 {
     find_node<valpath::const_iterator> f(
         path.begin()
@@ -177,7 +173,23 @@ get_string(ast::node const & cfg, valpath const & path) // {{{
     ast::node nd = boost::apply_visitor(f, cfg);
     ast::leaf *l = boost::get<ast::leaf>(&nd);
     if (!l || l->value.empty()) {
-        return "";
+        return dflt;
+    }
+    return parse_(l->value[0], dflt);
+} // }}}
+
+template<>
+std::string
+get(ast::node const & cfg, valpath const & path, std::string dflt) // {{{
+{
+    find_node<valpath::const_iterator> f(
+        path.begin()
+      , path.end()
+    );
+    ast::node nd = boost::apply_visitor(f, cfg);
+    ast::leaf *l = boost::get<ast::leaf>(&nd);
+    if (!l || l->value.empty()) {
+        return dflt;
     }
 
     typedef std::back_insert_iterator<std::string> Sink;
@@ -189,22 +201,11 @@ get_string(ast::node const & cfg, valpath const & path) // {{{
     );
 } // }}}
 
-bool
-get_bool(ast::node const & cfg, std::string const & path) // {{{
+template<class T>
+T
+get(ast::node const & cfg, std::string const & path, T dflt) // {{{
 {
-    return get_bool(cfg, to_valpath(path));
-} // }}}
-
-int
-get_int(ast::node const & cfg, std::string const & path) // {{{
-{
-    return get_int(cfg, to_valpath(path));
-} // }}}
-
-std::string
-get_string(ast::node const & cfg, std::string const & path) // {{{
-{
-    return get_string(cfg, to_valpath(path));
+    return get(cfg, to_valpath(path), dflt);
 } // }}}
 
 } // namespace iniphile
