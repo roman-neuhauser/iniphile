@@ -162,6 +162,14 @@ parse_(std::string const & input, int dflt) // {{{
     return dflt;
 } // }}}
 
+template<>
+double
+parse_(std::string const & input, double dflt) // {{{
+{
+    parse_(input, qi::double_, dflt);
+    return dflt;
+} // }}}
+
 template<class T>
 T
 get(ast::node const & cfg, valpath const & path, T dflt) // {{{
