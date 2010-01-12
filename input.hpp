@@ -7,6 +7,7 @@
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
+#include <boost/spirit/include/phoenix_container.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/phoenix_object.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
@@ -53,38 +54,53 @@ grammar
         using qi::lexeme;
         using qi::omit;
 
+        using qi::_val;
+        using qi::_1;
         using qi::_2;
         using qi::_3;
         using qi::_4;
         using qi::on_error;
         using qi::fail;
 
+        using phx::insert;
+        using phx::begin;
+        using phx::end;
         using phx::val;
         using phx::construct;
 
         start
             %=  *section
-            >>  eoi
+            >   eoi
         ;
         optionline
             %=  optname
-            >   omit[*blank]
-            >   '='
-            >   omit[*space]
-            >   optval
-            >   eol
+            >>  omit[*blank]
+            >>  '='
+            >>  omit[*blank]
+            >>  optval
         ;
         section
             %=  headerline
-            >   *optionline
+            >>  *optionline
         ;
         headerline
             %=  lexeme['[' > sectionname > ']']
-            >   eol
+            >>  eol
         ;
         sectionname %= lexeme[+~char_("\n\r]")];
         optname %= bareword;
-        optval %= (qstring | bareword) % +blank;
+        optval
+             =  -ovline[_val = _1]
+            >>  eol
+            >>  *(
+                    omit[+blank]
+                 >> ovline[insert(_val, end(_val), begin(_1), end(_1))]
+                 >> eol
+                 )
+        ;
+        ovline
+            %=  ((qstring | bareword) % +blank)
+        ;
 
         bareword %= lexeme[+(alnum | char_("-.,_$"))];
         qstring %= lexeme['"' > *~char_('"') > '"'];
@@ -109,6 +125,7 @@ grammar
         sectionname.name("sectionname");
         optname.name("optname");
         optval.name("optval");
+        ovline.name("optvalline");
         bareword.name("bareword");
         qstring.name("qstring");
         comment.name("comment");
@@ -121,6 +138,7 @@ grammar
     typename my<metagram::sectionname()>::rule sectionname;
     typename my<metagram::optname()>::rule optname;
     typename my<metagram::optval()>::rule optval;
+    typename my<metagram::optval()>::rule ovline;
     typename my<metagram::qstring()>::rule qstring;
     typename my<metagram::bareword()>::rule bareword;
     typename my<void()>::rule comment;
