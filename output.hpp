@@ -209,6 +209,22 @@ get(ast::node const & cfg, valpath const & path, std::string dflt) // {{{
     );
 } // }}}
 
+template<>
+std::vector<std::string>
+get(ast::node const & cfg, valpath const & path, std::vector<std::string> dflt) // {{{
+{
+    find_node<valpath::const_iterator> f(
+        path.begin()
+      , path.end()
+    );
+    ast::node nd = boost::apply_visitor(f, cfg);
+    ast::leaf *l = boost::get<ast::leaf>(&nd);
+    if (!l || l->value.empty()) {
+        return dflt;
+    }
+    return l->value;
+} // }}}
+
 template<class T>
 T
 get(ast::node const & cfg, std::string const & path, T dflt) // {{{
