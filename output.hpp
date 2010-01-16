@@ -150,24 +150,33 @@ parse_(std::string const & input, bool dflt) // {{{
     qi::rule<Iter, bool()> yes, no;
     yes = (no_case[lit("true") | "yes"] | "1")[_val = true];
     no  = (no_case[lit("false") | "no"] | "0")[_val = false];
-    parse_(input, yes | no, dflt);
-    return dflt;
+    bool rv;
+    return parse_(input, yes | no, rv)
+        ? rv
+        : dflt
+    ;
 } // }}}
 
 template<>
 long
 parse_(std::string const & input, long dflt) // {{{
 {
-    parse_(input, qi::int_, dflt);
-    return dflt;
+    long rv;
+    return parse_(input, qi::int_, rv)
+        ? rv
+        : dflt
+    ;
 } // }}}
 
 template<>
 double
 parse_(std::string const & input, double dflt) // {{{
 {
-    parse_(input, qi::double_, dflt);
-    return dflt;
+    double rv;
+    return parse_(input, qi::double_, rv)
+        ? rv
+        : dflt
+    ;
 } // }}}
 
 template<class T>
