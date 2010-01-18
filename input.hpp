@@ -46,6 +46,7 @@ grammar
         using ascii::alnum;
         using ascii::blank;
         using ascii::char_;
+        using ascii::print;
         using ascii::space;
 
         using qi::eoi;
@@ -101,7 +102,7 @@ grammar
             >>  eol
         ;
         sectionname %= lexeme[+~char_("\n\r]")];
-        optname %= bareword;
+        optname %= lexeme[+(!space >> !char_('=') >> print)];
         optval
              =  -ovline[_val = _1]
             >>  -comment
@@ -118,7 +119,7 @@ grammar
         ;
         comment %= omit[*blank >> ';' >> *~char_("\n\r")];
 
-        bareword %= lexeme[+(alnum | char_("-.,_$"))];
+        bareword %= lexeme[+(!space >> !char_(';') >> print)];
         qstring %= lexeme['"' > *~char_('"') > '"'];
 
         on_error<fail>
