@@ -97,7 +97,7 @@ grammar
                  )
         ;
         commentline
-            %=  comment
+            %=  -comment
             >>  eol
         ;
         sectionname %= lexeme[+~char_("\n\r]")];
