@@ -63,6 +63,7 @@ grammar
         using qi::fail;
 
         using phx::insert;
+        using phx::push_back;
         using phx::begin;
         using phx::end;
         using phx::val;
