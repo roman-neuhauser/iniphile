@@ -104,16 +104,17 @@ grammar
         optname %= bareword;
         optval
              =  -ovline[_val = _1]
+            >>  -comment
             >>  eol
             >>  *(
                     omit[+blank]
                  >> ovline[insert(_val, end(_val), begin(_1), end(_1))]
+                 >> -comment
                  >> eol
                  )
         ;
         ovline
             %=  ((qstring | bareword) % +blank)
-            >>  -comment
         ;
         comment %= omit[*blank >> ';' >> *~char_("\n\r")];
 
