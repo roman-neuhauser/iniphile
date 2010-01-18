@@ -49,8 +49,12 @@ push_path(valpath const & path, astack & stk) // {{{
 {
     ast::branch *current = stk.top();
     BOOST_FOREACH (std::string const & label, path) {
-        current->children[label] = ast::branch();
-        current = &boost::get<ast::branch>(current->children[label]);
+        if (current->children.find(label) == current->children.end()
+            || !boost::get<ast::branch>(&(current->children[label]))
+        ) {
+            current->children[label] = ast::branch();
+        }
+        current = boost::get<ast::branch>(&(current->children[label]));
         stk.push(current);
     }
 } // }}}
