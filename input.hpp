@@ -17,8 +17,6 @@
 namespace iniphile
 {
 
-using boost::optional;
-
 namespace ascii = boost::spirit::ascii;
 namespace qi = boost::spirit::qi;
 namespace phx = boost::phoenix;
@@ -26,7 +24,7 @@ namespace phx = boost::phoenix;
 // public type
 typedef metagram::config config;
 
-typedef optional<metagram::config> parse_result;
+typedef boost::optional<metagram::config> parse_result;
 
 template<class Iter>
 struct
