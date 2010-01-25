@@ -115,7 +115,7 @@ grammar
         ovline
             %=  ((qstring | bareword) % +blank)
         ;
-        comment %= omit[*blank >> ';' >> *~char_("\n\r")];
+        comment %= omit[*blank >> -(';' >> *~char_("\n\r"))];
 
         bareword %= lexeme[+(!space >> !char_(';') >> print)];
         qstring %= lexeme['"' > *~char_('"') > '"'];
