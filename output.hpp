@@ -33,8 +33,7 @@ struct possibly_quoted_output
     : possibly_quoted_output::base_type(start)
     {
         using ascii::string;
-        using ascii::alnum;
-        using ascii::char_;
+        using ascii::space;
         using karma::repeat;
         using karma::_val;
 
@@ -43,7 +42,7 @@ struct possibly_quoted_output
              | qstring
         ;
         bareword %= repeat(phx::size(_val))[
-            alnum | char_("-.,_$")
+            ~space
         ];
         qstring %= '"' << string << '"';
     } // }}}
