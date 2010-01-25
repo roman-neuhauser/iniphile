@@ -207,6 +207,8 @@ get(ast::node const & cfg, valpath const & path, std::string dflt) // {{{
     if (!l || l->value.empty()) {
         return dflt;
     }
+    if (l->value.size() == 1)
+        return l->value[0];
 
     typedef std::back_insert_iterator<std::string> Sink;
     possibly_quoted_output<Sink> g;
