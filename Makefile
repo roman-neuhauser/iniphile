@@ -23,6 +23,10 @@ clean:
 check: iniphiletest
 	./iniphiletest < lf.ini
 
+iniphiletest: iniphiletest.o input.o
+	$(CXX) $(LDFLAGS) -o iniphiletest iniphiletest.o input.o $(LDLIBS)
+
 iniphiletest.cpp: input.hpp output.hpp manip.hpp ast.hpp metagram.hpp
+input.cpp: input.hpp metagram.hpp
 
 .PHONY: check clean

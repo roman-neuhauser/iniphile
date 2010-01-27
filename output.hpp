@@ -7,6 +7,8 @@
 
 #include <boost/foreach.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
+#include <boost/spirit/include/phoenix_operator.hpp>
+#include <boost/fusion/adapted/std_pair.hpp>
 
 #include "ast.hpp"
 
@@ -126,6 +128,7 @@ template<class Gram, class Type>
 bool
 parse_(std::string const & input, Gram const & g, Type & v) // {{{
 {
+    namespace qi = boost::spirit::qi;
     typedef std::string::const_iterator Iter;
     Iter b(input.begin()), e(input.end());
     return qi::parse(b, e, g, v)
@@ -141,6 +144,7 @@ template<>
 bool
 parse_(std::string const & input, bool dflt) // {{{
 {
+    namespace qi = boost::spirit::qi;
     using qi::_val;
     using qi::lit;
     using qi::no_case;
@@ -160,6 +164,7 @@ template<>
 long
 parse_(std::string const & input, long dflt) // {{{
 {
+    namespace qi = boost::spirit::qi;
     long rv;
     return parse_(input, qi::int_, rv)
         ? rv
@@ -171,6 +176,7 @@ template<>
 double
 parse_(std::string const & input, double dflt) // {{{
 {
+    namespace qi = boost::spirit::qi;
     double rv;
     return parse_(input, qi::double_, rv)
         ? rv

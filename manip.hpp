@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 
+#include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/karma.hpp>
 #include <boost/spirit/include/karma_format.hpp>
 
@@ -19,6 +20,8 @@ namespace iniphile
 valpath
 to_valpath(std::string const & s) // {{{
 {
+    namespace ascii = boost::spirit::ascii;
+    namespace qi = boost::spirit::qi;
     using qi::lexeme;
     using ascii::char_;
 
