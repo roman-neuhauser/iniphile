@@ -42,6 +42,7 @@ main(int argc, char **argv)
             << "long: " << iniphile::get(afg, q, long(-1)) << "\n"
             << "double: " << iniphile::get(afg, q, -1.1) << "\n"
             << "bool: " << iniphile::get(afg, q, false) << "\n"
+            //<< "char*: " << iniphile::get(afg, q, "wtf") << "\n"
         ;
     }
 
