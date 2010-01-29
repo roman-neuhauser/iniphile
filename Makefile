@@ -16,16 +16,22 @@ LDLIBS=
 
 GCCVER?=44
 
-all: iniphiletest
+all: iniphiletest iniphile.so
 
 clean:
-	rm -f iniphiletest *.o
+	rm -f iniphiletest *.so *.a *.o
 
 check: iniphiletest
 	./iniphiletest < lf.ini
 
-iniphiletest: iniphiletest.o output.o ast.o input.o
-	$(CXX) $(LDFLAGS) -o iniphiletest iniphiletest.o output.o ast.o input.o $(LDLIBS)
+iniphile.so: iniphile.a
+	$(CXX) -shared -o iniphile.so iniphile.a
+
+iniphile.a: output.o ast.o input.o
+	$(AR) -rc iniphile.a output.o ast.o input.o
+
+iniphiletest: iniphiletest.o iniphile.a
+	$(CXX) $(LDFLAGS) -o iniphiletest iniphiletest.o iniphile.a $(LDLIBS)
 
 iniphiletest.cpp: input.hpp output.hpp manip.hpp ast.hpp metagram.hpp
 input.cpp: input.hpp metagram.hpp
