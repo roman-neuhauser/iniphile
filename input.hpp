@@ -12,9 +12,6 @@
 namespace iniphile
 {
 
-// public type
-typedef metagram::config config;
-
 typedef boost::optional<metagram::config> parse_result;
 
 parse_result

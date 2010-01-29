@@ -12,8 +12,6 @@
 namespace iniphile
 {
 
-typedef std::vector<std::string> valpath;
-
 namespace metagram
 {
 
@@ -29,6 +27,11 @@ typedef std::pair<sectionname, sectionbody> section;
 typedef std::vector<section> config;
 
 } // namespace metagram
+
+// public types
+typedef metagram::config config;
+typedef std::vector<std::string> valpath;
+
 } // namespace iniphile
 
 #endif
