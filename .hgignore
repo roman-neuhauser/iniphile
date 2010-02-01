@@ -2,7 +2,9 @@ syntax: glob
 
 .sw?
 .*.sw?
+*.a
 *.o
+*.so
 commit
-iniphiletest
+initest
 tags
