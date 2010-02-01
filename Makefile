@@ -1,18 +1,22 @@
-_CXXRT=/usr/local/lib/gcc$(GCCVER)
-_BOOST=..
+_CXXRT?=/usr/local/lib/gcc$(GCCVER)
+_BOOST?=..
 
-IBOOST?=$(_BOOST)
-CXX=g++$(GCCVER)
-CXX=env CXX=g++$(GCCVER) gfilt
-CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(IBOOST)
-LDFLAGS=-Wl,-L $(LCXXRT) -Wl,-rpath $(RCXXRT)
+SPIRIT?=$(_BOOST)/include
+UTFINC?=$(_BOOST)/include
+UTFLIB?=$(_BOOST)/lib
+UTFRUN?=$(UTFLIB)
+CXX?=env CXX=g++$(GCCVER) gfilt
+CXX?=g++$(GCCVER)
+CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(SPIRIT) -I$(UTFINC)
+LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
+	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
 
 CXXSTD=-std=c++98 -pedantic
 CXXOPTFLAGS=-g -O1
 CXXWFLAGS=-Wall -Wextra -Werror -Wfatal-errors -Wno-long-long
-LCXXRT=$(_CXXRT)
-RCXXRT=$(_CXXRT)
-LDLIBS=
+CXXRTLIB=$(_CXXRT)
+CXXRTRUN=$(_CXXRT)
+LDLIBS=-lboost_unit_test_framework
 
 GCCVER?=44
 
