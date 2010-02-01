@@ -26,7 +26,7 @@ clean:
 	rm -f initest *.so *.a *.o
 
 check: initest
-	./initest < lf.ini
+	./initest
 
 iniphile.so: iniphile.a
 	$(CXX) -shared -o iniphile.so iniphile.a
