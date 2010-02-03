@@ -6,5 +6,6 @@ syntax: glob
 *.o
 *.so
 commit
-initest
+initest-shared
+initest-static
 tags
