@@ -20,7 +20,7 @@ LDLIBS=-lboost_unit_test_framework
 
 GCCVER?=44
 
-all: initest iniphile.so
+all: initest libiniphile.so
 
 clean:
 	rm -f initest *.so *.a *.o
@@ -28,14 +28,14 @@ clean:
 check: initest
 	./initest
 
-iniphile.so: iniphile.a
-	$(CXX) -shared -o iniphile.so iniphile.a
+libiniphile.so: libiniphile.a
+	$(CXX) -shared -o libiniphile.so libiniphile.a
 
-iniphile.a: output.o ast.o input.o
-	$(AR) -rc iniphile.a output.o ast.o input.o
+libiniphile.a: output.o ast.o input.o
+	$(AR) -rc libiniphile.a output.o ast.o input.o
 
-initest: initest.o iniphile.a
-	$(CXX) $(LDFLAGS) -o initest initest.o iniphile.a $(LDLIBS)
+initest: initest.o libiniphile.a
+	$(CXX) $(LDFLAGS) -o initest initest.o libiniphile.a $(LDLIBS)
 
 initest.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
