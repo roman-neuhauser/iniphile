@@ -42,4 +42,4 @@ input.o: metagram.hpp input.hpp
 output.o: metagram.hpp output.hpp manip.hpp ast.hpp
 ast.o: metagram.hpp ast.hpp manip.hpp
 
-.PHONY: check clean
+.PHONY: all check clean
