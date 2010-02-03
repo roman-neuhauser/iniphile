@@ -29,7 +29,7 @@ check: initest
 	./initest
 
 libiniphile.so: libiniphile.a
-	$(CXX) -shared -o libiniphile.so libiniphile.a
+	$(CXX) -shared -o libiniphile.so -Wl,--whole-archive libiniphile.a
 
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
