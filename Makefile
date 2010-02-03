@@ -37,9 +37,9 @@ iniphile.a: output.o ast.o input.o
 initest: initest.o iniphile.a
 	$(CXX) $(LDFLAGS) -o initest initest.o iniphile.a $(LDLIBS)
 
-initest.cpp: input.hpp output.hpp manip.hpp ast.hpp metagram.hpp
-input.cpp: input.hpp metagram.hpp
-output.cpp: output.hpp metagram.hpp ast.hpp
-ast.cpp: ast.hpp metagram.hpp manip.hpp
+initest.o: metagram.hpp input.hpp output.hpp ast.hpp
+input.o: metagram.hpp input.hpp
+output.o: metagram.hpp output.hpp manip.hpp ast.hpp
+ast.o: metagram.hpp ast.hpp manip.hpp
 
 .PHONY: check clean

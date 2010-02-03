@@ -9,7 +9,6 @@
 
 #include <boost/spirit/include/qi.hpp>
 
-#include "metagram.hpp"
 #include "ast.hpp"
 
 namespace iniphile

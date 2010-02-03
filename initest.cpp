@@ -6,10 +6,8 @@
 #include <fstream>
 #include <string>
 
-#include "metagram.hpp"
 #include "input.hpp"
 #include "output.hpp"
-#include "manip.hpp"
 #include "ast.hpp"
 
 #define BOOST_TEST_DYN_LINK
