@@ -22,6 +22,11 @@ LDLIBS=-lboost_unit_test_framework
 
 GCCVER?=44
 
+VERSION.major=0
+
+SONAME=libiniphile.so.$(VERSION.major)
+WL.SONAME=-Wl,--soname=$(SONAME)
+
 all: initest
 
 clean:
@@ -34,7 +39,7 @@ check: initest
 initest: initest-static initest-shared
 
 libiniphile.so: libiniphile.a
-	$(CXX) -shared -o libiniphile.so -Wl,--whole-archive libiniphile.a
+	$(CXX) -shared $(WL.SONAME) -o libiniphile.so -Wl,--whole-archive libiniphile.a
 
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
