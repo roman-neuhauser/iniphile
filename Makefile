@@ -1,3 +1,7 @@
+PREFIX?=/usr/local
+LIBDIR?=$(PREFIX)/lib
+INCDIR?=$(PREFIX)/include/iniphile
+
 _CXXRT?=/usr/local/lib/gcc$(GCCVER)
 _BOOST?=..
 
@@ -22,10 +26,17 @@ LDLIBS=-lboost_unit_test_framework
 
 GCCVER?=44
 
+LN_S?=ln -s
+RM_F?=rm -f
+INSTALL.stripped?=$(INSTALL) -s
+
 VERSION.major=0
 
-SONAME=libiniphile.so.$(VERSION.major)
+CANONICAL=libiniphile.so
+SONAME=$(CANONICAL).$(VERSION.major)
 WL.SONAME=-Wl,--soname=$(SONAME)
+
+PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
 
 all: initest
 
@@ -35,6 +46,18 @@ clean:
 check: initest
 	./initest-static
 	./initest-shared
+
+install: all
+	mkdir -p $(DESTDIR)$(LIBDIR)
+	$(INSTALL.stripped) libiniphile.a $(DESTDIR)$(LIBDIR)/libiniphile.a
+	$(INSTALL.stripped) libiniphile.so $(DESTDIR)$(LIBDIR)/$(SONAME)
+	cd $(DESTDIR)$(LIBDIR) \
+		&& $(RM_F) $(CANONICAL) \
+		&& $(LN_S) $(SONAME) $(CANONICAL)
+	mkdir -p $(DESTDIR)$(INCDIR)
+	for f in $(PUBLIC_HEADERS); do \
+		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/$$f; \
+	done
 
 initest: initest-static initest-shared
 
