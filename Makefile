@@ -9,9 +9,9 @@ SPIRIT?=$(_BOOST)/include
 UTFINC?=$(_BOOST)/include
 UTFLIB?=$(_BOOST)/lib
 UTFRUN?=$(UTFLIB)
-CXX?=env CXX=g++$(GCCVER) gfilt
-CXX?=g++$(GCCVER)
 CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(SPIRIT) -I$(UTFINC)
+CXX=env CXX=g++$(GCCVER) gfilt
+CXX=g++$(GCCVER)
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
 LDFLAGS.shared=-Wl,-L$$PWD -Wl,-rpath $$PWD
