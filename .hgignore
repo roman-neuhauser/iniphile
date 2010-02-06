@@ -8,4 +8,5 @@ syntax: glob
 commit
 initest-shared
 initest-static
+libiniphile.pc
 tags

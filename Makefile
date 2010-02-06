@@ -1,6 +1,7 @@
 PREFIX?=/usr/local
 LIBDIR?=$(PREFIX)/lib
 INCDIR?=$(PREFIX)/include/iniphile
+PKGCONFIGDIR?=$(LIBDIR)/pkgconfig
 
 _CXXRT?=/usr/local/lib/gcc$(GCCVER)
 _BOOST?=..
@@ -38,7 +39,7 @@ WL.SONAME=-Wl,--soname=$(SONAME)
 
 PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
 
-all: initest
+all: initest libiniphile.pc
 
 clean:
 	rm -f initest-static initest-shared *.so *.a *.o
@@ -58,8 +59,14 @@ install: all
 	for f in $(PUBLIC_HEADERS); do \
 		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/$$f; \
 	done
+	$(INSTALL) libiniphile.pc $(PKGCONFIGDIR)/libiniphile.pc
 
 initest: initest-static initest-shared
+
+libiniphile.pc: libiniphile.pc.in
+	trap "$(RM_F) libiniphile.pc.$$$$" EXIT; \
+	sed -e 's#@@PREFIX@@#$(PREFIX)#' < libiniphile.pc.in > libiniphile.pc.$$$$; \
+	mv libiniphile.pc.$$$$ libiniphile.pc
 
 libiniphile.so: libiniphile.a
 	$(CXX) -shared $(WL.SONAME) -o libiniphile.so -Wl,--whole-archive libiniphile.a
