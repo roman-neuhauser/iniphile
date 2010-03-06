@@ -1,0 +1,45 @@
+=============================================================================
+                                  Iniphile
+=============================================================================
+-----------------------------------------------------------------------------
+                      Ini file parsing library for C++
+-----------------------------------------------------------------------------
+
+:Author: Roman Neuhauser
+:Contact: neuhauser@sigpipe.cz
+:Copyright: This document is in the public domain.
+
+.. contents::
+
+Introduction
+============
+
+Iniphile is a C++ library for parsing a dialect of ini file format.
+It requires Boost_ >= 1.41, and is known to build and run on FreeBSD 9
+with gcc >= 4.2.1, and on Windows XP with Visual Studio 9.
+
+.. _Boost: http://boost.org/
+
+Downloads
+=========
+
+Repository
+++++++++++
+
+The latest source can be checked out from the Mercurial_ repository_.
+
+.. _Mercurial: http://selenic.com/mercurial/
+.. _repository: https://hg.sigpipe.cz/
+
+Official tarballs
++++++++++++++++++
+
+All Iniphile releases can be found in the `download directory`_.
+
+.. _download directory: http://codex.sigpipe.cz/iniphile/dist/
+
+
+.. target-notes::
+.. section-numbering::
+
+.. vim: ft=rst sts=2 sw=2 tw=77
