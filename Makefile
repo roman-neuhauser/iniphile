@@ -32,6 +32,8 @@ RM_F?=rm -f
 INSTALL.stripped?=$(INSTALL) -s
 
 VERSION.major=0
+VERSION.minor=1
+VERSION.string=$(VERSION.major).$(VERSION.minor)
 
 CANONICAL=libiniphile.so
 SONAME=$(CANONICAL).$(VERSION.major)
@@ -65,7 +67,10 @@ initest: initest-static initest-shared
 
 libiniphile.pc: libiniphile.pc.in
 	trap "$(RM_F) libiniphile.pc.$$$$" EXIT; \
-	sed -e 's#@@PREFIX@@#$(PREFIX)#' < libiniphile.pc.in > libiniphile.pc.$$$$; \
+	sed -e 's#@@PREFIX@@#$(PREFIX)#' \
+	    -e 's#@@VERSION@@#$(VERSION.string)#' \
+	    < libiniphile.pc.in \
+	    > libiniphile.pc.$$$$; \
 	mv libiniphile.pc.$$$$ libiniphile.pc
 
 libiniphile.so: libiniphile.a

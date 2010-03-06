@@ -1,4 +1,5 @@
 prefix=@@PREFIX@@
+version=@@VERSION@@
 exec_prefix=${prefix}
 includedir=${exec_prefix}/include
 libdir=${exec_prefix}/lib
@@ -6,6 +7,6 @@ libdir=${exec_prefix}/lib
 Name: iniphile
 Description: Iniphile, C++ library for INI files
 URL: http://codex.sigpipe.cz/iniphile/
-Version: 0.0
+Version: ${version}
 Cflags: -I${includedir}
 Libs: -L${libdir} -liniphile
