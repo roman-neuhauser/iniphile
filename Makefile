@@ -44,16 +44,16 @@ PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
 all: initest libiniphile.pc
 
 clean:
-	rm -f initest-static initest-shared *.so *.a *.o
+	rm -f initest-static initest-shared *.so.[0-9] *.a *.o
 
 check: initest
-	./initest-static
-	./initest-shared
+	LD_LIBRARY_PATH=. ./initest-static
+	LD_LIBRARY_PATH=. ./initest-shared
 
 install: all
 	mkdir -p $(DESTDIR)$(LIBDIR)
 	$(INSTALL.stripped) libiniphile.a $(DESTDIR)$(LIBDIR)/libiniphile.a
-	$(INSTALL.stripped) libiniphile.so $(DESTDIR)$(LIBDIR)/$(SONAME)
+	$(INSTALL.stripped) $(SONAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
 	cd $(DESTDIR)$(LIBDIR) \
 		&& $(RM_F) $(CANONICAL) \
 		&& $(LN_S) $(SONAME) $(CANONICAL)
@@ -73,8 +73,8 @@ libiniphile.pc: libiniphile.pc.in
 	    > libiniphile.pc.$$$$; \
 	mv libiniphile.pc.$$$$ libiniphile.pc
 
-libiniphile.so: libiniphile.a
-	$(CXX) -shared $(WL.SONAME) -o libiniphile.so -Wl,--whole-archive libiniphile.a
+$(SONAME): libiniphile.a
+	$(CXX) -shared $(WL.SONAME) -o $(SONAME) -Wl,--whole-archive libiniphile.a
 
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
@@ -82,7 +82,7 @@ libiniphile.a: output.o ast.o input.o
 initest-static: initest.o libiniphile.a
 	$(CXX) $(LDFLAGS) $(LDFLAGS.static) -o initest-static initest.o libiniphile.a $(LDLIBS)
 
-initest-shared: initest.o libiniphile.so
+initest-shared: initest.o $(SONAME)
 	$(CXX) $(LDFLAGS) $(LDFLAGS.shared) -o initest-shared initest.o -liniphile $(LDLIBS)
 
 initest.o: metagram.hpp input.hpp output.hpp ast.hpp
