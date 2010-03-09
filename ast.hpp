@@ -10,6 +10,7 @@
 
 #include <boost/variant.hpp>
 
+#include "astfwd.hpp"
 #include "metagram.hpp"
 
 namespace iniphile

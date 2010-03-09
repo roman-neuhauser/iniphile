@@ -87,7 +87,7 @@ initest-shared: initest.o $(SONAME)
 
 initest.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
-output.o: metagram.hpp output.hpp manip.hpp ast.hpp
-ast.o: metagram.hpp ast.hpp manip.hpp
+output.o: metagram.hpp output.hpp ast.hpp
+ast.o: metagram.hpp ast.hpp
 
 .PHONY: all check clean initest

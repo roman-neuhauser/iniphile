@@ -10,7 +10,6 @@
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
 
-#include "manip.hpp"
 #include "ast.hpp"
 #include "output.hpp"
 

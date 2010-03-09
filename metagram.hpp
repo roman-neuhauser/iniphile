@@ -30,7 +30,6 @@ typedef std::vector<section> config;
 
 // public types
 typedef metagram::config config;
-typedef std::vector<std::string> valpath;
 
 } // namespace iniphile
 
