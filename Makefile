@@ -44,7 +44,7 @@ PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
 all: initest libiniphile.pc
 
 clean:
-	rm -f initest-static initest-shared *.so.[0-9] *.a *.o
+	rm -f initest-static initest-shared *.so.[0-9] *.a *.o *.pc
 
 check: initest
 	LD_LIBRARY_PATH=. ./initest-static
