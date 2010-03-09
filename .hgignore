@@ -4,7 +4,7 @@ syntax: glob
 .*.sw?
 *.a
 *.o
-*.so
+*.so.[0-9]
 commit
 initest-shared
 initest-static
