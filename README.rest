@@ -28,6 +28,63 @@ with gcc >= 4.2.1, and on Windows XP with Visual Studio 9.
 
 .. _Boost: http://boost.org/
 
+
+Tutorial
+========
+
+tut.ini ::
+
+  [notify]
+  enabled   = No
+  addresses = alice@example.com
+              bob@example.com
+              chris@example.com
+
+tut.cpp ::
+
+  #include <iostream>
+  #include <sstream>
+  #include <fstream>
+  #include <string>
+
+  #include "input.hpp"
+  #include "ast.hpp"
+  #include "output.hpp"
+
+  bool
+  notify(std::vector<std::string> const& addrs);
+
+  int
+  main()
+  {
+      namespace ini = iniphile;
+
+      std::ifstream input("tut.ini");
+      std::ostringstream diag;
+
+      ini::parse_result cfg(ini::parse(input, diag));
+
+      if (!cfg) {
+          std::cerr << "garbled configuration\n";
+          return EXIT_FAILURE;
+      }
+
+      ini::ast::node afg(ini::normalize(*cfg));
+
+      typedef std::vector<std::string> values;
+
+      bool enabled  = ini::get(afg, "notify.enabled", false);
+      long attempts = ini::get(afg, "notify.attempts", 3L);
+      values addrs  = ini::get(afg, "notify.addresses", values());
+
+      while (enabled && attempts--) {
+          if (notify(addrs))
+              return EXIT_SUCCESS;
+      }
+      return EXIT_FAILURE;
+  }
+
+
 Reference
 =========
 
