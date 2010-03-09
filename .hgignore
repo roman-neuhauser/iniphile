@@ -5,6 +5,7 @@ syntax: glob
 *.a
 *.o
 *.so.[0-9]
+README.html
 commit
 initest-shared
 initest-static
