@@ -6,6 +6,8 @@
 #include <fstream>
 #include <string>
 
+#include <limits>
+
 #include "input.hpp"
 #include "output.hpp"
 #include "ast.hpp"
@@ -75,6 +77,9 @@ BOOST_AUTO_TEST_CASE(key_not_found) // {{{
 #define CHECK_BOOL(afg, p, exp) \
     BOOST_CHECK_EQUAL(exp, ini::get(afg, std::string(p), !exp))
 
+#define CHECK_LONG(afg, p, exp) \
+    BOOST_CHECK_EQUAL(exp, ini::get(afg, std::string(p), 1L))
+
 BOOST_AUTO_TEST_CASE(get_bool) // {{{
 {
     std::ostringstream diag;
@@ -103,4 +108,24 @@ BOOST_AUTO_TEST_CASE(get_bool) // {{{
 
     CHECK_BOOL(afg, "bools.t-onoff", true);
     CHECK_BOOL(afg, "bools.f-onoff", false);
+} // }}}
+
+BOOST_AUTO_TEST_CASE(get_long) // {{{
+{
+    std::ostringstream diag;
+    std::istringstream input(
+        "[longs]\n"
+        "dec-zero = 0\n"
+        "dec-max = +2147483647\n"
+        "dec-min = -2147483648\n"
+    );
+
+    long max = std::numeric_limits<long>::max();
+    long min = std::numeric_limits<long>::min();
+
+    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+
+    CHECK_LONG(afg, "longs.dec-max", max);
+    CHECK_LONG(afg, "longs.dec-min", min);
+    CHECK_LONG(afg, "longs.dec-zero", 0);
 } // }}}
