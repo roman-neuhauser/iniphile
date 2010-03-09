@@ -80,6 +80,9 @@ BOOST_AUTO_TEST_CASE(key_not_found) // {{{
 #define CHECK_LONG(afg, p, exp) \
     BOOST_CHECK_EQUAL(exp, ini::get(afg, std::string(p), 1L))
 
+#define CHECK_DOUBLE(afg, p, exp) \
+    BOOST_CHECK_CLOSE(exp, ini::get(afg, std::string(p), 1.0), 0.00001)
+
 BOOST_AUTO_TEST_CASE(get_bool) // {{{
 {
     std::ostringstream diag;
@@ -129,3 +132,24 @@ BOOST_AUTO_TEST_CASE(get_long) // {{{
     CHECK_LONG(afg, "longs.dec-min", min);
     CHECK_LONG(afg, "longs.dec-zero", 0);
 } // }}}
+
+BOOST_AUTO_TEST_CASE(get_double) // {{{
+{
+    std::ostringstream diag;
+    std::istringstream input(
+        "[doubles]\n"
+        "dec-zero = 0\n"
+        "dec-max = 1.7976931348623157e+308\n"
+        "dec-min = 2.2250738585072014e-308\n"
+    );
+
+    double max = std::numeric_limits<double>::max();
+    double min = std::numeric_limits<double>::min();
+
+    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+
+    CHECK_DOUBLE(afg, "doubles.dec-max", max);
+    CHECK_DOUBLE(afg, "doubles.dec-min", min);
+    CHECK_DOUBLE(afg, "doubles.dec-zero", 0);
+} // }}}
+
