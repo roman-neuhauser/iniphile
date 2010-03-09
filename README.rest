@@ -113,7 +113,7 @@ astfwd.hpp ::
 
 ast.hpp ::
 
-  typedef unspecified iniphile::ast::node;
+  #include "astfwd.hpp"
 
   iniphile::ast::node
   iniphile::normalize(iniphile::config const & cst);
