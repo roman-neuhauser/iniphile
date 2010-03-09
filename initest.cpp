@@ -83,6 +83,9 @@ BOOST_AUTO_TEST_CASE(key_not_found) // {{{
 #define CHECK_DOUBLE(afg, p, exp) \
     BOOST_CHECK_CLOSE(exp, ini::get(afg, std::string(p), 1.0), 0.00001)
 
+#define CHECK_STRING(afg, p, exp, dflt) \
+    BOOST_CHECK_EQUAL(exp, ini::get(afg, std::string(p), std::string(dflt)))
+
 BOOST_AUTO_TEST_CASE(get_bool) // {{{
 {
     std::ostringstream diag;
@@ -151,5 +154,25 @@ BOOST_AUTO_TEST_CASE(get_double) // {{{
     CHECK_DOUBLE(afg, "doubles.dec-max", max);
     CHECK_DOUBLE(afg, "doubles.dec-min", min);
     CHECK_DOUBLE(afg, "doubles.dec-zero", 0);
+} // }}}
+
+BOOST_AUTO_TEST_CASE(get_string) // {{{
+{
+    std::ostringstream diag;
+    std::istringstream input(
+        "[strings]\n"
+        "word = Hello\n"
+        "words = hellO  World\n"
+        "qstring = \"hello  WORLD\"\n"
+        "mix = hello  \"  WORLD\"  \n  again\n"
+    );
+
+    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+
+    CHECK_STRING(afg, "strings.word", "Hello", "");
+    CHECK_STRING(afg, "strings.words", "hellO World", "");
+    CHECK_STRING(afg, "strings.qstring", "hello  WORLD", "");
+    CHECK_STRING(afg, "strings.mix", "hello \"  WORLD\" again", "");
+    CHECK_STRING(afg, "strings.not-there", "fallback", "fallback");
 } // }}}
 
