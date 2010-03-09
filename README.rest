@@ -136,6 +136,9 @@ output.hpp ::
     , T dflt
   );
 
+T get<T>(ast::node, std::string, T)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 The library defines these specializations:
 
 * `std::vector<std::string>`
