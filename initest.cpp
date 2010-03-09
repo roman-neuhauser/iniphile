@@ -18,31 +18,31 @@
 namespace ini = iniphile;
 namespace ast = iniphile::ast;
 
-BOOST_AUTO_TEST_CASE(parsing_empty_file_succeeds)
+BOOST_AUTO_TEST_CASE(parsing_empty_file_succeeds) // {{{
 {
     std::ostringstream diag;
     std::istringstream input("");
     BOOST_CHECK_EQUAL(true, !!ini::parse(input, diag));
     BOOST_CHECK_EQUAL("", diag.str());
-}
+} // }}}
 
-BOOST_AUTO_TEST_CASE(syntax_error)
+BOOST_AUTO_TEST_CASE(syntax_error) // {{{
 {
     std::ostringstream diag;
     std::istringstream input("syntax error");
     BOOST_CHECK_EQUAL(false, !!ini::parse(input, diag));
     BOOST_CHECK_NE("", diag.str());
-}
+} // }}}
 
 template<class T>
 static
 void
-check_get_failure(ast::node const& afg, T exp, T dflt)
+check_get_failure(ast::node const& afg, T exp, T dflt) // {{{
 {
     BOOST_CHECK_EQUAL(exp, ini::get(afg, std::string("qux"), dflt));
-}
+} // }}}
 
-BOOST_AUTO_TEST_CASE(key_not_found)
+BOOST_AUTO_TEST_CASE(key_not_found) // {{{
 {
     std::ostringstream diag;
     std::istringstream input("");
@@ -70,5 +70,5 @@ BOOST_AUTO_TEST_CASE(key_not_found)
     BOOST_CHECK_EQUAL(unsigned(2), rv.size());
     BOOST_CHECK_EQUAL(dflt[0], rv[0]);
     BOOST_CHECK_EQUAL(dflt[1], rv[1]);
-}
+} // }}}
 
