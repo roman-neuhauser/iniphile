@@ -86,6 +86,12 @@ BOOST_AUTO_TEST_CASE(key_not_found) // {{{
 #define CHECK_STRING(afg, p, exp, dflt) \
     BOOST_CHECK_EQUAL(exp, ini::get(afg, std::string(p), std::string(dflt)))
 
+#define CHECK_STRINGS(afg, p, exp, dflt) \
+    { \
+        std::vector<std::string> rv = ini::get(afg, std::string(p), dflt); \
+        BOOST_CHECK_EQUAL_COLLECTIONS(exp.begin(), exp.end(), rv.begin(), rv.end()); \
+    }
+
 BOOST_AUTO_TEST_CASE(get_bool) // {{{
 {
     std::ostringstream diag;
@@ -174,5 +180,64 @@ BOOST_AUTO_TEST_CASE(get_string) // {{{
     CHECK_STRING(afg, "strings.qstring", "hello  WORLD", "");
     CHECK_STRING(afg, "strings.mix", "hello \"  WORLD\" again", "");
     CHECK_STRING(afg, "strings.not-there", "fallback", "fallback");
+} // }}}
+
+BOOST_AUTO_TEST_CASE(get_strings) // {{{
+{
+    std::ostringstream diag;
+    std::istringstream input(
+        "[strings]\n"
+        "word = Hello\n"
+        "words = hellO  World\n"
+        "qstring = \"hello  WORLD\"\n"
+        "mix = hello  \"  WORLD\"\n"
+        "  again\n"
+        "qstring-nl = \"  \n"
+        "hello\n"
+        " world\n"
+        " \"\n"
+    );
+
+    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+
+    {
+        std::vector<std::string> dflt, exp;
+        dflt.push_back("absent");
+        exp = dflt;
+        CHECK_STRINGS(afg, "strings.not-there", exp, dflt);
+    }
+    {
+        std::vector<std::string> dflt, exp;
+        dflt.push_back("");
+        exp.push_back("Hello");
+        CHECK_STRINGS(afg, "strings.word", exp, dflt);
+    }
+    {
+        std::vector<std::string> dflt, exp;
+        dflt.push_back("");
+        exp.push_back("hellO");
+        exp.push_back("World");
+        CHECK_STRINGS(afg, "strings.words", exp, dflt);
+    }
+    {
+        std::vector<std::string> dflt, exp;
+        dflt.push_back("");
+        exp.push_back("hello  WORLD");
+        CHECK_STRINGS(afg, "strings.qstring", exp, dflt);
+    }
+    {
+        std::vector<std::string> dflt, exp;
+        dflt.push_back("");
+        exp.push_back("  \nhello\n world\n ");
+        CHECK_STRINGS(afg, "strings.qstring-nl", exp, dflt);
+    }
+    {
+        std::vector<std::string> dflt, exp;
+        dflt.push_back("");
+        exp.push_back("hello");
+        exp.push_back("  WORLD");
+        exp.push_back("again");
+        CHECK_STRINGS(afg, "strings.mix", exp, dflt);
+    }
 } // }}}
 
