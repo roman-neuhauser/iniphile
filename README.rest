@@ -9,6 +9,14 @@
 :Contact: neuhauser@sigpipe.cz
 :Copyright: This document is in the public domain.
 
+.. this file is marked up using reStructuredText
+   lines beginning with ".." are reST directives
+   "foo_" or "`foo bar`_" is a link, defined at ".. _foo" or ".. _foo bar"
+   "::" introduces a literal block (usually some form of code)
+   "`foo`" is some kind of identifier
+   suspicious backslashes in the text ("`std::string`\s") are required for
+   reST to recognize the preceding character as syntax
+
 .. contents::
 
 Introduction
@@ -19,6 +27,151 @@ It requires Boost_ >= 1.41, and is known to build and run on FreeBSD 9
 with gcc >= 4.2.1, and on Windows XP with Visual Studio 9.
 
 .. _Boost: http://boost.org/
+
+Reference
+=========
+
+INI file syntax
++++++++++++++++
+
+There's no standard definition of INI file syntax and semantics.  The ABNF_
+grammar below approximates the dialect supported by this library (only
+*significant* whitespace is part of the grammar).  See the following prose
+for clarifications).
+
+.. _ABNF: http://tools.ietf.org/html/std68
+
+::
+
+  inifile      =  *section
+                  EOF
+  section      =  *comentline
+                  headerline
+                  sectionbody
+  headerline   =  "[" sectionname "]" comment
+  sectionname  =  1*LCHAR
+                  ; except "]"
+  sectionbody  =  *(assignment / comment)
+  assignment   =  optname "=" optval
+  optname      =  1*VCHAR
+                  ; except "="
+  optval       =  ovlinefirst
+                  *ovlinecont
+  ovlinefirst  =  [ovline] comment
+  ovlinecont   =  1*WSP ovline comment
+  ovline       =  *optvalpart
+  optvalpart   =  qstring / bareword
+  qstring      =  DQUOTE *CHAR DQUOTE
+  bareword     =  1*VCHAR
+                  ; except ";"
+  comment      =  *1(";" *LCHAR) EOL
+  EOL          =  CRLF / CR /  LF
+  LCHAR        =  VCHAR / WSP
+
+An `inifile` is a flat, possibly empty, collection of `section`\s.  A
+`section` begins at a `headerline` and continues until the next `headerline`
+or `EOF`, whichever comes first.  Each `section` contains zero or more
+`assignment`\s, `optname`/`optval` pairs.  Whitespace allowed around the "=".
+`optname` must begin at the start of a line.  `optval` is a list of strings
+(`optvalpart`, either a `qstring` or a `bareword`) separated by whitespace.
+It may span multiple lines: continuation lines begin with horizontal
+whitespace, and `qstring`\s may also contain newlines.
+
+Library
++++++++
+
+Each header `#include`\s all its dependencies.
+
+metagram.hpp ::
+
+  typedef unspecified iniphile::config;
+
+input.hpp ::
+
+  typedef boost::optional<iniphile::config> parse_result;
+
+  iniphile::parse_result
+  iniphile::parse(
+      std::string const& input
+    , std::ostream& diag
+  );
+
+  iniphile::parse_result
+  iniphile::parse(
+      std::istream& input
+    , std::ostream& diag
+  );
+
+astfwd.hpp ::
+
+  typedef std::vector<std::string> iniphile::valpath;
+
+  valpath
+  to_valpath(std::string const & path);
+
+  typedef unspecified iniphile::ast::node;
+
+ast.hpp ::
+
+  typedef unspecified iniphile::ast::node;
+
+  iniphile::ast::node
+  iniphile::normalize(iniphile::config const & cst);
+
+output.hpp ::
+
+  template<class T>
+  T
+  iniphile::get(
+      iniphile::ast::node const& cfg
+    , iniphile::valpath const& path
+    , T dflt
+  );
+
+  template<class T>
+  T
+  iniphile::get(
+      iniphile::ast::node const& cfg
+    , std::string const& path
+    , T dflt
+  );
+
+The library defines these specializations:
+
+* `std::vector<std::string>`
+
+  One `optvalpart` per `std::string`.
+  `DQUOTE`\s from `qstrings` are not maintained.
+
+* `std::string`
+
+  The whole `optval` with whitespace between `optvalpart`\s normalized to
+  single spaces.
+  `DQUOTE`\s from `qstrings` are maintained.
+
+* `bool`
+
+  The first `optvalpart` interpreted as a bool according to these rules: ::
+
+    true  <= "1" / "true"  / "yes" / "on"  ; case insensitive
+    false <= "0" / "false" / "no"  / "off" ; case insensitive
+
+* `long`
+
+  The first `optvalpart` interpreted as a bool using the
+  `boost::spirit::qi::long_`_ parser (decimal representation with optional
+  leading sign).
+
+* `double`
+
+  The first `optvalpart` interpreted as a boolean using the
+  `boost::spirit::qi::double_`_ parser (decimal representation of ints and
+  doubles, scientific representation (nnn.fff.Eeee) of doubles.
+
+.. _boost::spirit::qi::double_:
+.. _boost::spirit::qi::long_:
+.. _boost::spirit::qi::numeric:
+   http://www.boost.org/doc/libs/1_41_0/libs/spirit/doc/html/spirit/qi/reference/numeric.html
 
 Downloads
 =========
