@@ -72,3 +72,35 @@ BOOST_AUTO_TEST_CASE(key_not_found) // {{{
     BOOST_CHECK_EQUAL(dflt[1], rv[1]);
 } // }}}
 
+#define CHECK_BOOL(afg, p, exp) \
+    BOOST_CHECK_EQUAL(exp, ini::get(afg, std::string(p), !exp))
+
+BOOST_AUTO_TEST_CASE(get_bool) // {{{
+{
+    std::ostringstream diag;
+    std::istringstream input(
+        "[bools]\n"
+        "t-digit = 1\n"
+        "f-digit = 0\n"
+        "t-yesno = YeS\n"
+        "f-yesno = nO\n"
+        "t-truefalse = tRuE\n"
+        "f-truefalse = FAlsE\n"
+        "t-onoff = oN\n"
+        "f-onoff = ofF\n"
+    );
+
+    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+
+    CHECK_BOOL(afg, "bools.t-digit", true);
+    CHECK_BOOL(afg, "bools.f-digit", false);
+
+    CHECK_BOOL(afg, "bools.t-yesno", true);
+    CHECK_BOOL(afg, "bools.f-yesno", false);
+
+    CHECK_BOOL(afg, "bools.t-truefalse", true);
+    CHECK_BOOL(afg, "bools.f-truefalse", false);
+
+    CHECK_BOOL(afg, "bools.t-onoff", true);
+    CHECK_BOOL(afg, "bools.f-onoff", false);
+} // }}}

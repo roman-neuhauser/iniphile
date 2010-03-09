@@ -157,8 +157,8 @@ parse_(std::string const & input, bool dflt) // {{{
 
     typedef std::string::const_iterator Iter;
     qi::rule<Iter, bool()> yes, no;
-    yes = (no_case[lit("true") | "yes"] | "1")[_val = true];
-    no  = (no_case[lit("false") | "no"] | "0")[_val = false];
+    yes = (no_case[lit("true") | "yes" | "on"] | "1")[_val = true];
+    no  = (no_case[lit("false") | "no" | "off"] | "0")[_val = false];
     bool rv;
     return parse_(input, yes | no, rv)
         ? rv
