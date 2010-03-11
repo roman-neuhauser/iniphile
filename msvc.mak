@@ -30,6 +30,7 @@ VERSION_minor=1
 VERSION_string=$(VERSION_major).$(VERSION_minor)
 
 COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
+DLL_LINKAGE=-DINIPHILE_DLL
 
 LIBINIPHILE_PC=
 CANONICAL=libiniphile.so
@@ -90,10 +91,10 @@ initest-static.o: initest.cpp
 	$(COMPILE)$@ initest.cpp
 
 initest-shared.o: initest.cpp
-	$(COMPILE)$@ initest.cpp -DINIPHILE_DLL
+	$(COMPILE)$@ initest.cpp $(DLL_LINKAGE)
 
 .cpp.o:
-	$(COMPILE)$@ $< -DINIPHILE_DLL
+	$(COMPILE)$@ $< $(DLL_LINKAGE)
 
 initest-shared$(dot_exe): libiniphile.lib
 initest-static.o: metagram.hpp input.hpp output.hpp ast.hpp
