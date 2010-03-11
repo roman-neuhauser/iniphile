@@ -37,14 +37,14 @@ LD_soname=
 
 PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp metagram.hpp output.hpp
 
-ARTIFACTS=$(OBJECTS) initest-static$(EXE) initest-shared$(EXE) \
+ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \
 	  *.exp *.lib *.manifest \
 	  $(SONAME) *.a *.pc
 
 EMBED_MANIFEST= \
 	$(MT) $(MTFLAGS) -manifest $@.manifest -outputresource:$@;1
 
-EXE=.exe
+dot_exe=.exe
 
 all: initest $(LIBINIPHILE_PC)
 
@@ -52,8 +52,8 @@ clean:
 	$(RM_F) $(ARTIFACTS)
 
 check: initest
-	initest-static$(EXE)
-	initest-shared$(EXE)
+	initest-static$(dot_exe)
+	initest-shared$(dot_exe)
 
 install: all
 	if not exist $(DESTDIR)$(LIBDIR) \
@@ -66,7 +66,7 @@ install: all
 	for %f in ($(PUBLIC_HEADERS)) do \
 		$(INSTALL) %f $(DESTDIR)$(INCDIR)\%f
 
-initest: initest-static$(EXE) initest-shared$(EXE)
+initest: initest-static$(dot_exe) initest-shared$(dot_exe)
 
 libiniphile.lib: $(SONAME)
 
@@ -76,12 +76,12 @@ $(SONAME): $(LIBOBJECTS)
 libiniphile.a: $(LIBOBJECTS)
 	$(AR) $(ARFLAGS) $(AR_rc)libiniphile.a $(LIBOBJECTS)
 
-initest-static$(EXE): initest-static.o libiniphile.a
-	$(LD) $(LDFLAGS) $(LD_o)initest-static$(EXE) initest-static.o libiniphile.a $(LDLIBS)
+initest-static$(dot_exe): initest-static.o libiniphile.a
+	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
 	$(EMBED_MANIFEST)
 
-initest-shared$(EXE): initest-shared.o libiniphile.lib
-	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(EXE) initest-shared.o libiniphile.lib $(LDLIBS)
+initest-shared$(dot_exe): initest-shared.o libiniphile.lib
+	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o libiniphile.lib $(LDLIBS)
 	$(EMBED_MANIFEST)
 
 COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)

@@ -43,11 +43,11 @@ PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
 all: initest libiniphile.pc
 
 clean:
-	rm -f initest-static initest-shared *.so.[0-9] *.a *.o *.pc
+	rm -f initest-static$(dot_exe) initest-shared$(dot_exe) *.so.[0-9] *.a *.o *.pc
 
 check: initest
-	LD_LIBRARY_PATH=. ./initest-static
-	LD_LIBRARY_PATH=. ./initest-shared
+	LD_LIBRARY_PATH=. ./initest-static$(dot_exe)
+	LD_LIBRARY_PATH=. ./initest-shared$(dot_exe)
 
 install: all
 	mkdir -p $(DESTDIR)$(LIBDIR)
@@ -62,7 +62,7 @@ install: all
 	done
 	$(INSTALL) libiniphile.pc $(PKGCONFIGDIR)/libiniphile.pc
 
-initest: initest-static initest-shared
+initest: initest-static$(dot_exe) initest-shared$(dot_exe)
 
 libiniphile.pc: libiniphile.pc.in
 	trap "$(RM_F) libiniphile.pc.$$$$" EXIT; \
@@ -78,11 +78,11 @@ $(SONAME): libiniphile.a
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
 
-initest-static: initest.o libiniphile.a
-	$(LD) $(LDFLAGS) -o initest-static initest.o libiniphile.a $(LDLIBS)
+initest-static$(dot_exe): initest.o libiniphile.a
+	$(LD) $(LDFLAGS) -o initest-static$(dot_exe) initest.o libiniphile.a $(LDLIBS)
 
-initest-shared: initest.o $(SONAME)
-	$(LD) $(LDFLAGS) -o initest-shared initest.o -liniphile $(LDLIBS)
+initest-shared$(dot_exe): initest.o $(SONAME)
+	$(LD) $(LDFLAGS) -o initest-shared$(dot_exe) initest.o -liniphile $(LDLIBS)
 
 initest.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
