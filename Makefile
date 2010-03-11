@@ -43,6 +43,8 @@ COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
 
 CANONICAL=libiniphile.so
 SONAME=$(CANONICAL).$(VERSION.major)
+LIBOBJECTS=input.o output.o ast.o
+OBJECTS=initest-shared.o initest-static.o $(LIBOBJECTS)
 WL.SONAME=-Wl,--soname=$(SONAME)
 
 PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
@@ -82,8 +84,8 @@ libiniphile.pc: libiniphile.pc.in
 $(SONAME): libiniphile.a
 	$(LD) -shared $(WL.SONAME) $(LD_o)$(SONAME) -Wl,--whole-archive libiniphile.a
 
-libiniphile.a: output.o ast.o input.o
-	$(AR) -rc libiniphile.a output.o ast.o input.o
+libiniphile.a: $(LIBOBJECTS)
+	$(AR) -rc libiniphile.a $(LIBOBJECTS)
 
 initest-static$(dot_exe): initest-static.o libiniphile.a
 	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
