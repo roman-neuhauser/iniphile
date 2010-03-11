@@ -15,8 +15,6 @@ CXX=env CXX=g++$(GCCVER) gfilt
 CXX=g++$(GCCVER)
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
-LDFLAGS.shared=-Wl,-L$$PWD -Wl,-rpath $$PWD
-LDFLAGS.static=
 
 CXXSTD=-std=c++98 -pedantic
 CXXOPTFLAGS=-g -O1
@@ -80,10 +78,10 @@ libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
 
 initest-static: initest.o libiniphile.a
-	$(CXX) $(LDFLAGS) $(LDFLAGS.static) -o initest-static initest.o libiniphile.a $(LDLIBS)
+	$(CXX) $(LDFLAGS) -o initest-static initest.o libiniphile.a $(LDLIBS)
 
 initest-shared: initest.o $(SONAME)
-	$(CXX) $(LDFLAGS) $(LDFLAGS.shared) -o initest-shared initest.o -liniphile $(LDLIBS)
+	$(CXX) $(LDFLAGS) -o initest-shared initest.o -liniphile $(LDLIBS)
 
 initest.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
