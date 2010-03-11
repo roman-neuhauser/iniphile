@@ -218,13 +218,13 @@ The library defines these specializations:
 
 * `long`
 
-  The first `optvalpart` interpreted as a bool using the
+  The first `optvalpart` interpreted as a long using the
   `boost::spirit::qi::long_`_ parser (decimal representation with optional
   leading sign).
 
 * `double`
 
-  The first `optvalpart` interpreted as a boolean using the
+  The first `optvalpart` interpreted as a double using the
   `boost::spirit::qi::double_`_ parser (decimal representation of ints and
   doubles, scientific representation (nnn.fff.Eeee) of doubles.
 
