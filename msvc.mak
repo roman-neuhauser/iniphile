@@ -72,7 +72,7 @@ initest: initest-static$(dot_exe) initest-shared$(dot_exe)
 libiniphile.lib: $(SONAME)
 
 $(SONAME): $(LIBOBJECTS)
-	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) $(LIBOBJECTS) $(LDLIBS)
+	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) $(LIBOBJECTS)
 
 libiniphile.a: $(LIBOBJECTS)
 	$(AR) $(ARFLAGS) $(AR_rc)libiniphile.a $(LIBOBJECTS)
