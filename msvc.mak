@@ -15,8 +15,8 @@ CP=copy
 LD=link.exe
 LD_L=/LIBPATH:
 LD_o=/OUT:
-LD_shared=/DLL
 LDFLAGS=/nologo /INCREMENTAL:NO $(LD_L)$(BOOST_LIBDIR)
+LDFLAGS_SO=/DLL /IMPLIB:libiniphile.lib
 LDLIBS=boost_unit_test_framework.lib
 MKDIR_P=mkdir
 MT=mt.exe
@@ -35,7 +35,6 @@ CANONICAL=libiniphile.so
 SONAME=libiniphile-$(VERSION_major).so
 LIBOBJECTS=input.o output.o ast.o
 OBJECTS=initest-shared.o initest-static.o $(LIBOBJECTS)
-LD_soname=
 
 PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp metagram.hpp output.hpp
 
@@ -73,7 +72,7 @@ initest: initest-static$(dot_exe) initest-shared$(dot_exe)
 libiniphile.lib: $(SONAME)
 
 $(SONAME): $(LIBOBJECTS)
-	$(LD) $(LDFLAGS) $(LD_shared) $(LD_soname) /IMPLIB:libiniphile.lib $(LD_o)$(SONAME) $(LIBOBJECTS) $(LDLIBS)
+	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) $(LIBOBJECTS) $(LDLIBS)
 
 libiniphile.a: $(LIBOBJECTS)
 	$(AR) $(ARFLAGS) $(AR_rc)libiniphile.a $(LIBOBJECTS)

@@ -19,6 +19,7 @@ LD=$(CXX)
 LD_o=-o
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
+LDFLAGS_SO=-shared -Wl,--soname=$(SONAME)
 MKDIR_P=mkdir -p
 
 CXXSTD=-std=c++98 -pedantic
@@ -46,7 +47,6 @@ CANONICAL=libiniphile.so
 SONAME=$(CANONICAL).$(VERSION.major)
 LIBOBJECTS=input.o output.o ast.o
 OBJECTS=initest-shared.o initest-static.o $(LIBOBJECTS)
-WL.SONAME=-Wl,--soname=$(SONAME)
 
 PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp metagram.hpp output.hpp
 
@@ -86,7 +86,7 @@ libiniphile.pc: libiniphile.pc.in
 	mv libiniphile.pc.$$$$ libiniphile.pc
 
 $(SONAME): libiniphile.a
-	$(LD) -shared $(WL.SONAME) $(LD_o)$(SONAME) -Wl,--whole-archive libiniphile.a
+	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) -Wl,--whole-archive libiniphile.a
 
 libiniphile.a: $(LIBOBJECTS)
 	$(AR) -rc libiniphile.a $(LIBOBJECTS)
