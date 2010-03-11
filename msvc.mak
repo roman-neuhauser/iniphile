@@ -16,8 +16,9 @@ LD=link.exe
 LD_L=/LIBPATH:
 LD_o=/OUT:
 LDFLAGS=/nologo /INCREMENTAL:NO $(LD_L)$(BOOST_LIBDIR)
-LDFLAGS_SO=/DLL /IMPLIB:libiniphile.lib
+LDFLAGS_SO=/DLL /IMPLIB:$(IMPORT_LIB)
 LDLIBS=boost_unit_test_framework.lib
+LDLIBS_SHARED=$(IMPORT_LIB)
 MKDIR_P=mkdir
 MT=mt.exe
 MTFLAGS=/nologo
@@ -35,6 +36,7 @@ DLL_LINKAGE=-DINIPHILE_DLL
 LIBINIPHILE_PC=
 CANONICAL=libiniphile.so
 SONAME=libiniphile-$(VERSION_major).so
+IMPORT_LIB=libiniphile.lib
 LIBOBJECTS=input.o output.o ast.o
 OBJECTS=initest-shared.o initest-static.o $(LIBOBJECTS)
 
@@ -63,7 +65,7 @@ install: all
 	$(MKDIR_P) $(DESTDIR)$(LIBDIR)
 	$(INSTALL_PROGRAM) libiniphile.a $(DESTDIR)$(LIBDIR)\libiniphile.a
 	$(INSTALL_PROGRAM) $(SONAME) $(DESTDIR)$(LIBDIR)\$(SONAME)
-	$(INSTALL_PROGRAM) libiniphile.lib $(DESTDIR)$(LIBDIR)\libiniphile.lib
+	$(INSTALL_PROGRAM) $(IMPORT_LIB) $(DESTDIR)$(LIBDIR)\$(IMPORT_LIB)
 	if not exist $(DESTDIR)$(INCDIR) \
 	$(MKDIR_P) $(DESTDIR)$(INCDIR)
 	for %f in ($(PUBLIC_HEADERS)) do \
@@ -71,7 +73,7 @@ install: all
 
 initest: initest-static$(dot_exe) initest-shared$(dot_exe)
 
-libiniphile.lib: $(SONAME)
+$(IMPORT_LIB): $(SONAME)
 
 $(SONAME): $(LIBOBJECTS)
 	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) $(LIBOBJECTS)
@@ -84,7 +86,7 @@ initest-static$(dot_exe): initest-static.o libiniphile.a
 	$(EMBED_MANIFEST)
 
 initest-shared$(dot_exe): initest-shared.o
-	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o libiniphile.lib $(LDLIBS)
+	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o $(LDLIBS_SHARED) $(LDLIBS)
 	$(EMBED_MANIFEST)
 
 initest-static.o: initest.cpp
@@ -96,7 +98,7 @@ initest-shared.o: initest.cpp
 .cpp.o:
 	$(COMPILE)$@ $< $(DLL_LINKAGE)
 
-initest-shared$(dot_exe): libiniphile.lib
+initest-shared$(dot_exe): $(IMPORT_LIB)
 initest-static.o: metagram.hpp input.hpp output.hpp ast.hpp
 initest-shared.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp

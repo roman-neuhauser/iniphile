@@ -15,6 +15,7 @@ CXX=env CXX=g++$(GCCVER) gfilt
 CXX=g++$(GCCVER)
 CXX_c=-c
 CXX_o=-o
+ARFLAGS=
 AR_rc=-rc
 LD=$(CXX)
 LD_o=-o
@@ -29,6 +30,7 @@ CXXWFLAGS=-Wall -Wextra -Werror -Wfatal-errors -Wno-long-long
 CXXRTLIB=$(_CXXRT)
 CXXRTRUN=$(_CXXRT)
 LDLIBS=-lboost_unit_test_framework
+LDLIBS_SHARED=-liniphile
 
 GCCVER?=44
 
@@ -47,6 +49,7 @@ DLL_LINKAGE=
 LIBINIPHILE_PC=libiniphile.pc
 CANONICAL=libiniphile.so
 SONAME=$(CANONICAL).$(VERSION_major)
+IMPORT_LIB=$(SONAME)
 LIBOBJECTS=input.o output.o ast.o
 OBJECTS=initest-shared.o initest-static.o $(LIBOBJECTS)
 
@@ -104,7 +107,7 @@ initest-static$(dot_exe): initest-static.o libiniphile.a
 	$(EMBED_MANIFEST)
 
 initest-shared$(dot_exe): initest-shared.o
-	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o -liniphile $(LDLIBS)
+	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o $(LDLIBS_SHARED) $(LDLIBS)
 	$(EMBED_MANIFEST)
 
 initest-static.o: initest.cpp
@@ -116,7 +119,7 @@ initest-shared.o: initest.cpp
 .cpp.o:
 	$(COMPILE)$@ $< $(DLL_LINKAGE)
 
-initest-shared$(dot_exe): $(SONAME)
+initest-shared$(dot_exe): $(IMPORT_LIB)
 initest-static.o: metagram.hpp input.hpp output.hpp ast.hpp
 initest-shared.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
