@@ -15,6 +15,7 @@ CXX=env CXX=g++$(GCCVER) gfilt
 CXX=g++$(GCCVER)
 CXX_c=-c
 CXX_o=-o
+AR_rc=-rc
 LD=$(CXX)
 LD_o=-o
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
@@ -89,7 +90,7 @@ $(SONAME): $(LIBOBJECTS)
 	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) $(LIBOBJECTS)
 
 libiniphile.a: $(LIBOBJECTS)
-	$(AR) -rc libiniphile.a $(LIBOBJECTS)
+	$(AR) $(ARFLAGS) $(AR_rc) libiniphile.a $(LIBOBJECTS)
 
 initest-static$(dot_exe): initest-static.o libiniphile.a
 	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
