@@ -16,6 +16,7 @@ CXX=g++$(GCCVER)
 CXX_c=-c
 CXX_o=-o
 LD=$(CXX)
+LD_o=-o
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
 MKDIR_P=mkdir -p
@@ -76,7 +77,7 @@ libiniphile.pc: libiniphile.pc.in
 	mv libiniphile.pc.$$$$ libiniphile.pc
 
 $(SONAME): libiniphile.a
-	$(LD) -shared $(WL.SONAME) -o $(SONAME) -Wl,--whole-archive libiniphile.a
+	$(LD) -shared $(WL.SONAME) $(LD_o)$(SONAME) -Wl,--whole-archive libiniphile.a
 
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
@@ -84,10 +85,10 @@ libiniphile.a: output.o ast.o input.o
 COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
 
 initest-static$(dot_exe): initest-static.o libiniphile.a
-	$(LD) $(LDFLAGS) -o initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
+	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
 
 initest-shared$(dot_exe): initest-shared.o $(SONAME)
-	$(LD) $(LDFLAGS) -o initest-shared$(dot_exe) initest-shared.o -liniphile $(LDLIBS)
+	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o -liniphile $(LDLIBS)
 
 initest-static.o: initest.cpp
 	$(COMPILE)$@ initest.cpp
