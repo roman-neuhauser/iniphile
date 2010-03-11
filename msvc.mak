@@ -22,6 +22,7 @@ MKDIR_P=mkdir
 MT=mt.exe
 MTFLAGS=/nologo
 RM_F=del /f
+INSTALL_PROGRAM=$(INSTALL)
 INSTALL=copy
 
 VERSION_major=0
@@ -59,9 +60,9 @@ check: initest
 install: all
 	if not exist $(DESTDIR)$(LIBDIR) \
 	$(MKDIR_P) $(DESTDIR)$(LIBDIR)
-	$(INSTALL) libiniphile.a $(DESTDIR)$(LIBDIR)\libiniphile.a
-	$(INSTALL) libiniphile.lib $(DESTDIR)$(LIBDIR)\libiniphile.lib
-	$(INSTALL) $(SONAME) $(DESTDIR)$(LIBDIR)\$(SONAME)
+	$(INSTALL_PROGRAM) libiniphile.a $(DESTDIR)$(LIBDIR)\libiniphile.a
+	$(INSTALL_PROGRAM) $(SONAME) $(DESTDIR)$(LIBDIR)\$(SONAME)
+	$(INSTALL_PROGRAM) libiniphile.lib $(DESTDIR)$(LIBDIR)\libiniphile.lib
 	if not exist $(DESTDIR)$(INCDIR) \
 	$(MKDIR_P) $(DESTDIR)$(INCDIR)
 	for %f in ($(PUBLIC_HEADERS)) do \

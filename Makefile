@@ -34,7 +34,7 @@ GCCVER?=44
 
 LN_S?=ln -s
 RM_F?=rm -f
-INSTALL.stripped?=$(INSTALL) -s
+INSTALL_PROGRAM?=$(INSTALL) -s
 
 VERSION.major=0
 VERSION.minor=1
@@ -65,8 +65,8 @@ check: initest
 
 install: all
 	$(MKDIR_P) $(DESTDIR)$(LIBDIR)
-	$(INSTALL.stripped) libiniphile.a $(DESTDIR)$(LIBDIR)/libiniphile.a
-	$(INSTALL.stripped) $(SONAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
+	$(INSTALL_PROGRAM) libiniphile.a $(DESTDIR)$(LIBDIR)/libiniphile.a
+	$(INSTALL_PROGRAM) $(SONAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
 	cd $(DESTDIR)$(LIBDIR) \
 		&& $(RM_F) $(CANONICAL) \
 		&& $(LN_S) $(SONAME) $(CANONICAL)
