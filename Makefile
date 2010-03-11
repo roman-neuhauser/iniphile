@@ -41,6 +41,7 @@ VERSION.string=$(VERSION.major).$(VERSION.minor)
 
 COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
 
+LIBINIPHILE_PC=libiniphile.pc
 CANONICAL=libiniphile.so
 SONAME=$(CANONICAL).$(VERSION.major)
 LIBOBJECTS=input.o output.o ast.o
@@ -49,10 +50,13 @@ WL.SONAME=-Wl,--soname=$(SONAME)
 
 PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp metagram.hpp output.hpp
 
-all: initest libiniphile.pc
+ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \
+	  $(SONAME) *.a *.pc
+
+all: initest $(LIBINIPHILE_PC)
 
 clean:
-	$(RM_F) initest-static$(dot_exe) initest-shared$(dot_exe) *.so.[0-9] *.a *.o *.pc
+	$(RM_F) $(ARTIFACTS)
 
 check: initest
 	LD_LIBRARY_PATH=. ./initest-static$(dot_exe)
