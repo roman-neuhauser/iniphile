@@ -1,4 +1,4 @@
-// Copyright (c) 2009 Roman Neuhauser
+// Copyright (c) 2009-2010 Roman Neuhauser
 // Distributed under the MIT license (see LICENSE file)
 // vim: sw=4 sts=4 et fdm=marker cms=\ //\ %s
 
