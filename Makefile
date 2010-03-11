@@ -13,6 +13,7 @@ UTFRUN?=$(UTFLIB)
 CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(SPIRIT) -I$(UTFINC)
 CXX=env CXX=g++$(GCCVER) gfilt
 CXX=g++$(GCCVER)
+LD=$(CXX)
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
 
@@ -72,16 +73,16 @@ libiniphile.pc: libiniphile.pc.in
 	mv libiniphile.pc.$$$$ libiniphile.pc
 
 $(SONAME): libiniphile.a
-	$(CXX) -shared $(WL.SONAME) -o $(SONAME) -Wl,--whole-archive libiniphile.a
+	$(LD) -shared $(WL.SONAME) -o $(SONAME) -Wl,--whole-archive libiniphile.a
 
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
 
 initest-static: initest.o libiniphile.a
-	$(CXX) $(LDFLAGS) -o initest-static initest.o libiniphile.a $(LDLIBS)
+	$(LD) $(LDFLAGS) -o initest-static initest.o libiniphile.a $(LDLIBS)
 
 initest-shared: initest.o $(SONAME)
-	$(CXX) $(LDFLAGS) -o initest-shared initest.o -liniphile $(LDLIBS)
+	$(LD) $(LDFLAGS) -o initest-shared initest.o -liniphile $(LDLIBS)
 
 initest.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
