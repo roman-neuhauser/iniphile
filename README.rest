@@ -52,7 +52,10 @@ tut.cpp ::
   #include "output.hpp"
 
   bool
-  notify(std::vector<std::string> const& addrs);
+  notify(std::vector<std::string> const& addrs)
+  {
+      // whatever
+  }
 
   int
   main()
