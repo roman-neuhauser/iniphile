@@ -38,6 +38,9 @@ VERSION.major=0
 VERSION.minor=1
 VERSION.string=$(VERSION.major).$(VERSION.minor)
 
+
+COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
+
 CANONICAL=libiniphile.so
 SONAME=$(CANONICAL).$(VERSION.major)
 WL.SONAME=-Wl,--soname=$(SONAME)
@@ -82,12 +85,10 @@ $(SONAME): libiniphile.a
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
 
-COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
-
 initest-static$(dot_exe): initest-static.o libiniphile.a
 	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
 
-initest-shared$(dot_exe): initest-shared.o $(SONAME)
+initest-shared$(dot_exe): initest-shared.o
 	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o -liniphile $(LDLIBS)
 
 initest-static.o: initest.cpp
@@ -99,6 +100,7 @@ initest-shared.o: initest.cpp
 .cpp.o:
 	$(COMPILE)$@ $<
 
+initest-shared$(dot_exe): $(SONAME)
 initest-static.o: metagram.hpp input.hpp output.hpp ast.hpp
 initest-shared.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
