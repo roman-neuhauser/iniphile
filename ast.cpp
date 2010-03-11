@@ -9,6 +9,8 @@
 
 #include <boost/spirit/include/qi.hpp>
 
+#define LIBINIPHILE_SOURCE
+
 #include "ast.hpp"
 
 namespace iniphile

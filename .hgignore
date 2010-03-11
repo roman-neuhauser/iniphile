@@ -3,11 +3,16 @@ syntax: glob
 .sw?
 .*.sw?
 *.a
+*.exe
+*.exp
+*.lib
+*.manifest
 *.o
-*.so.[0-9]
 README.html
 commit
 initest-shared
 initest-static
 libiniphile.pc
+libiniphile.so.[0-9]
+libiniphile-[0-9].so
 tags

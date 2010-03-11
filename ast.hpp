@@ -10,6 +10,8 @@
 
 #include <boost/variant.hpp>
 
+#include "declspec.hpp"
+
 #include "astfwd.hpp"
 #include "metagram.hpp"
 
@@ -38,6 +40,7 @@ struct branch
 
 } // namespace ast
 
+DLLEXPORT
 ast::node
 normalize(metagram::config const & cst);
 

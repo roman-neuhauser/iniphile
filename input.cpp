@@ -6,6 +6,8 @@
 #include <boost/spirit/include/phoenix.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
 
+#define LIBINIPHILE_SOURCE
+
 #include "input.hpp"
 
 namespace iniphile

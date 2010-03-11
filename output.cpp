@@ -10,6 +10,8 @@
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
 
+#define LIBINIPHILE_SOURCE
+
 #include "ast.hpp"
 #include "output.hpp"
 
@@ -311,7 +313,10 @@ get(ast::node const & cfg, std::string const & path, T dflt) // {{{
 } // }}}
 
 #define INIPHILE_GET_SPEC_INST(T) \
-    template T get< T >(ast::node const & cfg, std::string const & path, T dflt)
+    template \
+    DLLEXPORT \
+    T \
+    get< T >(ast::node const & cfg, std::string const & path, T dflt)
 
 INIPHILE_GET_SPEC_INST(std::vector<std::string>);
 INIPHILE_GET_SPEC_INST(std::string);
