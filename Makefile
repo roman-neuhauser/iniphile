@@ -56,6 +56,11 @@ ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \
 	  *.exp *.lib *.manifest \
 	  $(SONAME) *.a *.pc
 
+EMBED_MANIFEST= \
+	:
+
+dot_exe=
+
 all: initest $(LIBINIPHILE_PC)
 
 clean:
@@ -96,9 +101,11 @@ libiniphile.a: $(LIBOBJECTS)
 
 initest-static$(dot_exe): initest-static.o libiniphile.a
 	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
+	$(EMBED_MANIFEST)
 
 initest-shared$(dot_exe): initest-shared.o
 	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o -liniphile $(LDLIBS)
+	$(EMBED_MANIFEST)
 
 initest-static.o: initest.cpp
 	$(COMPILE)$@ initest.cpp
