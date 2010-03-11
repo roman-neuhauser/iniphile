@@ -85,8 +85,8 @@ libiniphile.pc: libiniphile.pc.in
 	    > libiniphile.pc.$$$$; \
 	mv libiniphile.pc.$$$$ libiniphile.pc
 
-$(SONAME): libiniphile.a
-	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) -Wl,--whole-archive libiniphile.a
+$(SONAME): $(LIBOBJECTS)
+	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) $(LIBOBJECTS)
 
 libiniphile.a: $(LIBOBJECTS)
 	$(AR) -rc libiniphile.a $(LIBOBJECTS)
