@@ -47,7 +47,7 @@ LIBOBJECTS=input.o output.o ast.o
 OBJECTS=initest-shared.o initest-static.o $(LIBOBJECTS)
 WL.SONAME=-Wl,--soname=$(SONAME)
 
-PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
+PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp metagram.hpp output.hpp
 
 all: initest libiniphile.pc
 
