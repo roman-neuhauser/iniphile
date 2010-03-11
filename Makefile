@@ -36,9 +36,9 @@ LN_S?=ln -s
 RM_F?=rm -f
 INSTALL_PROGRAM?=$(INSTALL) -s
 
-VERSION.major=0
-VERSION.minor=1
-VERSION.string=$(VERSION.major).$(VERSION.minor)
+VERSION_major=0
+VERSION_minor=1
+VERSIONSTRING=$(VERSION_major).$(VERSION_minor)
 
 
 COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
@@ -46,7 +46,7 @@ DLL_LINKAGE=
 
 LIBINIPHILE_PC=libiniphile.pc
 CANONICAL=libiniphile.so
-SONAME=$(CANONICAL).$(VERSION.major)
+SONAME=$(CANONICAL).$(VERSION_major)
 LIBOBJECTS=input.o output.o ast.o
 OBJECTS=initest-shared.o initest-static.o $(LIBOBJECTS)
 
@@ -82,7 +82,7 @@ initest: initest-static$(dot_exe) initest-shared$(dot_exe)
 libiniphile.pc: libiniphile.pc.in
 	trap "$(RM_F) libiniphile.pc.$$$$" EXIT; \
 	sed -e 's#@@PREFIX@@#$(PREFIX)#' \
-	    -e 's#@@VERSION@@#$(VERSION.string)#' \
+	    -e 's#@@VERSION@@#$(VERSIONSTRING)#' \
 	    < libiniphile.pc.in \
 	    > libiniphile.pc.$$$$; \
 	mv libiniphile.pc.$$$$ libiniphile.pc
