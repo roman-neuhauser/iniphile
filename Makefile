@@ -13,6 +13,8 @@ UTFRUN?=$(UTFLIB)
 CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(SPIRIT) -I$(UTFINC)
 CXX=env CXX=g++$(GCCVER) gfilt
 CXX=g++$(GCCVER)
+CXX_c=-c
+CXX_o=-o
 LD=$(CXX)
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
@@ -78,13 +80,25 @@ $(SONAME): libiniphile.a
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
 
-initest-static$(dot_exe): initest.o libiniphile.a
-	$(LD) $(LDFLAGS) -o initest-static$(dot_exe) initest.o libiniphile.a $(LDLIBS)
+COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
 
-initest-shared$(dot_exe): initest.o $(SONAME)
-	$(LD) $(LDFLAGS) -o initest-shared$(dot_exe) initest.o -liniphile $(LDLIBS)
+initest-static$(dot_exe): initest-static.o libiniphile.a
+	$(LD) $(LDFLAGS) -o initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
 
-initest.o: metagram.hpp input.hpp output.hpp ast.hpp
+initest-shared$(dot_exe): initest-shared.o $(SONAME)
+	$(LD) $(LDFLAGS) -o initest-shared$(dot_exe) initest-shared.o -liniphile $(LDLIBS)
+
+initest-static.o: initest.cpp
+	$(COMPILE)$@ initest.cpp
+
+initest-shared.o: initest.cpp
+	$(COMPILE)$@ initest.cpp
+
+.cpp.o:
+	$(COMPILE)$@ $<
+
+initest-static.o: metagram.hpp input.hpp output.hpp ast.hpp
+initest-shared.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
 output.o: metagram.hpp output.hpp ast.hpp
 ast.o: metagram.hpp ast.hpp
