@@ -18,6 +18,7 @@ CXX_o=-o
 LD=$(CXX)
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
+MKDIR_P=mkdir -p
 
 CXXSTD=-std=c++98 -pedantic
 CXXOPTFLAGS=-g -O1
@@ -45,20 +46,20 @@ PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
 all: initest libiniphile.pc
 
 clean:
-	rm -f initest-static$(dot_exe) initest-shared$(dot_exe) *.so.[0-9] *.a *.o *.pc
+	$(RM_F) initest-static$(dot_exe) initest-shared$(dot_exe) *.so.[0-9] *.a *.o *.pc
 
 check: initest
 	LD_LIBRARY_PATH=. ./initest-static$(dot_exe)
 	LD_LIBRARY_PATH=. ./initest-shared$(dot_exe)
 
 install: all
-	mkdir -p $(DESTDIR)$(LIBDIR)
+	$(MKDIR_P) $(DESTDIR)$(LIBDIR)
 	$(INSTALL.stripped) libiniphile.a $(DESTDIR)$(LIBDIR)/libiniphile.a
 	$(INSTALL.stripped) $(SONAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
 	cd $(DESTDIR)$(LIBDIR) \
 		&& $(RM_F) $(CANONICAL) \
 		&& $(LN_S) $(SONAME) $(CANONICAL)
-	mkdir -p $(DESTDIR)$(INCDIR)
+	$(MKDIR_P) $(DESTDIR)$(INCDIR)
 	for f in $(PUBLIC_HEADERS); do \
 		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/$$f; \
 	done
