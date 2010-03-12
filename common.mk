@@ -23,7 +23,7 @@ $(SONAME): $(LIBOBJECTS)
 	$(LD) $(LDFLAGS) $(LDFLAGS_SO) $(LD_o)$(SONAME) $(LIBOBJECTS)
 
 libiniphile.a: $(LIBOBJECTS)
-	$(AR) $(ARFLAGS) $(AR_rc) libiniphile.a $(LIBOBJECTS)
+	$(AR) $(ARFLAGS) $(AR_o)libiniphile.a $(LIBOBJECTS)
 
 initest-static$(dot_exe): initest-static.o libiniphile.a
 	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)

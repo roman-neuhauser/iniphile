@@ -17,8 +17,7 @@ CXX=env CXX=g++$(GCCVER) gfilt
 CXX=g++$(GCCVER)
 CXX_c=-c
 CXX_o=-o
-ARFLAGS=
-AR_rc=-rc
+ARFLAGS=-rc
 LD=$(CXX)
 LD_o=-o
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
