@@ -1,9 +1,5 @@
 # vim: ts=8 noet ft=make
 
-VERSION_major=0
-VERSION_minor=1
-VERSIONSTRING=$(VERSION_major).$(VERSION_minor)
-
 CANONICAL=libiniphile.so
 
 COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)

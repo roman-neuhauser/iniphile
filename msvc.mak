@@ -1,3 +1,5 @@
+!include version.mk
+
 PREFIX=/usr/local
 LIBDIR=$(PREFIX)\lib
 INCDIR=$(PREFIX)\include\iniphile

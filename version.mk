@@ -1,0 +1,3 @@
+VERSION_major=0
+VERSION_minor=1
+VERSIONSTRING=$(VERSION_major).$(VERSION_minor)
