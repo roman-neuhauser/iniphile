@@ -5,8 +5,8 @@ LIBDIR?=$(PREFIX)/lib
 INCDIR?=$(PREFIX)/include
 PKGCONFIGDIR?=$(LIBDIR)/pkgconfig
 
-_CXXRT?=/usr/local/lib/gcc$(GCCVER)
 _BOOST?=..
+_CXXRT?=/usr/lib
 
 SPIRIT?=$(_BOOST)/include
 UTFINC?=$(_BOOST)/include
