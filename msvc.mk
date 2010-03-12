@@ -2,7 +2,7 @@
 
 PREFIX=/usr/local
 LIBDIR=$(PREFIX)\lib
-INCDIR=$(PREFIX)\include\iniphile
+INCDIR=$(PREFIX)\include
 BOOST_INCDIR=
 BOOST_LIBDIR=
 PATH=$(BOOST_LIBDIR);$(PATH)
@@ -49,10 +49,10 @@ install: all
 	$(INSTALL_PROGRAM) libiniphile.a $(DESTDIR)$(LIBDIR)\libiniphile.a
 	$(INSTALL_PROGRAM) $(SONAME) $(DESTDIR)$(LIBDIR)\$(SONAME)
 	$(INSTALL_PROGRAM) $(IMPORT_LIB) $(DESTDIR)$(LIBDIR)\$(IMPORT_LIB)
-	if not exist $(DESTDIR)$(INCDIR) \
-	$(MKDIR_P) $(DESTDIR)$(INCDIR)
+	if not exist $(DESTDIR)$(INCDIR)\iniphile \
+	$(MKDIR_P) $(DESTDIR)$(INCDIR)\iniphile
 	for %f in ($(PUBLIC_HEADERS)) do \
-		$(INSTALL) %f $(DESTDIR)$(INCDIR)\%f
+		$(INSTALL) %f $(DESTDIR)$(INCDIR)\iniphile\%f
 
 $(IMPORT_LIB): $(SONAME)
 

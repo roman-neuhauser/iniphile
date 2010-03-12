@@ -2,7 +2,7 @@
 
 PREFIX?=/usr/local
 LIBDIR?=$(PREFIX)/lib
-INCDIR?=$(PREFIX)/include/iniphile
+INCDIR?=$(PREFIX)/include
 PKGCONFIGDIR?=$(LIBDIR)/pkgconfig
 
 _CXXRT?=/usr/local/lib/gcc$(GCCVER)
@@ -61,9 +61,9 @@ install: all
 	cd $(DESTDIR)$(LIBDIR) \
 		&& $(RM_F) $(CANONICAL) \
 		&& $(LN_S) $(SONAME) $(CANONICAL)
-	$(MKDIR_P) $(DESTDIR)$(INCDIR)
+	$(MKDIR_P) $(DESTDIR)$(INCDIR)/iniphile
 	for f in $(PUBLIC_HEADERS); do \
-		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/$$f; \
+		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/iniphile/$$f; \
 	done
 	$(INSTALL) libiniphile.pc $(PKGCONFIGDIR)/libiniphile.pc
 
