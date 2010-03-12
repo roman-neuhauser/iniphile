@@ -1,6 +1,6 @@
 !include version.mk
 
-PREFIX=/usr/local
+PREFIX=.\stage
 LIBDIR=$(PREFIX)\lib
 INCDIR=$(PREFIX)\include
 BOOST_INCDIR=
