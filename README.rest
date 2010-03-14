@@ -273,18 +273,6 @@ as appropriate.  Then
 Unix
 ++++
 
-FreeBSD: ::
-
-  make -f bsd.mk <targets-and-variables>
-  gmake -f gnu.mk <targets-and-variables>
-
-GNU/Linux (or other, with the GNU toolchain): ::
-
-  make -f gnu.mk <targets-and-variables>
-
-Both `bsd.mk` and `gnu.mk` assume the GNU gcc suite; there are two makefiles
-because of syntactic differences between the GNU make and the FreeBSD one.
-
 Main variables and their default values:
 
 `CXX`:
@@ -310,15 +298,24 @@ Main variables and their default values:
 `UTFRUN`:
   ``$(UTFLIB)``
 
+FreeBSD: ::
+
+  make -f bsd.mk <targets-and-variables>
+  gmake -f gnu.mk <targets-and-variables>
+
+pkg-config files are stored in a nonstandard path on this system.  If you
+install into `/usr/local`, make sure to do so with
+`PKGCONFIGDIR=/usr/local/libdata/pkgconfig`.
+
+GNU/Linux (or other, with the GNU toolchain): ::
+
+  make -f gnu.mk <targets-and-variables>
+
+Both `bsd.mk` and `gnu.mk` assume the GNU gcc suite; there are two makefiles
+because of syntactic differences between the GNU make and the FreeBSD one.
+
 Windows
 +++++++
-
-`msvc.mk` assumes and relies on tools provided with MS Visual C++ Express
-exclusively.  It's tested on MS Windows Vista with VC++ 2008/9.0 Express,
-and works in the Visual Studio Command Prompt and the Windows SDK CMD Shell.
-::
-
-  nmake -f msvc.mk <targets-and-variables>
 
 Main variables and their default values:
 
@@ -332,6 +329,13 @@ Main variables and their default values:
   ``<empty>``
 `BOOST_LIBDIR`:
   ``<empty>``
+
+`msvc.mk` assumes and relies on tools provided with MS Visual C++ Express
+exclusively.  It's tested on MS Windows Vista with VC++ 2008/9.0 Express,
+and works in the Visual Studio Command Prompt and the Windows SDK CMD Shell.
+::
+
+  nmake -f msvc.mk <targets-and-variables>
 
 No attempt to guess or find the Boost prerequisities is made, you must
 supply `BOOST_INCDIR` and `BOOST_LIBDIR` or the compilation will fail.
