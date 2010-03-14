@@ -341,8 +341,8 @@ No attempt to guess or find the Boost prerequisities is made, you must
 supply `BOOST_INCDIR` and `BOOST_LIBDIR` or the compilation will fail.
 
 ``nmake -f msvc.mk install`` puts built libraries in ``$(LIBDIR)``
-(defaults to ``.\stage\lib``) and header files in ``$(INCDIR)``
-(defaults to ``.\stage\include``).
+(defaults to ``$(PREFIX)\lib``) and header files in ``$(INCDIR)``
+(defaults to ``$(PREFIX)\include``).
 
 .. target-notes::
 .. section-numbering::
