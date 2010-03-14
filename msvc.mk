@@ -1,4 +1,4 @@
-!include version.mk
+!include mk/common-values.mk
 
 PREFIX=.\stage
 LIBDIR=$(PREFIX)\lib
