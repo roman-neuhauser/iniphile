@@ -22,7 +22,7 @@
 Introduction
 ============
 
-Iniphile is a C++ library for parsing a dialect of ini file format.
+Iniphile is a C++ library for parsing a dialect of INI file format.
 It requires Boost_ >= 1.41, and is known to build and run on FreeBSD 9
 with gcc >= 4.2.1, and on Windows XP with Visual Studio 2008 (vc9).
 
