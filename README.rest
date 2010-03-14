@@ -29,10 +29,10 @@ with gcc >= 4.2.1, and on Windows XP with Visual Studio 2008 (vc9).
 .. _Boost: http://boost.org/
 
 
-Tutorial
-========
+Example
+=======
 
-tut.ini ::
+notify.ini ::
 
   [notify]
   enabled   = No
@@ -40,7 +40,7 @@ tut.ini ::
               bob@example.com
               chris@example.com
 
-tut.cpp ::
+notify.cpp ::
 
   #include <iostream>
   #include <sstream>
@@ -62,7 +62,7 @@ tut.cpp ::
   {
       namespace ini = iniphile;
 
-      std::ifstream input("tut.ini");
+      std::ifstream input("notify.ini");
       std::ostringstream diag;
 
       ini::parse_result cfg(ini::parse(input, diag));
