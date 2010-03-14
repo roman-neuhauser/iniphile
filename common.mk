@@ -14,6 +14,8 @@ ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \
 
 all: initest $(LIBINIPHILE_PC)
 
+libs: libiniphile.a $(SONAME)
+
 clean:
 	$(RM_F) $(ARTIFACTS)
 
@@ -49,5 +51,5 @@ input.o: metagram.hpp input.hpp
 output.o: metagram.hpp output.hpp ast.hpp
 ast.o: metagram.hpp ast.hpp
 
-.PHONY: all check clean initest
+.PHONY: all check clean initest libs
 .SUFFIXES: .o
