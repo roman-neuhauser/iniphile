@@ -33,7 +33,7 @@ CXXRTRUN=$(_CXXRT)
 LDLIBS=-lboost_unit_test_framework
 LDLIBS_SHARED=-liniphile
 
-GCCVER?=44
+GCCVER?=
 
 LN_S?=ln -s
 RM_F?=rm -f
