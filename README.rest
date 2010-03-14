@@ -24,7 +24,7 @@ Introduction
 
 Iniphile is a C++ library for parsing a dialect of ini file format.
 It requires Boost_ >= 1.41, and is known to build and run on FreeBSD 9
-with gcc >= 4.2.1, and on Windows XP with Visual Studio 9.
+with gcc >= 4.2.1, and on Windows XP with Visual Studio 2008 (vc9).
 
 .. _Boost: http://boost.org/
 
@@ -254,6 +254,91 @@ All Iniphile releases can be found in the `download directory`_.
 
 .. _download directory: http://codex.sigpipe.cz/iniphile/dist/
 
+Build and Installation
+======================
+
+Iniphile is distributed with a set of Makefiles suitable for several
+environments.  Currently supported are: FreeBSD make and GNU make with the
+GNU C++ compiler, MSVC nmake with the Microsoft compiler.
+
+Let `$make` be your make command, and let `$env` be `bsd`, `gnu` or `msvc`
+as appropriate.  Then
+
+``$make -f $env.mk libs`` (requires Boost.Spirit)
+  creates a static library and a dll plus import library
+
+``$make -f $env.mk check`` (requires Boost.Test)
+  creates the libraries and runs their unit tests
+
+Unix
+++++
+
+FreeBSD: ::
+
+  make -f bsd.mk <targets-and-variables>
+  gmake -f gnu.mk <targets-and-variables>
+
+GNU/Linux (or other, with the GNU toolchain): ::
+
+  make -f gnu.mk <targets-and-variables>
+
+Both `bsd.mk` and `gnu.mk` assume the GNU gcc suite; there are two makefiles
+because of syntactic differences between the GNU make and the FreeBSD one.
+
+Main variables and their default values:
+
+`CXX`:
+  ``g++$(GCCVER)``
+`GCCVER`:
+  ``<empty>``
+`PREFIX`:
+  ``/usr/local``
+`LIBDIR`:
+  ``$(PREFIX)/lib``
+`INCDIR`:
+  ``$(PREFIX)/include``
+`PKGCONFIGDIR`:
+  ``$(LIBDIR)/pkgconfig``
+`_BOOST`:
+  ``$(PREFIX)``
+`SPIRIT`:
+  ``$(_BOOST)/include``
+`UTFINC`:
+  ``$(_BOOST)/include``
+`UTFLIB`:
+  ``$(_BOOST)/lib``
+`UTFRUN`:
+  ``$(UTFLIB)``
+
+Windows
++++++++
+
+`msvc.mk` assumes and relies on tools provided with MS Visual C++ Express
+exclusively.  It's tested on MS Windows Vista with VC++ 2008/9.0 Express,
+and works in the Visual Studio Command Prompt and the Windows SDK CMD Shell.
+::
+
+  nmake -f msvc.mk <targets-and-variables>
+
+Main variables and their default values:
+
+`PREFIX`:
+  ``.\stage``
+`INCDIR`
+  ``$(PREFIX)\include``
+`LIBDIR`
+  ``$(PREFIX)\lib``
+`BOOST_INCDIR`:
+  ``<empty>``
+`BOOST_LIBDIR`:
+  ``<empty>``
+
+No attempt to guess or find the Boost prerequisities is made, you must
+supply `BOOST_INCDIR` and `BOOST_LIBDIR` or the compilation will fail.
+
+``nmake -f msvc.mk install`` puts built libraries in ``$(PREFIX)\$(LIBDIR)``
+(defaults to ``.\stage\lib``) and header files in ``$(PREFIX)\$(INCDIR)``
+(defaults to ``.\stage\include``).
 
 .. target-notes::
 .. section-numbering::
