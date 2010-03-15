@@ -44,7 +44,7 @@ PUBLIC_HEADERS=ast.hpp astfwd.hpp input.hpp metagram.hpp output.hpp
 all: initest libiniphile.pc
 
 clean:
-	rm -f initest-static initest-shared *.so.[0-9] *.a *.o *.pc
+	$(RM_F) initest-static initest-shared $(SONAME) *.so *.a *.o *.pc
 
 check: initest
 	LD_LIBRARY_PATH=. ./initest-static
@@ -76,13 +76,17 @@ libiniphile.pc: libiniphile.pc.in
 $(SONAME): libiniphile.a
 	$(CXX) -shared $(WL.SONAME) -o $(SONAME) -Wl,--whole-archive libiniphile.a
 
+libiniphile.so: $(SONAME)
+	$(RM_F) libiniphile.so
+	$(LN_S) $(SONAME) libiniphile.so
+
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
 
 initest-static: initest.o libiniphile.a
 	$(CXX) $(LDFLAGS) $(LDFLAGS.static) -o initest-static initest.o libiniphile.a $(LDLIBS)
 
-initest-shared: initest.o $(SONAME)
+initest-shared: initest.o libiniphile.so $(SONAME)
 	$(CXX) $(LDFLAGS) $(LDFLAGS.shared) -o initest-shared initest.o -liniphile $(LDLIBS)
 
 initest.o: metagram.hpp input.hpp output.hpp ast.hpp
