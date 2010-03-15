@@ -22,6 +22,9 @@ LDLIBS=-lboost_unit_test_framework
 
 GCCVER?=44
 
+LN_S?=ln -s
+RM_F?=rm -f
+
 VERSION.major=0
 
 SONAME=libiniphile.so.$(VERSION.major)
@@ -30,7 +33,7 @@ WL.SONAME=-Wl,--soname=$(SONAME)
 all: initest
 
 clean:
-	rm -f initest-static initest-shared *.so *.a *.o
+	$(RM_F) initest-static initest-shared $(SONAME) *.so *.a *.o
 
 check: initest
 	./initest-static
@@ -38,8 +41,12 @@ check: initest
 
 initest: initest-static initest-shared
 
-libiniphile.so: libiniphile.a
-	$(CXX) -shared $(WL.SONAME) -o libiniphile.so -Wl,--whole-archive libiniphile.a
+$(SONAME): libiniphile.a
+	$(CXX) -shared $(WL.SONAME) -o $(SONAME) -Wl,--whole-archive libiniphile.a
+
+libiniphile.so: $(SONAME)
+	$(RM_F) libiniphile.so
+	$(LN_S) $(SONAME) libiniphile.so
 
 libiniphile.a: output.o ast.o input.o
 	$(AR) -rc libiniphile.a output.o ast.o input.o
@@ -47,7 +54,7 @@ libiniphile.a: output.o ast.o input.o
 initest-static: initest.o libiniphile.a
 	$(CXX) $(LDFLAGS) $(LDFLAGS.static) -o initest-static initest.o libiniphile.a $(LDLIBS)
 
-initest-shared: initest.o libiniphile.so
+initest-shared: initest.o libiniphile.so $(SONAME)
 	$(CXX) $(LDFLAGS) $(LDFLAGS.shared) -o initest-shared initest.o -liniphile $(LDLIBS)
 
 initest.o: metagram.hpp input.hpp output.hpp ast.hpp
