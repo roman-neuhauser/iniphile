@@ -13,6 +13,7 @@ commit
 initest-shared
 initest-static
 libiniphile.pc
+libiniphile.so
 libiniphile.so.[0-9]
 libiniphile-[0-9].so
 tags
