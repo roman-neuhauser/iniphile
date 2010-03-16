@@ -140,61 +140,64 @@ whitespace, and `qstring`\s may also contain newlines.
 Library
 +++++++
 
+Header Organization
+~~~~~~~~~~~~~~~~~~~
+
 Each header `#include`\s all its dependencies.
 
-metagram.hpp ::
+* metagram.hpp ::
 
-  typedef unspecified iniphile::config;
+    typedef unspecified iniphile::config;
 
-input.hpp ::
+* input.hpp ::
 
-  typedef boost::optional<iniphile::config> parse_result;
+    typedef boost::optional<iniphile::config> parse_result;
 
-  iniphile::parse_result
-  iniphile::parse(
-      std::string const& input
-    , std::ostream& diag
-  );
+    iniphile::parse_result
+    iniphile::parse(
+        std::string const& input
+      , std::ostream& diag
+    );
 
-  iniphile::parse_result
-  iniphile::parse(
-      std::istream& input
-    , std::ostream& diag
-  );
+    iniphile::parse_result
+    iniphile::parse(
+        std::istream& input
+      , std::ostream& diag
+    );
 
-astfwd.hpp ::
+* astfwd.hpp ::
 
-  typedef std::vector<std::string> iniphile::valpath;
+    typedef std::vector<std::string> iniphile::valpath;
 
-  valpath
-  to_valpath(std::string const & path);
+    valpath
+    to_valpath(std::string const & path);
 
-  typedef unspecified iniphile::ast::node;
+    typedef unspecified iniphile::ast::node;
 
-ast.hpp ::
+* ast.hpp ::
 
-  #include "astfwd.hpp"
+    #include "astfwd.hpp"
 
-  iniphile::ast::node
-  iniphile::normalize(iniphile::config const & cst);
+    iniphile::ast::node
+    iniphile::normalize(iniphile::config const & cst);
 
-output.hpp ::
+* output.hpp ::
 
-  template<class T>
-  T
-  iniphile::get(
-      iniphile::ast::node const& cfg
-    , iniphile::valpath const& path
-    , T dflt
-  );
+    template<class T>
+    T
+    iniphile::get(
+        iniphile::ast::node const& cfg
+      , iniphile::valpath const& path
+      , T dflt
+    );
 
-  template<class T>
-  T
-  iniphile::get(
-      iniphile::ast::node const& cfg
-    , std::string const& path
-    , T dflt
-  );
+    template<class T>
+    T
+    iniphile::get(
+        iniphile::ast::node const& cfg
+      , std::string const& path
+      , T dflt
+    );
 
 T get<T>(ast::node, std::string, T)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -298,7 +301,9 @@ Main variables and their default values:
 `UTFRUN`:
   ``$(UTFLIB)``
 
-FreeBSD: ::
+FreeBSD
+~~~~~~~
+::
 
   make -f bsd.mk <targets-and-variables>
   gmake -f gnu.mk <targets-and-variables>
@@ -307,7 +312,9 @@ pkg-config files are stored in a nonstandard path on this system.  If you
 install into `/usr/local`, make sure to do so with
 `PKGCONFIGDIR=/usr/local/libdata/pkgconfig`.
 
-GNU/Linux (or other, with the GNU toolchain): ::
+GNU/Linux (or other with the GNU toolchain)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+::
 
   make -f gnu.mk <targets-and-variables>
 
