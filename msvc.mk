@@ -56,4 +56,4 @@ install: all
 
 $(IMPORT_LIB): $(SONAME)
 
-!include common.mk
+!include mk/common.mk
