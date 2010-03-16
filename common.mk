@@ -16,11 +16,11 @@ libiniphile.a: $(LIBOBJECTS)
 	$(AR) $(ARFLAGS) $(AR_o)libiniphile.a $(LIBOBJECTS)
 
 initest-static$(dot_exe): initest-static.o libiniphile.a
-	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
+	$(LD) $(LDFLAGS) $(LDFLAGS.static) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
 	$(EMBED_MANIFEST)
 
-initest-shared$(dot_exe): initest-shared.o
-	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o $(LDLIBS_SHARED) $(LDLIBS)
+initest-shared$(dot_exe): initest-shared.o $(IMPORT_LIB) $(SONAME)
+	$(LD) $(LDFLAGS) $(LDFLAGS.shared) $(LD_o)initest-shared$(dot_exe) initest-shared.o $(LDLIBS_SHARED) $(LDLIBS)
 	$(EMBED_MANIFEST)
 
 initest-static.o: initest.cpp

@@ -22,6 +22,8 @@ LD=$(CXX)
 LD_o=-o
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
+LDFLAGS.shared=-Wl,-L$$PWD -Wl,-rpath $$PWD
+LDFLAGS.static=
 LDFLAGS_SO=-shared -Wl,--soname=$(SONAME)
 MKDIR_P=mkdir -p
 
@@ -43,7 +45,7 @@ DLL_LINKAGE=
 
 LIBINIPHILE_PC=libiniphile.pc
 SONAME=$(CANONICAL).$(VERSION_major)
-IMPORT_LIB=$(SONAME)
+IMPORT_LIB=$(CANONICAL)
 
 EMBED_MANIFEST= \
 	:
@@ -74,3 +76,8 @@ libiniphile.pc: libiniphile.pc.in
 	    < libiniphile.pc.in \
 	    > libiniphile.pc.$$$$; \
 	mv libiniphile.pc.$$$$ libiniphile.pc
+
+libiniphile.so: $(SONAME)
+	$(RM_F) libiniphile.so
+	$(LN_S) $(SONAME) libiniphile.so
+
