@@ -21,6 +21,8 @@ LD=$(CXX)
 LD_o=-o
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
+LDFLAGS.shared=-Wl,-L$$PWD -Wl,-rpath $$PWD
+LDFLAGS.static=
 LDFLAGS_SO=-shared -Wl,--soname=$(SONAME)
 MKDIR_P=mkdir -p
 
@@ -102,12 +104,16 @@ $(SONAME): $(LIBOBJECTS)
 libiniphile.a: $(LIBOBJECTS)
 	$(AR) $(ARFLAGS) $(AR_rc) libiniphile.a $(LIBOBJECTS)
 
+libiniphile.so: $(SONAME)
+	$(RM_F) libiniphile.so
+	$(LN_S) $(SONAME) libiniphile.so
+
 initest-static$(dot_exe): initest-static.o libiniphile.a
-	$(LD) $(LDFLAGS) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
+	$(LD) $(LDFLAGS) $(LDFLAGS.static) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)
 	$(EMBED_MANIFEST)
 
-initest-shared$(dot_exe): initest-shared.o
-	$(LD) $(LDFLAGS) $(LD_o)initest-shared$(dot_exe) initest-shared.o $(LDLIBS_SHARED) $(LDLIBS)
+initest-shared$(dot_exe): initest-shared.o libiniphile.so $(SONAME)
+	$(LD) $(LDFLAGS) $(LDFLAGS.shared) $(LD_o)initest-shared$(dot_exe) initest-shared.o $(LDLIBS_SHARED) $(LDLIBS)
 	$(EMBED_MANIFEST)
 
 initest-static.o: initest.cpp
