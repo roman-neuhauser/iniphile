@@ -23,10 +23,29 @@ Introduction
 ============
 
 Iniphile is a C++ library for parsing a dialect of INI file format.
-It requires Boost_ >= 1.41, and is known to build and run on FreeBSD 9
-with gcc >= 4.2.1, and on Windows XP with Visual Studio 2008 (vc9).
+
+Prerequisities
+++++++++++++++
+
+Iniphile is known to build and run on FreeBSD 9 with gcc >= 4.2.1, and on
+Windows XP with Visual Studio 2008 (vc9).
+
+The library uses a few header-only Boost_ libraries in both its interface and
+implementation.  The interface mentions Boost.Optional_ and Boost.Variant_,
+The most prominent implementation detail is Boost.Spirit_, specifically v2.1
+(Boost_ 1.41) or higher.  Unit tests require Boost.Test_ to compile and run.
 
 .. _Boost: http://boost.org/
+
+.. _Boost.Optional:
+    http://www.boost.org/doc/libs/1_42_0/libs/optional/index.html
+.. _Boost.Variant:
+    http://www.boost.org/doc/libs/1_42_0/libs/variant/index.html
+
+.. _Boost.Spirit:
+    http://www.boost.org/doc/libs/1_42_0/libs/spirit/index.html
+.. _Boost.Test:
+    http://www.boost.org/doc/libs/1_42_0/libs/test/index.html
 
 
 Example
@@ -151,6 +170,8 @@ Each header `#include`\s all its dependencies.
 
 * input.hpp ::
 
+    #include <boost/optional.hpp>
+
     typedef boost::optional<iniphile::config> parse_result;
 
     iniphile::parse_result
@@ -166,6 +187,8 @@ Each header `#include`\s all its dependencies.
     );
 
 * astfwd.hpp ::
+
+    #include <boost/variant.hpp>
 
     typedef std::vector<std::string> iniphile::valpath;
 
@@ -267,10 +290,10 @@ GNU C++ compiler, MSVC nmake with the Microsoft compiler.
 Let `$make` be your make command, and let `$env` be `bsd`, `gnu` or `msvc`
 as appropriate.  Then
 
-``$make -f $env.mk libs`` (requires Boost.Spirit)
+``$make -f $env.mk libs`` (requires Boost.Spirit_)
   creates a static library and a dll plus import library
 
-``$make -f $env.mk check`` (requires Boost.Test)
+``$make -f $env.mk check`` (requires Boost.Test_)
   creates the libraries and runs their unit tests
 
 Unix
