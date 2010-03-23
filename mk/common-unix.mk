@@ -5,6 +5,8 @@ LIBDIR?=$(PREFIX)/lib
 INCDIR?=$(PREFIX)/include
 PKGCONFIGDIR?=$(LIBDIR)/pkgconfig
 
+RST2HTML?=rst2html.py
+
 _CXXRT?=/usr/lib
 _BOOST?=$(PREFIX)
 

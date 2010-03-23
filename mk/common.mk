@@ -1,8 +1,13 @@
 # vim: ts=8 noet ft=make
 
+.PHONY: all check clean initest libs
+.SUFFIXES: .o .html .rest
+
 all: initest $(LIBINIPHILE_PC)
 
 libs: libiniphile.a $(SONAME)
+
+docs: README.html
 
 clean:
 	$(RM_F) $(ARTIFACTS)
@@ -29,6 +34,9 @@ initest-static.o: initest.cpp
 initest-shared.o: initest.cpp
 	$(COMPILE)$@ initest.cpp $(DLL_LINKAGE)
 
+.rest.html:
+	$(RST2HTML) $< $@
+
 .cpp.o:
 	$(COMPILE)$@ $< $(DLL_LINKAGE)
 
@@ -39,5 +47,3 @@ input.o: metagram.hpp input.hpp
 output.o: metagram.hpp output.hpp ast.hpp
 ast.o: metagram.hpp ast.hpp
 
-.PHONY: all check clean initest libs
-.SUFFIXES: .o
