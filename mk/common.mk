@@ -1,6 +1,6 @@
 # vim: ts=8 noet ft=make
 
-.PHONY: all check clean initest libs
+.PHONY: all check check-solink clean dist initest install libs
 .SUFFIXES: .o .html .rest
 
 all: initest $(LIBINIPHILE_PC)
@@ -11,6 +11,9 @@ docs: README.html
 
 clean:
 	$(RM_F) $(ARTIFACTS)
+
+dist:
+	hg archive -p $(DISTNAME) $(DISTNAME).tar.bz2
 
 initest: initest-static$(dot_exe) initest-shared$(dot_exe)
 

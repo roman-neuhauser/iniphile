@@ -89,4 +89,3 @@ libiniphile.so: $(SONAME)
 	$(RM_F) libiniphile.so
 	$(LN_S) $(SONAME) libiniphile.so
 
-.PHONY: check check-solink install
