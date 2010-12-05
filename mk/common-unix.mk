@@ -24,8 +24,8 @@ LD=$(CXX)
 LD_o=-o
 LDFLAGS=-Wl,-L $(UTFLIB) -Wl,-rpath $(UTFRUN) \
 	-Wl,-L $(CXXRTLIB) -Wl,-rpath $(CXXRTRUN)
-LDFLAGS.shared=-Wl,-L$$PWD -Wl,-rpath $$PWD
-LDFLAGS.static=
+LDFLAGS_shared=-Wl,-L$$PWD -Wl,-rpath $$PWD
+LDFLAGS_static=
 LDFLAGS_SO=-shared -Wl,--soname=$(SONAME)
 MKDIR_P=mkdir -p
 
