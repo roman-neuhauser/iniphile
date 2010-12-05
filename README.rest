@@ -35,6 +35,16 @@ implementation.  The interface mentions Boost.Optional_ and Boost.Variant_,
 The most prominent implementation detail is Boost.Spirit_, specifically v2.1
 (Boost_ 1.41) or higher.  Unit tests require Boost.Test_ to compile and run.
 
+.. important::
+
+  For now, Iniphile supports linking only against Boost libraries built
+  with ``--layout=system``, ``-DBOOST_ALL_NO_LIB`` is used unconditionally.
+  This means that if your Boost shared libraries have funny names like
+  `boost_regex-vc90-mt-1_45.dll`, linking the test executables will fail.
+  The Iniphile *library* depends on header-only Boost libraries and the
+  linker failure has no effect on it.  You just won't be able to run its
+  unit tests.
+
 .. _Boost: http://boost.org/
 
 .. _Boost.Optional:
