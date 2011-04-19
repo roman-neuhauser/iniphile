@@ -59,7 +59,7 @@ check: initest check-solink
 	LD_LIBRARY_PATH=. ./initest-shared$(dot_exe)
 
 check-solink: initest-shared
-	@if ! ldd -f '%p\n' initest-shared | grep -Fq $(SONAME); then \
+	@if ! ldd initest-shared | grep -Fq /$(SONAME); then \
 	  echo initest-shared does not seem to use $(SONAME); \
 	  false; \
 	fi
