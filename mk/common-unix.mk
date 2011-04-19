@@ -31,7 +31,7 @@ MKDIR_P=mkdir -p
 
 CXXSTD=-std=c++98 -pedantic
 CXXOPTFLAGS=-g -O1
-CXXWFLAGS=-Wall -Wextra -Werror -Wfatal-errors -Wno-long-long
+CXXWFLAGS=-Wall -Wextra -Wfatal-errors -Wno-long-long
 CXXRTLIB=$(_CXXRT)
 CXXRTRUN=$(_CXXRT)
 LDLIBS=-lboost_unit_test_framework
