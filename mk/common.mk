@@ -43,7 +43,6 @@ initest-shared.o: initest.cpp
 .cpp.o:
 	$(COMPILE)$@ $< $(DLL_LINKAGE)
 
-initest-shared$(dot_exe): $(IMPORT_LIB)
 initest-static.o: metagram.hpp input.hpp output.hpp ast.hpp
 initest-shared.o: metagram.hpp input.hpp output.hpp ast.hpp
 input.o: metagram.hpp input.hpp
