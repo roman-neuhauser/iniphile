@@ -15,5 +15,5 @@ PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp metagram.hpp output.hpp
 
 ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \
 	  *.exp *.lib *.manifest \
-	  $(SONAME) *.a *.pc
+	  $(CANONICAL) $(SONAME) *.a *.pc
 
