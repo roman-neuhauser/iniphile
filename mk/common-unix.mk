@@ -1,9 +1,12 @@
 # vim: ts=8 noet ft=make
 
 PREFIX?=/usr/local
+BINDIR?=$(PREFIX)/bin
 LIBDIR?=$(PREFIX)/lib
 INCDIR?=$(PREFIX)/include
 PKGCONFIGDIR?=$(LIBDIR)/pkgconfig
+MANDIR?=$(PREFIX)/man
+MAN1DIR?=$(MANDIR)/man1
 
 RST2HTML?=rst2html.py
 
@@ -54,6 +57,8 @@ EMBED_MANIFEST= \
 
 dot_exe=
 
+all: .all
+
 check: initest check-solink
 	LD_LIBRARY_PATH=. ./initest-static$(dot_exe)
 	LD_LIBRARY_PATH=. ./initest-shared$(dot_exe)
@@ -65,12 +70,16 @@ check-solink: initest-shared
 	fi
 
 install: all
+	$(MKDIR_P) $(DESTDIR)$(BINDIR)
 	$(MKDIR_P) $(DESTDIR)$(LIBDIR)
+	$(MKDIR_P) $(DESTDIR)$(MAN1DIR)
 	$(INSTALL_PROGRAM) libiniphile.a $(DESTDIR)$(LIBDIR)/libiniphile.a
 	$(INSTALL_PROGRAM) $(SONAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
 	cd $(DESTDIR)$(LIBDIR) \
 		&& $(RM_F) $(CANONICAL) \
 		&& $(LN_S) $(SONAME) $(CANONICAL)
+	$(INSTALL_PROGRAM) iniphile $(DESTDIR)$(BINDIR)/iniphile
+	$(INSTALL) iniphile.1 $(DESTDIR)$(MAN1DIR)/iniphile.1
 	$(MKDIR_P) $(DESTDIR)$(INCDIR)/iniphile
 	for f in $(PUBLIC_HEADERS); do \
 		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/iniphile/$$f; \

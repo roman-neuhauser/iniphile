@@ -41,13 +41,19 @@ EMBED_MANIFEST= \
 
 dot_exe=.exe
 
+all: .all
+
 check: initest
 	initest-static$(dot_exe)
 	initest-shared$(dot_exe)
 
 install: all
+	if not exist $(DESTDIR)$(BINDIR) \
+	$(MKDIR_P) $(DESTDIR)$(BINDIR)
 	if not exist $(DESTDIR)$(LIBDIR) \
 	$(MKDIR_P) $(DESTDIR)$(LIBDIR)
+	if not exist $(DESTDIR)$(MAN1DIR) \
+	$(MKDIR_P) $(DESTDIR)$(MAN1DIR)
 	$(INSTALL_PROGRAM) libiniphile.a $(DESTDIR)$(LIBDIR)\libiniphile.a
 	$(INSTALL_PROGRAM) $(SONAME) $(DESTDIR)$(LIBDIR)\$(SONAME)
 	$(INSTALL_PROGRAM) $(IMPORT_LIB) $(DESTDIR)$(LIBDIR)\$(IMPORT_LIB)

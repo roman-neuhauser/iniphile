@@ -23,6 +23,10 @@ template<class T>
 T
 get(ast::node const& cfg, std::string const& path, T dflt);
 
+template<class T>
+T
+parse_(std::string const &, T dflt);
+
 } // namespace iniphile
 
 #endif

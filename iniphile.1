@@ -1,0 +1,90 @@
+.\" This document is in the public domain.
+.\" vim: fdm=marker
+.
+.\" FRONT MATTER {{{
+.Dd May 27, 2011
+.Os
+.Dt INIPHILE 1
+.
+.Sh NAME
+.Nm iniphile
+.Nd Commandline INI file parser
+.\" FRONT MATTER }}}
+.
+.\" SYNOPSIS {{{
+.Sh SYNOPSIS
+.Nm
+.Ar file
+.Ar format
+.Ar query
+.Op Ar default
+.\" SYNOPSIS }}}
+.
+.\" DESCRIPTION {{{
+.Sh DESCRIPTION
+.Nm
+.
+.Bl -tag -width "xx"
+.It Ar file
+INI file to read.
+.It Ar format
+.Bl -tag -width "xx" -compact
+.It Ar a
+array of strings, each terminated with '\e0'
+.It Ar b
+bool
+.It Ar d
+double
+.It Ar l
+long
+.It Ar s
+string
+.El
+.It Ar query
+.It Ar default
+used when the
+.Ar query
+fails
+.El
+.Pp
+More information can be found in README.rest.
+.
+.\" DESCRIPTION }}}
+.\" .Sh IMPLEMENTATION NOTES
+.\" ENVIRONMENT {{{
+.Sh ENVIRONMENT
+None.
+.\" ENVIRONMENT }}}
+.\" .Sh FILES
+.\" EXAMPLES {{{
+.Sh EXAMPLES
+.\" EXAMPLES }}}
+.\" DIAGNOSTICS {{{
+.Sh DIAGNOSTICS
+.Ss Exit code
+.Bl -tag -width "xxxx" -compact
+.It 0
+successful operation
+.It 66
+the input file could not be open
+.It 65
+syntax error in input file
+.It 64
+wrong (number of) arguments
+.El
+.\" DIAGNOSTICS }}}
+.\" .Sh COMPATIBILITY
+.\" .Sh SEE ALSO
+.\" .Sh STANDARDS
+.\" .Sh HISTORY
+.\" AUTHORS {{{
+.Sh AUTHORS
+.
+.Nm
+and this manual page are written by
+.Aq neuhauser@sigpipe.cz .
+.Pp
+See
+.Aq http://codex.sigpipe.cz/iniphile/ .
+.\" AUTHORS }}}
+.\" .Sh BUGS

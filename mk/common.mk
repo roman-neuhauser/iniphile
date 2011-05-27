@@ -1,9 +1,9 @@
 # vim: ts=8 noet ft=make
 
-.PHONY: all check check-solink clean dist initest install libs
+.PHONY: .all all check check-solink clean dist initest install libs
 .SUFFIXES: .o .html .rest
 
-all: initest $(LIBINIPHILE_PC)
+.all: iniphile$(dot_exe) initest $(LIBINIPHILE_PC)
 
 libs: libiniphile.a $(SONAME)
 
@@ -22,6 +22,10 @@ $(SONAME): $(LIBOBJECTS)
 
 libiniphile.a: $(LIBOBJECTS)
 	$(AR) $(ARFLAGS) $(AR_o)libiniphile.a $(LIBOBJECTS)
+
+iniphile$(dot_exe): iniphile.o libiniphile.a
+	$(LD) $(LDFLAGS) $(LDFLAGS_shared) $(LD_o)iniphile$(dot_exe) iniphile.o $(LDLIBS_SHARED)
+	$(EMBED_MANIFEST)
 
 initest-static$(dot_exe): initest-static.o libiniphile.a
 	$(LD) $(LDFLAGS) $(LDFLAGS_static) $(LD_o)initest-static$(dot_exe) initest-static.o libiniphile.a $(LDLIBS)

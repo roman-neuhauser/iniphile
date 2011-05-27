@@ -9,11 +9,12 @@ CANONICAL=libiniphile.so
 
 COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
 LIBOBJECTS=input.o output.o ast.o
-OBJECTS=initest-shared.o initest-static.o $(LIBOBJECTS)
+OBJECTS=iniphile.o initest-shared.o initest-static.o $(LIBOBJECTS)
 
 PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp metagram.hpp output.hpp
 
 ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \
 	  *.exp *.lib *.manifest \
+	  iniphile$(dot_exe) \
 	  $(CANONICAL) $(SONAME) *.a *.pc
 

@@ -22,7 +22,8 @@
 Introduction
 ============
 
-Iniphile is a C++ library for parsing a dialect of INI file format.
+Iniphile is a C++ library and commandline tool for parsing a dialect
+of the INI file format.
 
 Prerequisities
 ++++++++++++++
@@ -165,6 +166,11 @@ or `EOF`, whichever comes first.  Each `section` contains zero or more
 (`optvalpart`, either a `qstring` or a `bareword`) separated by whitespace.
 It may span multiple lines: continuation lines begin with horizontal
 whitespace, and `qstring`\s may also contain newlines.
+
+Commandline tool
+++++++++++++++++
+
+The tool is documented in an accompanying man page, iniphile(1).
 
 Library
 +++++++

@@ -10,6 +10,7 @@ syntax: glob
 *.o
 README.html
 commit
+iniphile
 initest-shared
 initest-static
 libiniphile.pc
