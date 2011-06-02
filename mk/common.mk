@@ -24,7 +24,7 @@ libiniphile.a: $(LIBOBJECTS)
 	$(AR) $(ARFLAGS) $(AR_o)libiniphile.a $(LIBOBJECTS)
 
 iniphile$(dot_exe): iniphile.o libiniphile.a
-	$(LD) $(LDFLAGS) $(LDFLAGS_shared) $(LD_o)iniphile$(dot_exe) iniphile.o $(LDLIBS_SHARED)
+	$(LD) $(LDFLAGS) $(LDFLAGS_static) $(LD_o)iniphile$(dot_exe) iniphile.o libiniphile.a
 	$(EMBED_MANIFEST)
 
 initest-static$(dot_exe): initest-static.o libiniphile.a
@@ -40,6 +40,9 @@ initest-static.o: initest.cpp
 
 initest-shared.o: initest.cpp
 	$(COMPILE)$@ initest.cpp $(DLL_LINKAGE)
+
+iniphile.o: iniphile.cpp
+	$(COMPILE)$@ iniphile.cpp
 
 .rest.html:
 	$(RST2HTML) $< $@
