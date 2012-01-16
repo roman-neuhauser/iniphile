@@ -57,6 +57,7 @@ install: all
 	$(INSTALL_PROGRAM) libiniphile.a $(DESTDIR)$(LIBDIR)\libiniphile.a
 	$(INSTALL_PROGRAM) $(SONAME) $(DESTDIR)$(LIBDIR)\$(SONAME)
 	$(INSTALL_PROGRAM) $(IMPORT_LIB) $(DESTDIR)$(LIBDIR)\$(IMPORT_LIB)
+	$(INSTALL_PROGRAM) iniphile$(dot_exe) $(DESTDIR)$(BINDIR)\iniphile$(dot_exe)
 	if not exist $(DESTDIR)$(INCDIR)\iniphile \
 	$(MKDIR_P) $(DESTDIR)$(INCDIR)\iniphile
 	for %f in ($(PUBLIC_HEADERS)) do \
