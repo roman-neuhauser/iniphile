@@ -49,14 +49,14 @@ int const EX_NOINPUT = 66;
 
 static
 int
-usage(int argc, char **argv, int exit = EX_USAGE) // {{{
+usage(int argc, char **argv, int exit = EX_USAGE, string fmt = "") // {{{
 {
   if (argc == 0) return EX_USAGE;
 
   string self(*argv);
   string::size_type slash(self.find_last_of("\\/"));
 
-  cerr << format(USAGE_FMT)
+  cerr << format(fmt.size() ? fmt : USAGE_FMT)
     % self.substr(slash == string::npos ? 0 : slash + 1)
   ;
   return exit;
@@ -126,7 +126,11 @@ main(int argc, char **argv)
 
   std::ifstream in;
   std::streambuf* buf = open(in, file);
-  if (!buf) return EX_NOINPUT;
+  if (!buf)
+    return usage(
+      argc, argv
+    , EX_NOINPUT, str(format("%%1%%: error opening %1%") % file)
+    );
   std::istream input(buf);
 
   std::ostringstream diag;
