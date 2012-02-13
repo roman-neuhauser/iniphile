@@ -18,3 +18,5 @@ syntax: regexp
 ^libiniphile-[0-9]\.so
 ^stage
 ^tags
+^version.hpp$
+^version-hpp(\.exe)?

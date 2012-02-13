@@ -13,16 +13,9 @@
 #include "input.hpp"
 #include "output.hpp"
 #include "ast.hpp"
+#include "version.hpp"
 
 #define foreach BOOST_FOREACH
-
-#if !defined(INIPHILE_DISTNAME)
-# error INIPHILE_DISTNAME undefined
-#else
-# define INIPHILE_DISTNAME_S INIPHILE_DISTNAME_Q(INIPHILE_DISTNAME)
-# define INIPHILE_DISTNAME_Q(arg) INIPHILE_DISTNAME_QQ(arg)
-# define INIPHILE_DISTNAME_QQ(arg) #arg
-#endif
 
 namespace iniphile_cmdline // {{{
 {
@@ -59,7 +52,7 @@ static
 int
 version()
 {
-  cerr << INIPHILE_DISTNAME_S << std::endl;
+  cerr << INIPHILE_DISTNAME_QUOTED << std::endl;
   return EX_OK;
 }
 

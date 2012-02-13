@@ -41,8 +41,18 @@ initest-static.o: initest.cpp
 initest-shared.o: initest.cpp
 	$(COMPILE)$@ initest.cpp $(DLL_LINKAGE)
 
-iniphile.o: iniphile.cpp
+iniphile.o: iniphile.cpp version.hpp
 	$(COMPILE)$@ iniphile.cpp
+
+version-hpp.o: version-hpp.cpp
+	$(COMPILE)$@ version-hpp.cpp
+
+version-hpp$(dot_exe): version-hpp.o
+	$(LD) $(LDFLAGS) $(LDFLAGS_static) $(LD_o)$@ version-hpp.o
+	$(EMBED_MANIFEST)
+
+version.hpp: version-hpp$(dot_exe)
+	version-hpp $@ $(INIPHILE_DEFINES)
 
 .rest.html:
 	$(RST2HTML) $< $@

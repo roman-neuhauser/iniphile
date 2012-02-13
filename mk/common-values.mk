@@ -7,19 +7,21 @@ DISTNAME=iniphile-$(VERSIONSTRING)
 
 CANONICAL=libiniphile.so
 
-INIPHILE_CXXFLAGS=\
-	-DINIPHILE_DISTNAME="$(DISTNAME)" \
-	-DINIPHILE_VERSIONSTRING="$(VERSIONSTRING)"
-INIPHILE_CXXFLAGS=
+INIPHILE_DEFINES=\
+	INIPHILE_DISTNAME="$(DISTNAME)" \
+	INIPHILE_VERSIONSTRING="$(VERSIONSTRING)"
 
-COMPILE=$(CXX) $(CXXFLAGS) $(INIPHILE_CXXFLAGS) $(CXX_c) $(CXX_o)
+COMPILE=$(CXX) $(CXXFLAGS) $(CXX_c) $(CXX_o)
 LIBOBJECTS=input.o output.o ast.o
-OBJECTS=iniphile.o initest-shared.o initest-static.o $(LIBOBJECTS)
+OBJECTS=iniphile.o initest-shared.o initest-static.o version-hpp.o \
+	$(LIBOBJECTS)
 
-PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp metagram.hpp output.hpp
+PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp \
+	metagram.hpp output.hpp version.hpp
 
 ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \
 	  *.exp *.lib *.manifest \
 	  iniphile$(dot_exe) \
+	  version.hpp \
 	  $(CANONICAL) $(SONAME) *.a *.pc
 
