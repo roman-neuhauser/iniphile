@@ -16,4 +16,5 @@ syntax: regexp
 ^libiniphile\.so
 ^libiniphile\.so\.[0-9]
 ^libiniphile-[0-9]\.so
+^stage
 ^tags
