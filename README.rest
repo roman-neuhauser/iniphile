@@ -29,7 +29,7 @@ Prerequisities
 ++++++++++++++
 
 Iniphile is known to build and run on FreeBSD 9 with gcc >= 4.2.1, and on
-Windows XP with Visual Studio 2008 (vc9).
+Windows 7 with Visual Studio 2008 (vc9).
 
 The library uses a few header-only Boost_ libraries in both its interface and
 implementation.  The interface mentions Boost.Optional_ and Boost.Variant_,
