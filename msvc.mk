@@ -3,6 +3,7 @@
 !include mk/common-values.mk
 
 PREFIX=.\stage
+BINDIR=$(PREFIX)\bin
 LIBDIR=$(PREFIX)\lib
 INCDIR=$(PREFIX)\include
 BOOST_INCDIR=
