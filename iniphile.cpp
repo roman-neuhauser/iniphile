@@ -16,6 +16,14 @@
 
 #define foreach BOOST_FOREACH
 
+#if !defined(INIPHILE_DISTNAME)
+# error INIPHILE_DISTNAME undefined
+#else
+# define INIPHILE_DISTNAME_S INIPHILE_DISTNAME_Q(INIPHILE_DISTNAME)
+# define INIPHILE_DISTNAME_Q(arg) INIPHILE_DISTNAME_QQ(arg)
+# define INIPHILE_DISTNAME_QQ(arg) #arg
+#endif
+
 namespace iniphile_cmdline // {{{
 {
 
@@ -46,6 +54,14 @@ int const EX_OK = 0;
 int const EX_USAGE = 64;
 int const EX_DATAERR = 65;
 int const EX_NOINPUT = 66;
+
+static
+int
+version()
+{
+  cerr << INIPHILE_DISTNAME_S << std::endl;
+  return EX_OK;
+}
 
 static
 int
@@ -113,6 +129,9 @@ int
 main(int argc, char **argv)
 {
   using namespace iniphile_cmdline;
+
+  if (argc == 2 && *argv[1] == '-' && string(argv[1]).find("v") != string::npos)
+    return version();
 
   if (argc < 4 || argc > 5) return usage(argc, argv);
 
