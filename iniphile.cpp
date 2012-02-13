@@ -133,8 +133,7 @@ main(int argc, char **argv)
     );
   std::istream input(buf);
 
-  std::ostringstream diag;
-  ini::parse_result cfg(ini::parse(input, diag));
+  ini::parse_result cfg(ini::parse(input, cerr));
 
   if (!cfg) return EX_DATAERR;
 
