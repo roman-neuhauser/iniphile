@@ -1,20 +1,19 @@
-syntax: glob
+syntax: regexp
 
-.sw?
-.*.sw?
-*.a
-*.exe
-*.exp
-*.lib
-*.manifest
-*.o
-README.html
-commit
-iniphile
-initest-shared
-initest-static
-libiniphile.pc
-libiniphile.so
-libiniphile.so.[0-9]
-libiniphile-[0-9].so
-tags
+\.sw.?
+\.*\.sw.?
+.*\.a
+.*\.exp
+.*\.lib
+.*\.manifest
+.*\.o
+^README\.html
+^commit
+^iniphile(\.exe)?
+^initest-shared(\.exe)?
+^initest-static(\.exe)?
+^libiniphile\.pc
+^libiniphile\.so
+^libiniphile\.so\.[0-9]
+^libiniphile-[0-9]\.so
+^tags
