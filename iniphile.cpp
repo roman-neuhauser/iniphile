@@ -52,8 +52,12 @@ int
 usage(int argc, char **argv, int exit = EX_USAGE) // {{{
 {
   if (argc == 0) return EX_USAGE;
+
+  string self(*argv);
+  string::size_type slash(self.find_last_of("\\/"));
+
   cerr << format(USAGE_FMT)
-    % *argv
+    % self.substr(slash == string::npos ? 0 : slash + 1)
   ;
   return exit;
 } // }}}
