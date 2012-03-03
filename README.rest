@@ -29,7 +29,7 @@ Prerequisities
 ++++++++++++++
 
 Iniphile is known to build and run on FreeBSD 9 with gcc >= 4.2.1, and on
-Windows 7 with Visual Studio 2008 (vc9).
+Windows Vista with gcc >= 4.6.2 and Windows 7 with Visual Studio 2008 (vc9).
 
 The library uses a few header-only Boost_ libraries in both its interface and
 implementation.  The interface mentions Boost.Optional_ and Boost.Variant_,
@@ -377,7 +377,7 @@ Main variables and their default values:
   ``<empty>``
 
 `msvc.mk` assumes and relies on tools provided with MS Visual C++ Express
-exclusively.  It's tested on MS Windows Vista with VC++ 2008/9.0 Express,
+exclusively.  It's tested on Windows Vista and 7 with VC++ 2008/9.0 Express,
 and works in the Visual Studio Command Prompt and the Windows SDK CMD Shell.
 ::
 
