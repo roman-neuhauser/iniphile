@@ -344,7 +344,6 @@ FreeBSD
 ~~~~~~~
 ::
 
-  make -f bsd.mk <targets-and-variables>
   gmake -f gnu.mk <targets-and-variables>
 
 pkg-config files are stored in a nonstandard path on this system.  If you
@@ -357,8 +356,7 @@ GNU/Linux (or other with the GNU toolchain)
 
   make -f gnu.mk <targets-and-variables>
 
-Both `bsd.mk` and `gnu.mk` assume the GNU gcc suite; there are two makefiles
-because of syntactic differences between the GNU make and the FreeBSD one.
+`gnu.mk` assumes the GNU gcc suite.
 
 Windows
 +++++++

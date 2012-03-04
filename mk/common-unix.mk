@@ -32,7 +32,7 @@ LDFLAGS_static=
 LDFLAGS_SO=-shared -Wl,--soname=$(SONAME)
 MKDIR_P=mkdir -p
 
-CXXSTD=-std=c++98 -pedantic
+CXXSTD?=-std=c++98 -pedantic
 CXXOPTFLAGS=-g -O1
 CXXWFLAGS=-Wall -Wextra -Wfatal-errors -Wno-long-long
 CXXRTLIB=$(_CXXRT)
@@ -63,11 +63,13 @@ check: initest check-solink
 	LD_LIBRARY_PATH=. ./initest-static$(dot_exe)
 	LD_LIBRARY_PATH=. ./initest-shared$(dot_exe)
 
+ifndef HAVE_CHECK_SOLINK
 check-solink: initest-shared
 	@if ! ldd initest-shared | grep -Fq /$(SONAME); then \
 	  echo initest-shared does not seem to use $(SONAME); \
 	  false; \
 	fi
+endif
 
 install: all
 	$(MKDIR_P) $(DESTDIR)$(BINDIR)
