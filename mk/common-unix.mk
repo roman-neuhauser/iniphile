@@ -17,7 +17,14 @@ SPIRIT?=$(_BOOST)/include
 UTFINC?=$(_BOOST)/include
 UTFLIB?=$(_BOOST)/lib
 UTFRUN?=$(UTFLIB)
-CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(SPIRIT) -I$(UTFINC)
+LINK_MODE?=shared
+ifeq ($(LINK_MODE), shared)
+UTFFLAGS=-DBOOST_TEST_DYN_LINK
+UTF_LINKMODE=-Wl,-Bdynamic
+else
+UTF_LINKMODE=-Wl,-Bstatic
+endif
+CXXFLAGS=$(CXXSTD) $(CXXOPTFLAGS) $(CXXWFLAGS) -I$(SPIRIT) -I$(UTFINC) -DBOOST_ALL_NO_LIB $(UTFFLAGS)
 CXX=env CXX=g++$(GCCVER) gfilt
 CXX=g++$(GCCVER)
 CXX_c=-c
@@ -37,8 +44,8 @@ CXXOPTFLAGS=-g -O1
 CXXWFLAGS=-Wall -Wextra -Wfatal-errors -Wno-long-long
 CXXRTLIB=$(_CXXRT)
 CXXRTRUN=$(_CXXRT)
-LDLIBS=-lboost_unit_test_framework
-LDLIBS_SHARED=-liniphile
+LDLIBS=$(UTF_LINKMODE) -lboost_unit_test_framework
+LDLIBS_SHARED=-Bdynamic -liniphile
 
 GCCVER?=
 
@@ -60,8 +67,8 @@ dot_exe=
 all: .all
 
 check: initest check-solink
-	LD_LIBRARY_PATH=. ./initest-static$(dot_exe)
-	LD_LIBRARY_PATH=. ./initest-shared$(dot_exe)
+	LD_LIBRARY_PATH=. PATH=$$PATH:$(UTFRUN) ./initest-static$(dot_exe)
+	LD_LIBRARY_PATH=. PATH=$$PATH:$(UTFRUN) ./initest-shared$(dot_exe)
 
 ifndef HAVE_CHECK_SOLINK
 check-solink: initest-shared

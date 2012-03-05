@@ -12,7 +12,7 @@
 #include "output.hpp"
 #include "ast.hpp"
 
-#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MAIN
 #define BOOST_TEST_MODULE iniphile tests
 
 #include <boost/test/unit_test.hpp>
