@@ -51,6 +51,7 @@ GCCVER?=
 
 LN_S?=ln -s
 RM_F?=rm -f
+INSTALL?=install
 INSTALL_PROGRAM?=$(INSTALL) -s
 
 DLL_LINKAGE=
@@ -93,7 +94,8 @@ install: all
 	for f in $(PUBLIC_HEADERS); do \
 		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/iniphile/$$f; \
 	done
-	$(INSTALL) libiniphile.pc $(PKGCONFIGDIR)/libiniphile.pc
+	$(MKDIR_P) $(DESTDIR)$(PKGCONFIGDIR)
+	$(INSTALL) libiniphile.pc $(DESTDIR)$(PKGCONFIGDIR)/libiniphile.pc
 
 libiniphile.pc: libiniphile.pc.in
 	trap "$(RM_F) libiniphile.pc.$$$$" EXIT; \
