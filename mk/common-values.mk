@@ -23,5 +23,6 @@ ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \
 	  *.exp *.lib *.manifest \
 	  iniphile$(dot_exe) \
 	  version.hpp \
+	  version-hpp$(dot_exe) \
 	  $(CANONICAL) $(SONAME) *.a *.pc
 
