@@ -174,7 +174,7 @@ parse_(std::string const & input, long dflt) // {{{
 {
     namespace qi = boost::spirit::qi;
     long rv;
-    return parse_(input, qi::int_, rv)
+    return parse_(input, qi::long_, rv)
         ? rv
         : dflt
     ;

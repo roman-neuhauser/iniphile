@@ -124,16 +124,23 @@ BOOST_AUTO_TEST_CASE(get_bool) // {{{
 
 BOOST_AUTO_TEST_CASE(get_long) // {{{
 {
+    long max = std::numeric_limits<long>::max();
+    long min = std::numeric_limits<long>::min();
+
     std::ostringstream diag;
     std::istringstream input(
+      max == std::numeric_limits<int64_t>::max()
+      ?
+        "[longs]\n"
+        "dec-zero = 0\n"
+        "dec-max = +9223372036854775807\n"
+        "dec-min = -9223372036854775808\n"
+      :
         "[longs]\n"
         "dec-zero = 0\n"
         "dec-max = +2147483647\n"
         "dec-min = -2147483648\n"
     );
-
-    long max = std::numeric_limits<long>::max();
-    long min = std::numeric_limits<long>::min();
 
     ast::node afg(ini::normalize(*ini::parse(input, diag)));
 
