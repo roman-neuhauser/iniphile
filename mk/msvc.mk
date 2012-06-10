@@ -31,7 +31,7 @@ INSTALL=copy
 
 DLL_LINKAGE=-DINIPHILE_DLL
 
-LIBINIPHILE_PC=
+INIPHILE_PC=
 SONAME=libiniphile-$(VERSION_major).so
 IMPORT_LIB=libiniphile.lib
 

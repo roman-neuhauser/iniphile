@@ -57,7 +57,7 @@ INSTALL_PROGRAM?=$(INSTALL) -s
 
 DLL_LINKAGE=
 
-LIBINIPHILE_PC=libiniphile.pc
+INIPHILE_PC=iniphile.pc
 SONAME=$(CANONICAL).$(VERSION_major)
 IMPORT_LIB=$(CANONICAL)
 
@@ -96,15 +96,15 @@ install: all
 		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/iniphile/$$f; \
 	done
 	$(MKDIR_P) $(DESTDIR)$(PKGCONFIGDIR)
-	$(INSTALL) libiniphile.pc $(DESTDIR)$(PKGCONFIGDIR)/libiniphile.pc
+	$(INSTALL) $(INIPHILE_PC) $(DESTDIR)$(PKGCONFIGDIR)/$(INIPHILE_PC)
 
-libiniphile.pc: libiniphile.pc.in
-	trap "$(RM_F) libiniphile.pc.$$$$" EXIT; \
+$(INIPHILE_PC): $(INIPHILE_PC).in
+	trap "$(RM_F) $(INIPHILE_PC).$$$$" EXIT; \
 	sed -e 's#@@PREFIX@@#$(PREFIX)#' \
 	    -e 's#@@VERSION@@#$(VERSIONSTRING)#' \
-	    < libiniphile.pc.in \
-	    > libiniphile.pc.$$$$; \
-	mv libiniphile.pc.$$$$ libiniphile.pc
+	    < $(INIPHILE_PC).in \
+	    > $(INIPHILE_PC).$$$$; \
+	mv $(INIPHILE_PC).$$$$ $(INIPHILE_PC)
 
 libiniphile.so: $(SONAME)
 	$(RM_F) libiniphile.so

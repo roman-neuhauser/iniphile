@@ -3,7 +3,7 @@
 .PHONY: .all all check check-solink clean dist initest install libs
 .SUFFIXES: .o .html .rest
 
-.all: iniphile$(dot_exe) initest $(LIBINIPHILE_PC)
+.all: iniphile$(dot_exe) initest $(INIPHILE_PC)
 
 libs: libiniphile.a $(SONAME)
 

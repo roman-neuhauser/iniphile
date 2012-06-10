@@ -10,9 +10,9 @@ syntax: regexp
 ^README\.html$
 ^commit
 ^iniphile(\.exe)?$
+^iniphile\.pc$
 ^initest-shared(\.exe)?$
 ^initest-static(\.exe)?$
-^libiniphile\.pc$
 ^libiniphile\.so$
 ^libiniphile\.so\.[0-9]$
 ^libiniphile-[0-9]\.so$
