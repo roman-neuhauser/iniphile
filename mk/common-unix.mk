@@ -8,6 +8,7 @@ PKGCONFIGDIR?=$(LIBDIR)/pkgconfig
 MANDIR?=$(PREFIX)/man
 MAN1DIR?=$(MANDIR)/man1
 
+RPMBUILD?=rpmbuild
 RST2HTML?=rst2html.py
 
 _CXXRT?=/usr/lib
@@ -58,6 +59,7 @@ INSTALL_PROGRAM?=$(INSTALL) -s
 DLL_LINKAGE=
 
 INIPHILE_PC=iniphile.pc
+INIPHILE_SPEC=iniphile.spec
 SONAME=$(CANONICAL).$(VERSION_major)
 IMPORT_LIB=$(CANONICAL)
 
@@ -105,6 +107,18 @@ $(INIPHILE_PC): $(INIPHILE_PC).in
 	    < $(INIPHILE_PC).in \
 	    > $(INIPHILE_PC).$$$$; \
 	mv $(INIPHILE_PC).$$$$ $(INIPHILE_PC)
+
+$(INIPHILE_SPEC): $(INIPHILE_SPEC).in
+	trap "$(RM_F) $(INIPHILE_SPEC).$$$$" EXIT; \
+	sed -e 's#__VERSION__#$(VERSIONSTRING)#' \
+	    < $(INIPHILE_SPEC).in \
+	    > $(INIPHILE_SPEC).$$$$; \
+	mv $(INIPHILE_SPEC).$$$$ $(INIPHILE_SPEC)
+
+rpm: iniphile-$(VERSION).rpm
+
+iniphile-$(VERSION).rpm: $(INIPHILE_SPEC)
+	$(RPMBUILD) -bb $(INIPHILE_SPEC)
 
 libiniphile.so: $(SONAME)
 	$(RM_F) libiniphile.so

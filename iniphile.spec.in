@@ -1,0 +1,56 @@
+# norootforbuild
+
+Name:           iniphile
+Version:        __VERSION__
+Release:        0
+License:        MIT
+Summary:        Ini file parsing library for C++
+Url:            http://codex.sigpipe.cz/iniphile/
+Group:          Development/Libraries/C and C++
+Source:         %{url}%{name}-%{version}.tar.bz2
+BuildRequires:  boost-devel python-docutils
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+
+%define iniphile_make  make -f gnu.mk PREFIX=/usr PKGCONFIGDIR=%{_libdir}/pkgconfig MANDIR=%{_mandir} RST2HTML=rst2html
+
+%description
+
+%prep
+%setup -q
+
+%build
+%iniphile_make all docs
+
+%check
+%iniphile_make check
+
+%install
+%iniphile_make install DESTDIR=%{buildroot}
+
+%clean
+%{?buildroot:%__rm -rf "%{buildroot}"}
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+%files
+%defattr(-,root,root)
+%{_bindir}/iniphile
+%{_includedir}/iniphile/ast.hpp
+%{_includedir}/iniphile/astfwd.hpp
+%{_includedir}/iniphile/declspec.hpp
+%{_includedir}/iniphile/input.hpp
+%{_includedir}/iniphile/metagram.hpp
+%{_includedir}/iniphile/output.hpp
+%{_includedir}/iniphile/version.hpp
+%{_libdir}/libiniphile.a
+%{_libdir}/libiniphile.so
+%{_libdir}/libiniphile.so.0
+%{_libdir}/pkgconfig/iniphile.pc
+%{_mandir}/man1/iniphile.1.gz
+
+%doc README.rest README.html LICENSE
+
+%changelog
+

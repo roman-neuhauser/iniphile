@@ -1,6 +1,7 @@
 # vim: ts=8 noet ft=make
 
 .PHONY: .all all check check-solink clean dist initest install libs
+.PHONY: rpm
 .SUFFIXES: .o .html .rest
 
 .all: iniphile$(dot_exe) initest $(INIPHILE_PC)

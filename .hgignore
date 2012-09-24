@@ -11,6 +11,7 @@ syntax: regexp
 ^commit
 ^iniphile(\.exe)?$
 ^iniphile\.pc$
+^iniphile\.spec$
 ^initest-shared(\.exe)?$
 ^initest-static(\.exe)?$
 ^libiniphile\.so$
