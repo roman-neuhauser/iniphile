@@ -1,6 +1,7 @@
 # vim: ts=8 noet ft=make
 
-.PHONY: .all all check check-solink clean dist initest install libs
+.PHONY: .all all clean dist initest install libs
+.PHONY: check check-1 check-3 check-solink
 .PHONY: rpm
 .SUFFIXES: .o .html .rest
 
@@ -9,6 +10,8 @@
 libs: libiniphile.a $(SONAME)
 
 docs: README.html
+
+check: check-3 check-1
 
 clean:
 	$(RM_F) $(ARTIFACTS)

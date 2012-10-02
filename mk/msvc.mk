@@ -1,3 +1,5 @@
+# vim: ts=8 noet ft=make
+
 PREFIX=.\stage
 BINDIR=$(PREFIX)\bin
 LIBDIR=$(PREFIX)\lib
@@ -42,7 +44,11 @@ dot_exe=.exe
 
 all: .all
 
-check: initest
+# rnt-based tests for iniphile(1) require MSYS, that
+# does not go well with the rest of this makefile
+check-1:
+
+check-3: initest
 	initest-static$(dot_exe)
 	initest-shared$(dot_exe)
 

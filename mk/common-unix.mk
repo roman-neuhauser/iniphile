@@ -72,7 +72,10 @@ dot_exe=
 
 all: .all iniphile.1.gz
 
-check: initest check-solink
+check-1: iniphile
+	SHELL=$(SHELL) $(SHELL) rnt/run-tests.sh tests $$PWD/iniphile
+
+check-3: initest check-solink
 	LD_LIBRARY_PATH=. PATH=$$PATH:$(UTFRUN) ./initest-static$(dot_exe)
 	LD_LIBRARY_PATH=. PATH=$$PATH:$(UTFRUN) ./initest-shared$(dot_exe)
 

@@ -1,0 +1,7 @@
+usage: iniphile file format query [default]
+ format:
+  a - array, items terminated with '\0'
+  b - bool
+  d - double
+  l - long
+  s - string

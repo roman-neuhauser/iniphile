@@ -1,0 +1,5 @@
+iniphile with no arguments should produce usage
+
+* exit code is 64
+* the usage string goes to stderr
+* stdout is empty
