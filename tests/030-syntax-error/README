@@ -1,0 +1,5 @@
+broken input file yields specific error
+
+* exit code is 65
+* stderr has complaint about the file
+* stdout is empty

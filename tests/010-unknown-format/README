@@ -1,0 +1,8 @@
+unknown format specifier yields usage
+
+the ini file named by the first argument need not exist,
+command line syntax is verified first.
+
+* exit code is 64
+* the usage string goes to stderr
+* stdout is empty

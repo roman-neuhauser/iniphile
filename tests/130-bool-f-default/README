@@ -1,0 +1,5 @@
+bool request satisfied from default: false
+
+* exit code is 0
+* stdout has "0"
+* stderr is empty
