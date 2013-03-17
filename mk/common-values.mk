@@ -16,7 +16,8 @@ LIBOBJECTS=input.o output.o ast.o
 OBJECTS=iniphile.o initest-shared.o initest-static.o version-hpp.o \
 	$(LIBOBJECTS)
 
-PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp input.hpp \
+PUBLIC_HEADERS=ast.hpp astfwd.hpp declspec.hpp \
+	error-handler.hpp input.hpp \
 	metagram.hpp output.hpp version.hpp
 
 ARTIFACTS=$(OBJECTS) initest-static$(dot_exe) initest-shared$(dot_exe) \

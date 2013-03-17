@@ -8,6 +8,7 @@
 
 #define LIBINIPHILE_SOURCE
 
+#include "error-handler.hpp"
 #include "input.hpp"
 
 namespace iniphile
@@ -114,13 +115,7 @@ grammar
         on_error<fail>
         (
             start
-          , erros
-                << val("Error! Expecting ")
-                << _4
-                << val(" here: \"")
-                << construct<std::string>(_3, _2)
-                << val("\"")
-                << std::endl
+          , error_handler<Iter>(erros)
         );
 
         start.name("start");

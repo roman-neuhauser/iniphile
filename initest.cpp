@@ -31,9 +31,27 @@ BOOST_AUTO_TEST_CASE(parsing_empty_file_succeeds) // {{{
 BOOST_AUTO_TEST_CASE(syntax_error) // {{{
 {
     std::ostringstream diag;
-    std::istringstream input("syntax error");
+    std::istringstream input(
+      "[bad-section\n"
+      "omg = wtf\n"
+      "]\n"
+      "loads = of\n"
+      "other = crap\n"
+      "[maybe]\n"
+      "this-is = ok?\n"
+    );
     BOOST_CHECK_EQUAL(false, !!ini::parse(input, diag));
-    BOOST_CHECK_NE("", diag.str());
+    BOOST_CHECK_EQUAL(
+      "Error! Expecting \"]\" here: [bad-section\n"
+      "omg = wtf\n"
+      "]\n"
+      "loads = of\n"
+      "other = crap\n"
+      "[maybe]\n"
+      "this-is = ok?\n"
+      "\n"
+    , diag.str()
+    );
 } // }}}
 
 template<class T>

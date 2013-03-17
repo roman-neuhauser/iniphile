@@ -64,9 +64,9 @@ version.hpp: version-hpp$(dot_exe)
 .cpp.o:
 	$(COMPILE)$@ $< $(DLL_LINKAGE)
 
-initest-static.o: metagram.hpp input.hpp output.hpp ast.hpp
-initest-shared.o: metagram.hpp input.hpp output.hpp ast.hpp
-input.o: metagram.hpp input.hpp
+initest-static.o: metagram.hpp input.hpp error-handler.hpp output.hpp ast.hpp
+initest-shared.o: metagram.hpp input.hpp error-handler.hpp output.hpp ast.hpp
+input.o: metagram.hpp input.hpp error-handler.hpp
 output.o: metagram.hpp output.hpp ast.hpp
 ast.o: metagram.hpp ast.hpp
 
