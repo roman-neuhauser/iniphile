@@ -53,6 +53,7 @@ GCCVER?=
 LN_S?=ln -s
 RM_F?=rm -f
 INSTALL?=install
+INSTALL_DATA?=$(INSTALL) -m 0644
 INSTALL_LIBRARY?=$(INSTALL)
 INSTALL_PROGRAM?=$(INSTALL) -s
 
@@ -92,13 +93,13 @@ install: all
 		&& $(RM_F) $(CANONICAL) \
 		&& $(LN_S) $(SONAME) $(CANONICAL)
 	$(INSTALL_PROGRAM) iniphile $(DESTDIR)$(BINDIR)/iniphile
-	$(INSTALL) iniphile.1 $(DESTDIR)$(MAN1DIR)/iniphile.1
+	$(INSTALL_DATA) iniphile.1 $(DESTDIR)$(MAN1DIR)/iniphile.1
 	$(MKDIR_P) $(DESTDIR)$(INCDIR)/iniphile
 	for f in $(PUBLIC_HEADERS); do \
-		$(INSTALL) $$f $(DESTDIR)$(INCDIR)/iniphile/$$f; \
+		$(INSTALL_DATA) $$f $(DESTDIR)$(INCDIR)/iniphile/$$f; \
 	done
 	$(MKDIR_P) $(DESTDIR)$(PKGCONFIGDIR)
-	$(INSTALL) $(INIPHILE_PC) $(DESTDIR)$(PKGCONFIGDIR)/$(INIPHILE_PC)
+	$(INSTALL_DATA) $(INIPHILE_PC) $(DESTDIR)$(PKGCONFIGDIR)/$(INIPHILE_PC)
 
 $(INIPHILE_PC): $(INIPHILE_PC).in
 	trap "$(RM_F) $(INIPHILE_PC).$$$$" EXIT; \
