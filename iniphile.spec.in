@@ -4,9 +4,9 @@ Name:           iniphile
 Version:        __VERSION__
 Release:        0
 License:        MIT
-Summary:        Ini file parsing library for C++
+Summary:        Ini file parsing tool
 Url:            http://codex.sigpipe.cz/iniphile/
-Group:          Development/Libraries/C and C++
+Group:          Development/Tools/Other
 Source:         %{url}%{name}-%{version}.tar.gz
 BuildRequires:  boost-devel gcc-c++ python-docutils
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -46,12 +46,16 @@ of the INI file format.
 %changelog
 
 %package -n libiniphile-0
+Summary:        Ini file parsing library for C++
+Group:          Development/Libraries/C and C++
 
 %files
 %defattr(-,root,root)
 %{_libdir}/libiniphile.so.0
 
-%package -n libiniphile-0
+%package -n libiniphile-devel
+Summary:        Ini file parsing library for C++
+Group:          Development/Libraries/C and C++
 
 %files
 %defattr(-,root,root)
