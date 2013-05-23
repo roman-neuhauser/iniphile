@@ -8,7 +8,7 @@ Summary:        Ini file parsing library for C++
 Url:            http://codex.sigpipe.cz/iniphile/
 Group:          Development/Libraries/C and C++
 Source:         %{url}%{name}-%{version}.tar.gz
-BuildRequires:  boost-devel python-docutils
+BuildRequires:  boost-devel gcc-c++ python-docutils
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %define iniphile_make  make -f gnu.mk PREFIX=/usr PKGCONFIGDIR=%{_libdir}/pkgconfig MANDIR=%{_mandir} RST2HTML=rst2html
