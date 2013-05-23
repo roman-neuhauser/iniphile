@@ -1,7 +1,7 @@
 # vim: ts=8 noet ft=make
 
 VERSION_major=0
-VERSION_minor=3
+VERSION_minor=5.2
 VERSIONSTRING=$(VERSION_major).$(VERSION_minor)
 DISTNAME=iniphile-$(VERSIONSTRING)
 
