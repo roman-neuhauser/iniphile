@@ -38,8 +38,24 @@ of the INI file format.
 
 %files
 %defattr(-,root,root)
-%dir %{_includedir}/iniphile
 %{_bindir}/iniphile
+%{_mandir}/man1/iniphile.1.gz
+
+%doc README.rest README.html LICENSE
+
+%changelog
+
+%package -n libiniphile-0
+
+%files
+%defattr(-,root,root)
+%{_libdir}/libiniphile.so.0
+
+%package -n libiniphile-0
+
+%files
+%defattr(-,root,root)
+%dir %{_includedir}/iniphile
 %{_includedir}/iniphile/ast.hpp
 %{_includedir}/iniphile/astfwd.hpp
 %{_includedir}/iniphile/declspec.hpp
@@ -49,11 +65,4 @@ of the INI file format.
 %{_includedir}/iniphile/version.hpp
 %{_libdir}/libiniphile.a
 %{_libdir}/libiniphile.so
-%{_libdir}/libiniphile.so.0
 %{_libdir}/pkgconfig/iniphile.pc
-%{_mandir}/man1/iniphile.1.gz
-
-%doc README.rest README.html LICENSE
-
-%changelog
-
