@@ -36,6 +36,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %files
 %defattr(-,root,root)
+%dir %{_includedir}/iniphile
 %{_bindir}/iniphile
 %{_includedir}/iniphile/ast.hpp
 %{_includedir}/iniphile/astfwd.hpp
