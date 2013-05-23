@@ -14,6 +14,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %define iniphile_make  make -f gnu.mk PREFIX=/usr PKGCONFIGDIR=%{_libdir}/pkgconfig MANDIR=%{_mandir} RST2HTML=rst2html
 
 %description
+Iniphile is a C++ library and commandline tool for parsing a dialect
+of the INI file format.
 
 %prep
 %setup -q
