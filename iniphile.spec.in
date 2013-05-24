@@ -41,19 +41,19 @@ of the INI file format.
 
 %changelog
 
-%package -n libiniphile-0
+%package -n libiniphile0
 Summary:        Ini file parsing library for C++
 Group:          Development/Libraries/C and C++
 
-%description -n libiniphile-0
+%description -n libiniphile0
 Iniphile is a C++ library for parsing a dialect
 of the INI file format.
 
-%post -n libiniphile-0 -p /sbin/ldconfig
+%post -n libiniphile0 -p /sbin/ldconfig
 
-%postun -n libiniphile-0 -p /sbin/ldconfig
+%postun -n libiniphile0 -p /sbin/ldconfig
 
-%files -n libiniphile-0
+%files -n libiniphile0
 %defattr(-,root,root)
 %{_libdir}/libiniphile.so.0
 
