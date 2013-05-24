@@ -32,10 +32,6 @@ of the INI file format.
 %clean
 %{?buildroot:%__rm -rf "%{buildroot}"}
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
-
 %files
 %defattr(-,root,root)
 %{_bindir}/iniphile
@@ -53,7 +49,11 @@ Group:          Development/Libraries/C and C++
 Iniphile is a C++ library for parsing a dialect
 of the INI file format.
 
-%files
+%post -n libiniphile-0 -p /sbin/ldconfig
+
+%postun -n libiniphile-0 -p /sbin/ldconfig
+
+%files -n libiniphile-0
 %defattr(-,root,root)
 %{_libdir}/libiniphile.so.0
 
@@ -65,7 +65,7 @@ Group:          Development/Libraries/C and C++
 Iniphile is a C++ library for parsing a dialect
 of the INI file format.
 
-%files
+%files -n libiniphile-devel
 %defattr(-,root,root)
 %dir %{_includedir}/iniphile
 %{_includedir}/iniphile/ast.hpp
