@@ -14,7 +14,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %define iniphile_make  make -f gnu.mk PREFIX=%{_prefix} LIBDIR=%{_libdir} PKGCONFIGDIR=%{_libdir}/pkgconfig MANDIR=%{_mandir} RST2HTML=rst2html
 
 %description
-Iniphile is a C++ library and commandline tool for parsing a dialect
+Iniphile is a commandline tool for parsing a dialect
 of the INI file format.
 
 %prep
@@ -49,6 +49,10 @@ of the INI file format.
 Summary:        Ini file parsing library for C++
 Group:          Development/Libraries/C and C++
 
+%description
+Iniphile is a C++ library for parsing a dialect
+of the INI file format.
+
 %files
 %defattr(-,root,root)
 %{_libdir}/libiniphile.so.0
@@ -56,6 +60,10 @@ Group:          Development/Libraries/C and C++
 %package -n libiniphile-devel
 Summary:        Ini file parsing library for C++
 Group:          Development/Libraries/C and C++
+
+%description
+Iniphile is a C++ library for parsing a dialect
+of the INI file format.
 
 %files
 %defattr(-,root,root)
