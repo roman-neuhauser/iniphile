@@ -49,7 +49,7 @@ of the INI file format.
 Summary:        Ini file parsing library for C++
 Group:          Development/Libraries/C and C++
 
-%description
+%description -n libiniphile-0
 Iniphile is a C++ library for parsing a dialect
 of the INI file format.
 
@@ -61,7 +61,7 @@ of the INI file format.
 Summary:        Ini file parsing library for C++
 Group:          Development/Libraries/C and C++
 
-%description
+%description -n libiniphile-devel
 Iniphile is a C++ library for parsing a dialect
 of the INI file format.
 
