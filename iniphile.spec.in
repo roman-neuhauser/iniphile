@@ -61,7 +61,7 @@ of the INI file format.
 Summary:        Ini file parsing library for C++
 Group:          Development/Libraries/C and C++
 BuildRequires:  pkg-config
-Requires:       libiniphile0
+Requires:       libiniphile0 = %{version}
 
 %description -n libiniphile-devel
 Iniphile is a C++ library for parsing a dialect
