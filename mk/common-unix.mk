@@ -8,6 +8,7 @@ PKGCONFIGDIR?=$(LIBDIR)/pkgconfig
 MANDIR?=$(PREFIX)/man
 MAN1DIR?=$(MANDIR)/man1
 
+GZIP?=gzip
 RPMBUILD?=rpmbuild
 RST2HTML?=rst2html.py
 
@@ -69,7 +70,7 @@ EMBED_MANIFEST= \
 
 dot_exe=
 
-all: .all
+all: .all iniphile.1.gz
 
 check: initest check-solink
 	LD_LIBRARY_PATH=. PATH=$$PATH:$(UTFRUN) ./initest-static$(dot_exe)
@@ -93,7 +94,7 @@ install: all
 		&& $(RM_F) $(CANONICAL) \
 		&& $(LN_S) $(SONAME) $(CANONICAL)
 	$(INSTALL_PROGRAM) iniphile $(DESTDIR)$(BINDIR)/iniphile
-	$(INSTALL_DATA) iniphile.1 $(DESTDIR)$(MAN1DIR)/iniphile.1
+	$(INSTALL_DATA) iniphile.1.gz $(DESTDIR)$(MAN1DIR)/iniphile.1.gz
 	$(MKDIR_P) $(DESTDIR)$(INCDIR)/iniphile
 	for f in $(PUBLIC_HEADERS); do \
 		$(INSTALL_DATA) $$f $(DESTDIR)$(INCDIR)/iniphile/$$f; \
@@ -115,6 +116,9 @@ $(INIPHILE_SPEC): $(INIPHILE_SPEC).in
 	    < $(INIPHILE_SPEC).in \
 	    > $(INIPHILE_SPEC).$$$$; \
 	mv $(INIPHILE_SPEC).$$$$ $(INIPHILE_SPEC)
+
+%.1.gz: %.1
+	$(GZIP) < $< > $@
 
 rpm: iniphile-$(VERSION).rpm
 
