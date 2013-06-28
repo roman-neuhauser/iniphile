@@ -20,10 +20,11 @@ struct error_handler
   template <class, class, class>
   struct result { typedef void type; };
 
-  error_handler(Iter srcbeg, Iter srcend, std::ostream& erros)
-  : erros(erros)
+  error_handler(std::string const fname, Iter srcbeg, Iter srcend, std::ostream& erros)
+  : fname(fname)
   , srcbeg(srcbeg)
   , srcend(srcend)
+  , erros(erros)
   {}
 
   template <class Args, class Context, class Rule>
@@ -39,7 +40,9 @@ struct error_handler
     erros
       << "error: expecting "
       << what
-      << " on line "
+      << " in "
+      << fname
+      << ':'
       << linenr
       << ':'
       << std::endl
@@ -79,9 +82,10 @@ struct error_handler
     }
   };
 
-  std::ostream& erros;
+  std::string const fname;
   Iter srcbeg;
   Iter srcend;
+  std::ostream& erros;
 };
 
 } // namespace iniphile

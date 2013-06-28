@@ -145,7 +145,7 @@ main(int argc, char **argv)
     );
   std::istream input(buf);
 
-  ini::parse_result cfg(ini::parse(input, cerr));
+  ini::parse_result cfg(ini::parse(file, input, cerr));
 
   if (!cfg) return EX_DATAERR;
 

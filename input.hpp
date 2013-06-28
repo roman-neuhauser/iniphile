@@ -17,11 +17,11 @@ typedef boost::optional<metagram::config> parse_result;
 
 DLLEXPORT
 parse_result
-parse(std::string const & input, std::ostream & erros);
+parse(std::string const& fname, std::string const& input, std::ostream& erros);
 
 DLLEXPORT
 parse_result
-parse(std::istream & input, std::ostream & erros);
+parse(std::string const& fname, std::istream& input, std::ostream& erros);
 
 } // namespace iniphile
 

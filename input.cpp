@@ -29,7 +29,7 @@ grammar
         typedef qi::rule<Iter, T> rule;
     };
 
-    grammar(Iter const& srcbeg, Iter const& srcend, std::ostream& erros)
+    grammar(std::string const fname, Iter const& srcbeg, Iter const& srcend, std::ostream& erros)
     : grammar::base_type(start)
     { // {{{
 
@@ -115,7 +115,7 @@ grammar
         on_error<fail>
         (
             start
-          , error_handler<Iter>(srcbeg, srcend, erros)
+          , error_handler<Iter>(fname, srcbeg, srcend, erros)
         );
 
         start.name("start");
@@ -149,9 +149,9 @@ grammar
 
 template<class Iter>
 parse_result
-parse(Iter & first, Iter last, std::ostream & erros) // {{{
+parse(std::string const& fname, Iter& first, Iter last, std::ostream& erros) // {{{
 {
-    grammar<Iter> g(first, last, erros);
+    grammar<Iter> g(fname, first, last, erros);
     metagram::config cfg;
     parse_result rv;
     bool ok = qi::parse(
@@ -166,17 +166,17 @@ parse(Iter & first, Iter last, std::ostream & erros) // {{{
 } // }}}
 
 parse_result
-parse(std::string const & input, std::ostream & erros)
+parse(std::string const& fname, std::string const& input, std::ostream& erros)
 {
     std::string::const_iterator b(input.begin()), e(input.end());
-    return parse(b, e, erros);
+    return parse(fname, b, e, erros);
 }
 
 parse_result
-parse(std::istream & input, std::ostream & erros)
+parse(std::string const& fname, std::istream& input, std::ostream& erros)
 {
     std::istreambuf_iterator<char> b(input), e;
-    return parse(std::string(b, e), erros);
+    return parse(fname, std::string(b, e), erros);
 }
 
 } // namespace iniphile

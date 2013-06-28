@@ -22,14 +22,16 @@ namespace ast = iniphile::ast;
 
 BOOST_AUTO_TEST_CASE(parsing_empty_file_succeeds) // {{{
 {
+    std::string const fname("parsing_empty_file_succeeds.ini");
     std::ostringstream diag;
     std::istringstream input("");
-    BOOST_CHECK_EQUAL(true, !!ini::parse(input, diag));
+    BOOST_CHECK_EQUAL(true, !!ini::parse(fname, input, diag));
     BOOST_CHECK_EQUAL("", diag.str());
 } // }}}
 
 BOOST_AUTO_TEST_CASE(syntax_error) // {{{
 {
+    std::string const fname("syntax_error.ini");
     std::ostringstream diag;
     std::istringstream input(
       "[bad-section\n"
@@ -40,9 +42,9 @@ BOOST_AUTO_TEST_CASE(syntax_error) // {{{
       "[maybe]\n"
       "this-is = ok?\n"
     );
-    BOOST_CHECK_EQUAL(false, !!ini::parse(input, diag));
+    BOOST_CHECK_EQUAL(false, !!ini::parse(fname, input, diag));
     BOOST_CHECK_EQUAL(
-      "error: expecting \"]\" on line 1:\n"
+      "error: expecting \"]\" in syntax_error.ini:1:\n"
       "[bad-section\n"
       "            ^\n"
     , diag.str()
@@ -59,9 +61,10 @@ check_get_failure(ast::node const& afg, T exp, T dflt) // {{{
 
 BOOST_AUTO_TEST_CASE(key_not_found) // {{{
 {
+    std::string const fname("key_not_found.ini");
     std::ostringstream diag;
     std::istringstream input("");
-    ini::parse_result cfg(ini::parse(input, diag));
+    ini::parse_result cfg(ini::parse(fname, input, diag));
 
     BOOST_CHECK_EQUAL(true, !!cfg);
     BOOST_CHECK_EQUAL("", diag.str());
@@ -107,6 +110,7 @@ BOOST_AUTO_TEST_CASE(key_not_found) // {{{
 
 BOOST_AUTO_TEST_CASE(get_bool) // {{{
 {
+    std::string const fname("get_bool.ini");
     std::ostringstream diag;
     std::istringstream input(
         "[bools]\n"
@@ -120,7 +124,7 @@ BOOST_AUTO_TEST_CASE(get_bool) // {{{
         "f-onoff = ofF\n"
     );
 
-    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+    ast::node afg(ini::normalize(*ini::parse(fname, input, diag)));
 
     CHECK_BOOL(afg, "bools.t-digit", true);
     CHECK_BOOL(afg, "bools.f-digit", false);
@@ -137,6 +141,7 @@ BOOST_AUTO_TEST_CASE(get_bool) // {{{
 
 BOOST_AUTO_TEST_CASE(get_long) // {{{
 {
+    std::string const fname("get_long.ini");
     long max = std::numeric_limits<long>::max();
     long min = std::numeric_limits<long>::min();
 
@@ -155,7 +160,7 @@ BOOST_AUTO_TEST_CASE(get_long) // {{{
         "dec-min = -2147483648\n"
     );
 
-    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+    ast::node afg(ini::normalize(*ini::parse(fname, input, diag)));
 
     CHECK_LONG(afg, "longs.dec-max", max);
     CHECK_LONG(afg, "longs.dec-min", min);
@@ -164,6 +169,7 @@ BOOST_AUTO_TEST_CASE(get_long) // {{{
 
 BOOST_AUTO_TEST_CASE(get_double) // {{{
 {
+    std::string const fname("get_double.ini");
     std::ostringstream diag;
     std::istringstream input(
         "[doubles]\n"
@@ -175,7 +181,7 @@ BOOST_AUTO_TEST_CASE(get_double) // {{{
     double max = std::numeric_limits<double>::max();
     double min = std::numeric_limits<double>::min();
 
-    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+    ast::node afg(ini::normalize(*ini::parse(fname, input, diag)));
 
     CHECK_DOUBLE(afg, "doubles.dec-max", max);
     CHECK_DOUBLE(afg, "doubles.dec-min", min);
@@ -184,6 +190,7 @@ BOOST_AUTO_TEST_CASE(get_double) // {{{
 
 BOOST_AUTO_TEST_CASE(get_string) // {{{
 {
+    std::string const fname("get_string.ini");
     std::ostringstream diag;
     std::istringstream input(
         "[strings]\n"
@@ -193,7 +200,7 @@ BOOST_AUTO_TEST_CASE(get_string) // {{{
         "mix = hello  \"  WORLD\"  \n  again\n"
     );
 
-    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+    ast::node afg(ini::normalize(*ini::parse(fname, input, diag)));
 
     CHECK_STRING(afg, "strings.word", "Hello", "");
     CHECK_STRING(afg, "strings.words", "hellO World", "");
@@ -204,6 +211,7 @@ BOOST_AUTO_TEST_CASE(get_string) // {{{
 
 BOOST_AUTO_TEST_CASE(get_strings) // {{{
 {
+    std::string const fname("get_strings.ini");
     std::ostringstream diag;
     std::istringstream input(
         "[strings]\n"
@@ -218,7 +226,7 @@ BOOST_AUTO_TEST_CASE(get_strings) // {{{
         " \"\n"
     );
 
-    ast::node afg(ini::normalize(*ini::parse(input, diag)));
+    ast::node afg(ini::normalize(*ini::parse(fname, input, diag)));
 
     {
         std::vector<std::string> dflt, exp;
