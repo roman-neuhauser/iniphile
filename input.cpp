@@ -29,7 +29,7 @@ grammar
         typedef qi::rule<Iter, T> rule;
     };
 
-    grammar(std::ostream & erros)
+    grammar(Iter const& srcbeg, Iter const& srcend, std::ostream& erros)
     : grammar::base_type(start)
     { // {{{
 
@@ -115,7 +115,7 @@ grammar
         on_error<fail>
         (
             start
-          , error_handler<Iter>(erros)
+          , error_handler<Iter>(srcbeg, srcend, erros)
         );
 
         start.name("start");
@@ -151,7 +151,7 @@ template<class Iter>
 parse_result
 parse(Iter & first, Iter last, std::ostream & erros) // {{{
 {
-    grammar<Iter> g(erros);
+    grammar<Iter> g(first, last, erros);
     metagram::config cfg;
     parse_result rv;
     bool ok = qi::parse(

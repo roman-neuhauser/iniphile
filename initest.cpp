@@ -42,14 +42,9 @@ BOOST_AUTO_TEST_CASE(syntax_error) // {{{
     );
     BOOST_CHECK_EQUAL(false, !!ini::parse(input, diag));
     BOOST_CHECK_EQUAL(
-      "Error! Expecting \"]\" here: [bad-section\n"
-      "omg = wtf\n"
-      "]\n"
-      "loads = of\n"
-      "other = crap\n"
-      "[maybe]\n"
-      "this-is = ok?\n"
-      "\n"
+      "error: expecting \"]\" on line 1:\n"
+      "[bad-section\n"
+      "            ^\n"
     , diag.str()
     );
 } // }}}

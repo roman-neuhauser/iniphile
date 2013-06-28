@@ -1,4 +1,3 @@
-Error! Expecting "]" here: [fu
-
-bar = 1
-
+error: expecting "]" on line 1:
+[fu
+   ^
