@@ -381,6 +381,5 @@ supply `BOOST_INCDIR` and `BOOST_LIBDIR` or the compilation will fail.
 (defaults to ``$(PREFIX)\include``).
 
 .. target-notes::
-.. section-numbering::
 
 .. vim: ft=rst sts=2 sw=2 tw=77
