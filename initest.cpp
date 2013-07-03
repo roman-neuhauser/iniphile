@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(syntax_error) // {{{
     );
     BOOST_CHECK_EQUAL(false, !!ini::parse(fname, input, diag));
     BOOST_CHECK_EQUAL(
-      "error: expecting \"]\" in syntax_error.ini:3:13:\n"
+      "error: syntax_error.ini:3:13: expected \"]\"\n"
       "[bad-section\n"
       "            ^\n"
     , diag.str()

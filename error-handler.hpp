@@ -38,15 +38,15 @@ struct error_handler
     boost::tie(linebeg, linenr, colnr) = errline(err);
 
     erros
-      << "error: expecting "
-      << what
-      << " in "
+      << "error: "
       << fname
       << ':'
       << linenr
       << ':'
       << colnr + 1
       << ':'
+      << " expected "
+      << what
       << std::endl
       << std::string(linebeg, std::find_if(linebeg, srcend, is_crlf()))
       << std::endl
