@@ -91,7 +91,7 @@ install: all
 	$(MKDIR_P) $(DESTDIR)$(BINDIR)
 	$(MKDIR_P) $(DESTDIR)$(LIBDIR)
 	$(MKDIR_P) $(DESTDIR)$(MAN1DIR)
-	$(INSTALL_LIBRARY) libiniphile.a $(DESTDIR)$(LIBDIR)/libiniphile.a
+	$(INSTALL_DATA) libiniphile.a $(DESTDIR)$(LIBDIR)/libiniphile.a
 	$(INSTALL_LIBRARY) $(SONAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
 	cd $(DESTDIR)$(LIBDIR) \
 		&& $(RM_F) $(CANONICAL) \
