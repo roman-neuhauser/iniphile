@@ -25,7 +25,7 @@ of the INI file format.
 %iniphile_make all docs
 
 %check
-%iniphile_make check
+%iniphile_make check-3
 
 %install
 %iniphile_make install DESTDIR=%{buildroot}
