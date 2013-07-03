@@ -92,10 +92,11 @@ notify.cpp ::
   {
       namespace ini = iniphile;
 
-      std::ifstream input("notify.ini");
+      std::string fname("notify.ini");
+      std::ifstream input(fname);
       std::ostringstream diag;
 
-      ini::parse_result cfg(ini::parse(input, diag));
+      ini::parse_result cfg(ini::parse(fname, input, diag));
 
       if (!cfg) {
           std::cerr << "garbled configuration\n";
@@ -192,13 +193,15 @@ Each header `#include`\s all its dependencies.
 
     iniphile::parse_result
     iniphile::parse(
-        std::string const& input
+        std::string const& fname
+      , std::string const& input
       , std::ostream& diag
     );
 
     iniphile::parse_result
     iniphile::parse(
-        std::istream& input
+        std::string const& fname
+      , std::istream& input
       , std::ostream& diag
     );
 
@@ -278,32 +281,21 @@ The library defines these specializations:
 .. _boost::spirit::qi::numeric:
    http://www.boost.org/doc/libs/1_41_0/libs/spirit/doc/html/spirit/qi/reference/numeric.html
 
-Downloads
-=========
+Download
+========
 
-Repository
-++++++++++
+Git_ repository: http://github.com/roman-neuhauser/iniphile
 
-The latest source can be checked out from the Mercurial_ repository_.
-
-.. _Mercurial: http://selenic.com/mercurial/
-.. _repository: https://hg.sigpipe.cz/
-
-Official tarballs
-+++++++++++++++++
-
-All Iniphile releases can be found in the `download directory`_.
-
-.. _download directory: http://codex.sigpipe.cz/iniphile/dist/
+.. _Git: http://git-scm.org/
 
 Build and Installation
 ======================
 
 Iniphile is distributed with a set of Makefiles suitable for several
-environments.  Currently supported are: FreeBSD make and GNU make with the
+environments.  Currently supported are: GNU make with the
 GNU C++ compiler, MSVC nmake with the Microsoft compiler.
 
-Let `$make` be your make command, and let `$env` be `bsd`, `gnu` or `msvc`
+Let `$make` be your make command, and let `$env` be `gnu` or `msvc`
 as appropriate.  Then
 
 ``$make -f $env.mk libs`` (requires Boost.Spirit_)
