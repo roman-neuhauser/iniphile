@@ -34,8 +34,8 @@ struct error_handler
     boost::spirit::info const& what = boost::fusion::at_c<3>(args);
 
     Iter linebeg;
-    int linenr;
-    boost::tie(linebeg, linenr) = errline(err);
+    int linenr, colnr;
+    boost::tie(linebeg, linenr, colnr) = errline(err);
 
     erros
       << "error: expecting "
@@ -45,16 +45,18 @@ struct error_handler
       << ':'
       << linenr
       << ':'
+      << colnr + 1
+      << ':'
       << std::endl
       << std::string(linebeg, std::find_if(linebeg, srcend, is_crlf()))
       << std::endl
-      << std::string(std::distance(linebeg, err), ' ')
+      << std::string(colnr, ' ')
       << '^'
       << std::endl
     ;
   }
 
-  boost::tuple<Iter, int>
+  boost::tuple<Iter, int, int>
   errline(Iter err) const
   {
     Iter linebeg = srcbeg;
@@ -68,7 +70,7 @@ struct error_handler
       ++linenr;
       i = std::find_if(i, err, std::not1(is_crlf()));
     }
-    return boost::make_tuple(linebeg, linenr);
+    return boost::make_tuple(linebeg, linenr, std::distance(linebeg, err));
   }
 
   struct

@@ -34,6 +34,8 @@ BOOST_AUTO_TEST_CASE(syntax_error) // {{{
     std::string const fname("syntax_error.ini");
     std::ostringstream diag;
     std::istringstream input(
+      "[ok]\n"
+      "this = good\n"
       "[bad-section\n"
       "omg = wtf\n"
       "]\n"
@@ -44,7 +46,7 @@ BOOST_AUTO_TEST_CASE(syntax_error) // {{{
     );
     BOOST_CHECK_EQUAL(false, !!ini::parse(fname, input, diag));
     BOOST_CHECK_EQUAL(
-      "error: expecting \"]\" in syntax_error.ini:1:\n"
+      "error: expecting \"]\" in syntax_error.ini:3:13:\n"
       "[bad-section\n"
       "            ^\n"
     , diag.str()
