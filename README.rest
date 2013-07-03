@@ -286,7 +286,12 @@ Download
 
 Git_ repository: http://github.com/roman-neuhauser/iniphile
 
+Packages_ for several GNU/Linux distributions are
+in the `openSUSE Build Service`_.
+
 .. _Git: http://git-scm.org/
+.. _Packages: http://download.opensuse.org/repositories/home:/roman-neuhauser/
+.. _openSUSE Build Service: https://build.opensuse.org/
 
 Build and Installation
 ======================
