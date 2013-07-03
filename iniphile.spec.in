@@ -74,6 +74,7 @@ of the INI file format.
 %{_includedir}/iniphile/ast.hpp
 %{_includedir}/iniphile/astfwd.hpp
 %{_includedir}/iniphile/declspec.hpp
+%{_includedir}/iniphile/error-handler.hpp
 %{_includedir}/iniphile/input.hpp
 %{_includedir}/iniphile/metagram.hpp
 %{_includedir}/iniphile/output.hpp
