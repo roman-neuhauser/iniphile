@@ -11,6 +11,7 @@ Source:         %{url}%{name}-%{version}.tar.gz
 BuildRequires:  boost-devel gcc-c++ python-docutils
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
+%define shlibver 0
 %define iniphile_make  make -f gnu.mk PREFIX=%{_prefix} LIBDIR=%{_libdir} PKGCONFIGDIR=%{_libdir}/pkgconfig MANDIR=%{_mandir} RST2HTML=rst2html
 
 %description
@@ -41,27 +42,27 @@ of the INI file format.
 
 %changelog
 
-%package -n libiniphile0
+%package -n libiniphile%shlibver
 Summary:        Ini file parsing library for C++
 Group:          Development/Libraries/C and C++
 
-%description -n libiniphile0
+%description -n libiniphile%shlibver
 Iniphile is a C++ library for parsing a dialect
 of the INI file format.
 
-%post -n libiniphile0 -p /sbin/ldconfig
+%post -n libiniphile%shlibver -p /sbin/ldconfig
 
-%postun -n libiniphile0 -p /sbin/ldconfig
+%postun -n libiniphile%shlibver -p /sbin/ldconfig
 
-%files -n libiniphile0
+%files -n libiniphile%shlibver
 %defattr(-,root,root)
-%{_libdir}/libiniphile.so.0
+%{_libdir}/libiniphile.so.%shlibver
 
 %package -n libiniphile-devel
 Summary:        Ini file parsing library for C++
 Group:          Development/Libraries/C and C++
 BuildRequires:  pkg-config
-Requires:       libiniphile0 = %{version}
+Requires:       libiniphile%shlibver = %{version}
 
 %description -n libiniphile-devel
 Iniphile is a C++ library for parsing a dialect
