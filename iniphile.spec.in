@@ -11,7 +11,7 @@ Source:         %{url}%{name}-%{version}.tar.gz
 BuildRequires:  boost-devel gcc-c++ python-docutils
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
-%define shlibver 0
+%define shlibver 1
 %define iniphile_make  make -f gnu.mk PREFIX=%{_prefix} LIBDIR=%{_libdir} PKGCONFIGDIR=%{_libdir}/pkgconfig MANDIR=%{_mandir} RST2HTML=rst2html
 
 %description
