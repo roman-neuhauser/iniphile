@@ -290,7 +290,7 @@ Packages_ for several GNU/Linux distributions are
 in the `openSUSE Build Service`_.
 
 .. _Git: http://git-scm.org/
-.. _Packages: http://download.opensuse.org/repositories/home:/roman-neuhauser/
+.. _Packages: http://software.opensuse.org/download.html?project=home:roman-neuhauser&package=iniphile
 .. _openSUSE Build Service: https://build.opensuse.org/
 
 Build and Installation
