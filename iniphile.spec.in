@@ -8,7 +8,9 @@ Summary:        Ini file parsing tool
 Url:            http://codex.sigpipe.cz/iniphile/
 Group:          Development/Tools/Other
 Source:         %{url}%{name}-%{version}.tar.gz
-BuildRequires:  boost-devel gcc-c++ python-docutils
+BuildRequires:  boost-devel
+BuildRequires:  gcc-c++
+BuildRequires:  python-docutils
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %define shlibver 1
