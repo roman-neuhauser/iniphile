@@ -40,6 +40,8 @@ IMPORT_LIB=libiniphile.lib
 EMBED_MANIFEST= \
 	$(MT) $(MTFLAGS) -manifest $@.manifest -outputresource:$@;1
 
+CWDREL=
+
 dot_exe=.exe
 
 all: .all

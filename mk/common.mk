@@ -56,7 +56,7 @@ version-hpp$(dot_exe): version-hpp.o
 	$(EMBED_MANIFEST)
 
 version.hpp: version-hpp$(dot_exe)
-	./version-hpp $@ $(INIPHILE_DEFINES)
+	$(CWDREL)version-hpp $@ $(INIPHILE_DEFINES)
 
 .rest.html:
 	$(RST2HTML) $< $@

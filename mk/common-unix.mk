@@ -68,6 +68,8 @@ IMPORT_LIB=$(CANONICAL)
 EMBED_MANIFEST= \
 	:
 
+CWDREL=./
+
 dot_exe=
 
 all: .all iniphile.1.gz
