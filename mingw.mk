@@ -1,6 +1,6 @@
 # vim: ts=8 noet ft=make
 
-CXXSTD=-std=gnu++98 -pedantic
+CXXSTD=-std=gnu++0x -pedantic
 LN_S=cp
 
 check-solink: initest-shared

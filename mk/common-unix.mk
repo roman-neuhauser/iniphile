@@ -41,7 +41,7 @@ LDFLAGS_static=
 LDFLAGS_SO=-shared -Wl,--soname=$(SONAME)
 MKDIR_P=mkdir -p
 
-CXXSTD?=-std=c++98 -pedantic
+CXXSTD?=-std=c++0x -pedantic
 CXXOPTFLAGS=-g -O1
 CXXWFLAGS=-Wall -Wextra -Wfatal-errors -Wno-long-long
 CXXRTLIB=$(_CXXRT)
